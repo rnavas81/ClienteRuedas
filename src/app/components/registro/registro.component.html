@@ -1,0 +1,49 @@
+<div class="container-fluid bg-theme-darker">
+  <div class="abs-center">
+    <form action="#" class="p-3 form">
+      <div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+          <div class="user_card">
+            <div class="d-flex justify-content-center">
+              <div class="brand_logo_container">
+                <img src="../../../assets/img/logo.png" class="brand_logo" alt="Logo">
+              </div>
+            </div>
+            <div class="container" id="advanced-search-form">
+              <form>
+                  <div class="form-group">
+                      <label for="name">Nombre</label>
+                      <input type="text" class="form-control" placeholder="Nombre" id="name" name="name" [(ngModel)]="name" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="subname">Apellido</label>
+                      <input type="text" class="form-control" placeholder="Apellido" id="subname" name="subname" [(ngModel)]="subname" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" class="form-control" placeholder="Email" id="email" name="email" [(ngModel)]="email" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="number">Contraseña</label>
+                      <input type="password" class="form-control" placeholder="Contraseña" id="password" name="password" [(ngModel)]="password" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="avatar">Avatar</label>
+                      <input type="file" class="form-control" id="avatar" name="avatar" [(ngModel)]="avatar">
+                  </div>
+                  <div class="d-flex justify-content-center mt-3 login_container">
+                    <button type="submit" class="btn btn-info btn-lg btn-responsive" id="signin" (click)="signin()"> <span class="glyphicon glyphicon-search"></span> Search</button>
+                  </div>
+              </form>
+          </div>
+            <div class="mt-4">
+              <div class="d-flex justify-content-center links">
+                Ya tienes cuenta <a routerLink="/home" class="ml-2">Inicia sesión</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

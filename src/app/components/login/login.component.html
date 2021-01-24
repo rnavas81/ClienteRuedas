@@ -1,0 +1,51 @@
+<div class="container-fluid bg-theme-darker">
+  <div class="abs-center">
+    <form action="#" class="p-3 form">
+      <div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+          <div class="user_card">
+            <div class="d-flex justify-content-center">
+              <div class="brand_logo_container">
+                <img src="../../../assets/img/logo.png" class="brand_logo" alt="Logo">
+              </div>
+            </div>
+            <div class="d-flex justify-content-center form_container">
+              <form>
+                <div class="input-group mb-3">
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                  </div>
+                  <input type="email" [(ngModel)]="email" name="email" class="form-control input_user" value="" placeholder="Email" required />
+                </div>
+                <div class="input-group mb-2">
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                  </div>
+                  <input type="password" [(ngModel)]="password" name="password" class="form-control input_pass" value="" placeholder="Contraseña" required />
+                </div>
+                <div class="form-group">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customControlInline">
+                    <label class="custom-control-label" for="customControlInline">Remember me</label>
+                  </div>
+                </div>
+                  <div class="d-flex justify-content-center mt-3 login_container">
+               <button type="submit" name="login" class="btn login_btn" (click)="login()">Login</button>
+               </div>
+              </form>
+            </div>
+
+            <div class="mt-4">
+              <div class="d-flex justify-content-center links">
+                No tienes cuenta? <a routerLink="/signin" class="ml-2">Registrate</a>
+              </div>
+              <div class="d-flex justify-content-center links">
+                <a href="#">Olvide mi contraseña</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
