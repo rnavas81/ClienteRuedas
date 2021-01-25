@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-registro',
@@ -12,16 +13,21 @@ export class RegistroComponent implements OnInit {
   password: string;
   avatar: string;
 
-  constructor() { }
+  constructor(public userService: UsersService) { }
 
   ngOnInit(): void {
   }
 
-  signin(){
-    console.log(this.name);
-    console.log(this.subname);
-    console.log(this.email);
-    console.log(this.password);
-    console.log(this.avatar);
+  signup(){
+    const user = {
+      name: this.name,
+      subname: this.subname,
+      email: this.email,
+      password: this.password,
+      avatar: this.avatar
+    };
+    this.userService.register(user).subscribe(data => {
+      console.log(data);
+    });
   }
 }
