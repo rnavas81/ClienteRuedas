@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
-import { FormBuilder, FormGroup, Validator} from '@angular/forms';
+import { FormBuilder, FormGroup, Validator, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -14,11 +14,19 @@ export class LoginComponent implements OnInit {
 
   loginF: FormGroup;
 
-  constructor(public userService: UsersService) { }
+  constructor(public userService: UsersService, private formBuilder: FormBuilder) {
+    this.loginF = this.formBuilder.group({
+      emailF: ['', [Validators.required, Validators.email]],
+      passwordF: ['', [Validators.required]]
+    });
+  }
 
   ngOnInit(): void {  }
 
   login(){
+    if (this.loginF.invalid) {
+      return;
+    }
     const user = {
       email: this.email,
       password: this.password

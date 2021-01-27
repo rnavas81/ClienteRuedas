@@ -10,21 +10,35 @@
               </div>
             </div>
             <div class="d-flex justify-content-center form_container">
-              <form >
+              <form [formGroup]="loginF" (ngSubmit)="login()">
                 <div class="input-group mb-3">
-                  <div class="input-group mb-3">
-                    {{mensaje}}
-                  </div>
+                  {{mensaje}}
+
+
+
+
+
+
+
+                </div>
+                <div class="input-group mb-3">
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                   </div>
-                  <input type="email" [(ngModel)]="email" name="email" class="form-control input_user" value="" placeholder="Email" required />
+                  <input type="email" [(ngModel)]="email" formControlName="emailF" name="email" class="form-control input_user" value="" placeholder="Email" required />
+                </div>
+                <div *ngIf="loginF.get('emailF').errors && loginF.get('emailF').dirty">
+                  <p class="alert alert-danger" *ngIf="loginF.get('emailF').hasError('required')">El email es obligatorio</p>
+                  <p class="alert alert-danger" *ngIf="loginF.get('emailF').hasError('email')">El email no es valido</p>
                 </div>
                 <div class="input-group mb-2">
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                   </div>
-                  <input type="password" [(ngModel)]="password" name="password" class="form-control input_pass" value="" placeholder="Contraseña" required />
+                  <input type="password" [(ngModel)]="password" formControlName="passwordF" name="password" class="form-control input_pass" value="" placeholder="Contraseña" required />
+                </div>
+                <div *ngIf="loginF.get('passwordF').errors && loginF.get('passwordF').dirty">
+                  <p class="alert alert-danger" *ngIf="loginF.get('passwordF').hasError('required')">La contraseña es obligatoria</p>
                 </div>
                 <div class="form-group">
                   <div class="custom-control custom-checkbox">
@@ -32,9 +46,9 @@
                     <label class="custom-control-label" for="customControlInline">Remember me</label>
                   </div>
                 </div>
-                  <div class="d-flex justify-content-center mt-3 login_container">
-               <button type="submit" name="login" class="btn login_btn" (click)="login()">Login</button>
-               </div>
+                <div class="d-flex justify-content-center mt-3 login_container">
+                  <button class="btn login_btn" [disabled]="loginF.invalid">Login</button>
+                </div>
               </form>
             </div>
 

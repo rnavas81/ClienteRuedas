@@ -10,8 +10,8 @@
 }
 
 .user_card {
-  height: 450px;
-  width: 450px;
+  height: 500px;
+  width: 500px;
   margin-top: auto;
   margin-bottom: auto;
   background: white;
@@ -82,4 +82,10 @@
 
 .bg-theme-darker{
   background-color: #005a87;
+}
+
+.input_user:after, .input_pass:after{
+  clear: both;
+  content: "";
+  display: block;
 }
