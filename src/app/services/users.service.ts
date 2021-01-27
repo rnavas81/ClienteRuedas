@@ -1,19 +1,54 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
-  constructor(private http: HttpClient) { }
+  id: number;
+  name: string;
+  subname: string;
+  email: string;
+  access_token: string;
+  error: string;
 
-  login(user: any): Observable<any>{
-    return this.http.post("http://127.0.0.1:8000/api/login", user);
+  constructor(private http: HttpClient, private router: Router) { }
+
+  login(user: any){
+    return this.http.post(environment.url_api + 'login', user);
   }
 
-  register(user: any): Observable<any>{
-    return this.http.post("http://127.0.0.1:8000/api/signup", user);
-  }
+  loginSubscribe = user => {
+    this.login(user).subscribe(data => {
+      if (data instanceof Object) {
+        this.id = data.id;
+        this.name = data.name;
+        this.subname = data.subname;
+        this.email = data.email;
+        localStorage.setItem('access_token', data.access_token);
+      }
+      this.error = null;
+      console.log(data);
+    } , error => {
+      console.log(error);
+      this.error = error.status;
+    });
+  };
+
+  register(user: any){
+    return this.http.post(environment.url_api + 'signup', user);
+  };
+
+  registerSubscribe = user => {
+    this.register(user).subscribe(data => {
+      console.log(data);
+      this.router.navigate(['/home']);
+    }, error => {
+      console.log(error.status);
+    })
+  };
 }

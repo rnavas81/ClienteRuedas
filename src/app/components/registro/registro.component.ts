@@ -26,8 +26,6 @@ export class RegistroComponent implements OnInit {
       password: this.password,
       avatar: this.avatar
     };
-    this.userService.register(user).subscribe(data => {
-      console.log(data);
-    });
+    this.userService.registerSubscribe(user);
   }
 }
