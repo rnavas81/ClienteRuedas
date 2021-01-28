@@ -1,0 +1,62 @@
+<div class="container-fluid bg-theme-darker">
+  <div class="abs-center">
+    <form action="#" class="p-3 form">
+      <div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+          <div class="user_card">
+            <div class="d-flex justify-content-center">
+              <div class="brand_logo_container">
+                <img [src]="'assets/img/logo.png'"  class="brand_logo" alt="Logo">
+              </div>
+            </div>
+            <div class="d-flex justify-content-center form_container">
+              <form [formGroup]="loginF" (ngSubmit)="login()">
+                <div class="input-group-md mb-3">
+                  <p class="alert alert-danger" *ngIf="mensaje === 500">Error del servidor</p>
+                  <p class="alert alert-danger" *ngIf="mensaje === 400">Credenciales invalidos.</p>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                  </div>
+                  <input type="email" formControlName="email" name="email" class="form-control input_user" value="" placeholder="Email" required autocomplete="username" />
+                </div>
+                <div *ngIf="loginF.get('email').errors && loginF.get('email').dirty">
+                  <p class="alert alert-danger" *ngIf="loginF.get('email').hasError('required')">El email es obligatorio</p>
+                  <p class="alert alert-danger" *ngIf="loginF.get('email').hasError('email')">El email no es valido</p>
+                </div>
+                <div class="input-group mb-2">
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                  </div>
+                  <input type="password" formControlName="password" name="password" class="form-control input_pass" value="" placeholder="Contraseña" required  autocomplete="current-password"/>
+                </div>
+                <div *ngIf="loginF.get('password').errors && loginF.get('password').dirty">
+                  <p class="alert alert-danger" *ngIf="loginF.get('password').hasError('required')">La contraseña es obligatoria</p>
+                </div>
+                <div class="form-group">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customControlInline">
+                    <label class="custom-control-label" for="customControlInline">Remember me</label>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center mt-3 login_container">
+                  <button class="btn login_btn" [disabled]="loginF.invalid">Login</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="mt-4">
+              <div class="d-flex justify-content-center links">
+                No tienes cuenta? <a routerLink="/signup" class="ml-2">Registrate</a>
+              </div>
+              <div class="d-flex justify-content-center links">
+                <a href="#">Olvide mi contraseña</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
