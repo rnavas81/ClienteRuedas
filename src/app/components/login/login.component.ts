@@ -31,8 +31,12 @@ export class LoginComponent implements OnInit {
       email: this.email,
       password: this.password
     };
-    this.userService.loginSubscribe(user);
-    console.log(this.userService.id);
-    this.mensaje = this.userService.error;
+    this.userService.loginSubscribe(user,(response) => {
+      if (response) {
+        console.log(this.userService.id);
+      }else{
+        this.mensaje = this.userService.error;
+      }
+    });
   }
 }

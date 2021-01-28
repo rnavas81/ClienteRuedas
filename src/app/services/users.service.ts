@@ -22,20 +22,22 @@ export class UsersService {
     return this.http.post(environment.url_api + 'login', user);
   }
 
-  loginSubscribe = user => {
+  loginSubscribe = (user, callback) => {
     this.login(user).subscribe(data => {
       if (data instanceof Object) {
-        this.id = data.id;
-        this.name = data.name;
-        this.subname = data.subname;
-        this.email = data.email;
-        localStorage.setItem('access_token', data.access_token);
+        this.id = data['id'];
+        this.name = data['name'];
+        this.subname = data['subname'];
+        this.email = data['email'];
+        localStorage.setItem('access_token', data['access_token']);
+        if (typeof callback === 'function') callback(true);
       }
       this.error = null;
       console.log(data);
     } , error => {
       console.log(error);
       this.error = error.status;
+      if (typeof callback === 'function') callback(false);
     });
   };
 
