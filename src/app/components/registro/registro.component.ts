@@ -34,10 +34,10 @@ export class RegistroComponent implements OnInit {
     let datos = this.registroF.value;
     const user = {
       name: datos.name,
-      surname: datos.subanem,
+      surname: datos.surname,
       email: datos.email,
       password: datos.password,
-      avatar: this.avatar
+      avatar: ''
     };
 
     this.userService.registerSubscribe(user);
