@@ -19,20 +19,20 @@
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                   </div>
-                  <input type="email" [(ngModel)]="email" formControlName="emailF" name="email" class="form-control input_user" value="" placeholder="Email" required />
+                  <input type="email" formControlName="email" name="email" class="form-control input_user" value="" placeholder="Email" required autocomplete="username" />
                 </div>
-                <div *ngIf="loginF.get('emailF').errors && loginF.get('emailF').dirty">
-                  <p class="alert alert-danger" *ngIf="loginF.get('emailF').hasError('required')">El email es obligatorio</p>
-                  <p class="alert alert-danger" *ngIf="loginF.get('emailF').hasError('email')">El email no es valido</p>
+                <div *ngIf="loginF.get('email').errors && loginF.get('email').dirty">
+                  <p class="alert alert-danger" *ngIf="loginF.get('email').hasError('required')">El email es obligatorio</p>
+                  <p class="alert alert-danger" *ngIf="loginF.get('email').hasError('email')">El email no es valido</p>
                 </div>
                 <div class="input-group mb-2">
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                   </div>
-                  <input type="password" [(ngModel)]="password" formControlName="passwordF" name="password" class="form-control input_pass" value="" placeholder="Contraseña" required />
+                  <input type="password" formControlName="password" name="password" class="form-control input_pass" value="" placeholder="Contraseña" required  autocomplete="current-password"/>
                 </div>
-                <div *ngIf="loginF.get('passwordF').errors && loginF.get('passwordF').dirty">
-                  <p class="alert alert-danger" *ngIf="loginF.get('passwordF').hasError('required')">La contraseña es obligatoria</p>
+                <div *ngIf="loginF.get('password').errors && loginF.get('password').dirty">
+                  <p class="alert alert-danger" *ngIf="loginF.get('password').hasError('required')">La contraseña es obligatoria</p>
                 </div>
                 <div class="form-group">
                   <div class="custom-control custom-checkbox">

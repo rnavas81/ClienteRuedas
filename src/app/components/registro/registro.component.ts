@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-registro',
@@ -13,19 +14,31 @@ export class RegistroComponent implements OnInit {
   password: string;
   avatar: string;
 
-  constructor(public userService: UsersService) { }
+  registroF: FormGroup;
+
+  constructor(public userService: UsersService, private formBuilder: FormBuilder) {
+    this.registroF = this.formBuilder.group({
+      name: ['', Validators.required],
+      subname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    });
+  }
 
   ngOnInit(): void {
+
   }
 
   signup(){
+    let datos = this.registroF.value;
     const user = {
-      name: this.name,
-      subname: this.subname,
-      email: this.email,
-      password: this.password,
+      name: datos.name,
+      subname: datos.subanem,
+      email: datos.email,
+      password: datos.password,
       avatar: this.avatar
     };
-    this.userService.registerSubscribe(user);
+    console.log(user);
+
   }
 }

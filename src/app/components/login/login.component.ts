@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
-import { FormBuilder, FormGroup, Validator, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(public userService: UsersService, private formBuilder: FormBuilder) {
     this.loginF = this.formBuilder.group({
-      emailF: ['', [Validators.required, Validators.email]],
-      passwordF: ['', [Validators.required]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
     });
   }
 
@@ -27,9 +27,10 @@ export class LoginComponent implements OnInit {
     if (this.loginF.invalid) {
       return;
     }
+    let datos = this.loginF.value;
     const user = {
-      email: this.email,
-      password: this.password
+      email: datos.email,
+      password: datos.password
     };
     this.userService.loginSubscribe(user,(response) => {
       if (response) {
