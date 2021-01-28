@@ -12,7 +12,7 @@ export class UsersService {
   id: number;
 
   name: string;
-  subname: string;
+  surname: string;
   email: string;
   access_token: string;
   error: string;
@@ -28,7 +28,7 @@ export class UsersService {
         if (data instanceof Object) {
           this.id = data['id'];
           this.name = data['name'];
-          this.subname = data['subname'];
+          this.surname = data['surname'];
           this.email = data['email'];
         }
         localStorage.setItem('access_token', data['access_token']);

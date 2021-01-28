@@ -16,8 +16,8 @@
                       <input type="text" class="form-control" placeholder="Nombre" formControlName="name"  >
                   </div>
                   <div class="form-group">
-                      <label for="subname">Apellido</label>
-                      <input type="text" class="form-control" placeholder="Apellido" formControlName="subname" >
+                      <label for="surname">Apellido</label>
+                      <input type="text" class="form-control" placeholder="Apellido" formControlName="surname" >
                   </div>
                   <div class="form-group">
                       <label for="email">Email</label>
@@ -27,10 +27,10 @@
                       <label for="number">Contraseña</label>
                       <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" autocomplete="new-password" >
                   </div>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                       <label for="avatar">Avatar</label>
                       <input type="file" class="form-control" formControlName="avatar">
-                  </div>
+                  </div> -->
                   <small>*Todos los campos son obligatorios</small>
                   <div class="d-flex justify-content-center mt-3 login_container">
                     <button class="btn login_btn btn-responsive" [disabled]="registroF.invalid"> <span class="glyphicon glyphicon-search"></span> Registrar</button>

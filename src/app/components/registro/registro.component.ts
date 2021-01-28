@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class RegistroComponent implements OnInit {
   name: string;
-  subname: string;
+  surname: string;
   email: string;
   password: string;
   avatar: string;
@@ -22,7 +22,7 @@ export class RegistroComponent implements OnInit {
   ngOnInit(): void {
     this.registroF = this.formBuilder.group({
       name: ['', Validators.required],
-      subname: ['', Validators.required],
+      surname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       avatar:['']
@@ -34,12 +34,13 @@ export class RegistroComponent implements OnInit {
     let datos = this.registroF.value;
     const user = {
       name: datos.name,
-      subname: datos.subanem,
+      surname: datos.subanem,
       email: datos.email,
       password: datos.password,
       avatar: this.avatar
     };
-    console.log(user);
+
+    this.userService.registerSubscribe(user);
 
   }
 }
