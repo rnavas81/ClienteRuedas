@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, TimeoutError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,58 +9,61 @@ import { environment } from 'src/environments/environment';
 export class UsersService {
   public static readonly SESSION_STORAGE_USER: string = "CAR_SHARE_USER";
   public static readonly SESSION_STORAGE_KEY: string = "CAR_SHARE_KEY";
-  user: any;
 
-  constructor(private http: HttpClient) {
-    this.user = {
-      id:1
-    }
-  }
-  /**
-   * Comprueba si el usuario puede acceder al sistema
-   * @param user
-   */
-  login = user=> {
-    const url = environment.url_api+"/login";
-    return this.http.post(url, user);
+  id: number;
+  name: string;
+  subname: string;
+  email: string;
+  access_token: string;
+  error: string;
+
+
+  constructor(private http: HttpClient, private router: Router) {
+    this.id = 1;
   }
 
-  loginSubscribe = (user:any) => {
-    this.login(user).subscribe(
-      (response:any) => {
-        // Para implementación del token
-        // this.user.access_token = response['message']['access_token'];
-        // this.user.email = response.message.user.email;
-        this.user = response;
-        sessionStorage.setItem(UsersService.SESSION_STORAGE_KEY, JSON.stringify(this.user));
-        return true;
-      }, error => {
-        console.log(error);
+  login(user: any){
+    return this.http.post(environment.url_api + 'login', user);
+  }
 
-        return false;
+  loginSubscribe = user => {
+    this.login(user).subscribe(data => {
+      if (data instanceof Object) {
+        this.id = data["id"];
+        this.name = data["name"];
+        this.subname = data["subname"];
+        this.email = data["email"];
+        localStorage.setItem('access_token', data["access_token"]);
       }
-    );
-  }
-
-  register(user: any): Observable<any>{
-    const url = environment.url_api+"/signup";
-    return this.http.post(url, user);
-  }
-
-  unirseRueda = data => {
-    const url = `${environment.url_api}/usuario/unirse/${this.user.id}`;
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+      this.error = null;
+      console.log(data);
+    } , error => {
+      console.log(error);
+      this.error = error.status;
     });
-    return this.http.post(
-      url,
-      {
-        'idRueda':1,
-        'horario':data.horario
-      } , {
-        headers:headers
-      }
-    )
+  };
+
+  register(user: any){
+    return this.http.post(environment.url_api + 'signup', user);
+  };
+
+  registerSubscribe = user => {
+    this.register(user).subscribe(data => {
+      console.log(data);
+      this.router.navigate(['/home']);
+    }, error => {
+      console.log(error.status);
+    })
+  };
+  /**
+   * Envía la petición para unirse a una rueda
+   * @param data
+   */
+  unirseRueda = data => {
+    const url = `${environment.url_api}usuario/unirse`;
+    const extra = { headers:new HttpHeaders({'Content-Type': 'application/json'}) }
+    data.idUser = this.id;
+    return this.http.post(url,data,extra);
   }
   unirseRuedaSubscribe = data => {
     this.unirseRueda(data).subscribe(
@@ -71,5 +74,20 @@ export class UsersService {
         return false;
       }
     );
+  }
+  isNewCall = () => {
+    const url = `${environment.url_api}usuario/estado`;
+    const extra = { headers:new HttpHeaders({'Content-Type': 'application/json'}) }
+    const data = {idUser : this.id};
+    return this.http.post(url,data,extra);
+  }
+  isNew = () => {
+    this.isNewCall().subscribe(
+      response => {
+        return true;
+      } , error => {
+        return false;
+      }
+    )
   }
 }

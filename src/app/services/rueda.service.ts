@@ -29,56 +29,34 @@ export class RuedaService {
     this.descripcion = 'En la ida se saldrá 30 minutos antes de la hora ';
     this.origen = 'Ciudad Real';
     this.destino = 'IFP Virgen de gracia';
-    this.horario = [
-      {
-        dia: 0,
-        ida: {'08:30': [],'09:25': [],'10:20': [],
-        },
-        vuelta: {'12:40': [],'13:35': [],'14:30': [],},
-      },
-      {
-        dia: 1,
-        ida: {'08:30': [],'09:25': [],'10:20': [],},
-        vuelta: {'12:40': [],'13:35': [],'14:30': [],},
-      },
-      {
-        dia: 2,
-        ida: {'08:30': [],'09:25': [],'10:20': [],},
-        vuelta: {'12:40': [],'13:35': [],'14:30': [],},
-      },
-      {
-        dia: 3,
-        ida: {'08:30': [],'09:25': [],'10:20': [],},
-        vuelta: {'12:40': [],'13:35': [],'14:30': [],},
-      },
-      {
-        dia: 4,
-        ida: {'08:30': [],'09:25': [],'10:20': [],},
-        vuelta: {'12:40': [],'13:35': [],'14:30': [],},
-      },
-    ];
+    this.horario = []
 
   }
-  get = (id=null) =>{
-    const url = environment.url_api+"/rueda"+(id!=null?'/id':'');
+  /**
+   *
+   * @param id
+   * @param callback función de vuelta con el valor true || false
+   */
+  get = async(id=null,callback) =>{
+    const url = environment.url_api+"rueda"+(id!=null?'/id':'');
     var data = {};
-    return this.http.get(url,{}).subscribe(
+    this.http.get(url,data).subscribe(
       response => {
-        this.id = response.id;
-        this.nombre = response.nombre;
-        this.descripcion = response.descripcion;
-        this.origen = response.origen;
-        this.destino = response.destino;
-        this.horario = response.horario;
-        console.log(response);
+        this.id = response["id"];
+        this.nombre = response["nombre"];
+        this.descripcion = response["descripcion"];
+        this.origen = response["origen"];
+        this.destino = response["destino"];
+        this.horario = response["viajes"];
+        if(typeof callback  === 'function')callback(true);
 
       },
       error => {
         console.log(error);
+        if(typeof callback  === 'function')callback(false);
 
       }
     );
-    return data;
   }
   /**
    * Genera la tabla html en función del horario
@@ -92,6 +70,9 @@ export class RuedaService {
     var tr_head = document.createElement('tr');
     var tbody = document.createElement('tbody');
     var th = document.createElement('th');
+    // Almacena los dias
+    var heads = [];
+    // Almacena las filas con las celdas
     var tr_body = [];
     var primera = true;
 
@@ -107,21 +88,43 @@ export class RuedaService {
     // Crea una array para contener las filas que formarán el cuerpo
     // Recorre los elementos del horario formando cada fila de la cabecera y el cuerpo
     this.horario.forEach((item, index) => {
-      // Agrega la cabecera
-      var th = document.createElement('th');
-      th.textContent = this.dias[item.dia];
-      tr_head.appendChild(th);
-      var i = 0;
-      i = this.generarCeldas(item, primera, tr_body, 'ida', user, i,pasajeros,params.onclick);
+      if(!heads.includes(item.dia)){
+        heads.push(item.dia);
+        // Agrega la cabecera
+        var th = document.createElement('th');
+        th.textContent = this.dias[item.dia];
+        tr_head.appendChild(th);
+      }
 
-      tr_body[i - 1].classList.add('separador');
-      this.generarCeldas(item, primera, tr_body, 'vuelta', user, i,pasajeros,params.onclick);
+      var idRow = tr_body.findIndex(x=>x.hora==item.hora);
+      if(idRow === -1){
+        let newElement ={
+          hora:item.hora,
+          row : document.createElement('tr')
+        }
+        newElement.row.setAttribute('idRow',item.hora);
+        let th = document.createElement('th');
+        th.textContent = item.hora;
+        newElement.row.appendChild(th);
+        idRow = tr_body.length;
+        tr_body.push(newElement);
 
-      primera = false;
+      }
+      let td = document.createElement('td');
+      td.dataset.id = item.id;
+      td.dataset.hora = item.hora;
+      td.dataset.dia = item.dia;
+      td.dataset.tipo = item.tipo;
+      if(typeof params.onclick === 'function'){
+        td.onclick = event => {
+          params.onclick(event,td);
+        }
+      }
+      tr_body[idRow].row.appendChild(td);
     });
     //  Incluye cada fila de tr_body en el cuerpo
     tr_body.forEach((tr, index) => {
-      tbody.appendChild(tr);
+      tbody.appendChild(tr.row);
     });
     return table;
   };

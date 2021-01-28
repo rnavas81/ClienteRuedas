@@ -40,6 +40,7 @@ export class UnirseRuedaComponent implements OnInit {
       })
     }
 
+
   }
 
   /**
@@ -50,17 +51,13 @@ export class UnirseRuedaComponent implements OnInit {
     const dia = item.dataset.dia;
     const tipo = item.dataset.tipo;
     if(this.horarioSeleccionado[dia]==null)this.horarioSeleccionado[dia]={};
-    this.horarioSeleccionado[dia][tipo]=hora;
+    this.horarioSeleccionado[dia][tipo]=item.dataset.id;
   }
 
   /**
    * Función para el envío del formulario
    */
   onSubmit = () => {
-    console.log(
-      this.rueda.id,
-      this.horarioSeleccionado,
-      );
     const data = {
       idRueda:this.rueda.id,
       horario:this.horarioSeleccionado

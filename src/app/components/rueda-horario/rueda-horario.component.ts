@@ -18,21 +18,28 @@ export class RuedaHorarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    document.getElementById('horario').appendChild(this.rueda.getHtml({
+    this.rueda.get(null,this.recargar)
+  }
+  recargar = response => {
+    console.log(response);
+    this.loadTable(this.rueda.getHtml({
       user:this.user,
       pasajeros:this.mostrarPasajeros,
       onclick:this.clickCell
     }))
+
+  }
+  loadTable = (table:HTMLElement) => {
+    document.getElementById('horario').innerHTML="";
+    document.getElementById('horario').appendChild(table);
   }
   clickCell = (event,item) => {
-    console.log(this.readonly);
-
     if(this.readonly === false){
       this.selectCell(item);
     }
     this.onclickCell.emit(item);
   }
+
   selectCell = item => {
     var horario = document.getElementById('horario');
     const hora = item.dataset.hora;
