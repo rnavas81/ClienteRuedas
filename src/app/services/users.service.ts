@@ -36,7 +36,7 @@ export class UsersService {
         if (typeof callback === 'function') callback(true);
       },
       (error) => {
-        this.error = error.status;
+        this.error = error.status.toString();
         if (typeof callback === 'function') callback(false);
       }
     );
@@ -51,7 +51,7 @@ export class UsersService {
         this.router.navigate(['/home']);
       },
       (error) => {
-        console.log(error.status);
+        console.error(error.status);
       }
     );
   };
@@ -65,12 +65,13 @@ export class UsersService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
     data.idUser = this.id;
+    console.log(data);
+
     return this.http.post(url, data, extra);
   };
   unirseRuedaSubscribe = (data) => {
     this.unirseRueda(data).subscribe(
       (response: any) => {
-        console.log(response);
         return true;
       },
       (error) => {
@@ -78,22 +79,12 @@ export class UsersService {
       }
     );
   };
-  isNewCall = () => {
+  isNew = () => {
     const url = `${environment.url_api}usuario/estado`;
     const data = { idUser: this.id };
     const extra = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
     return this.http.post(url, data, extra);
-  };
-  isNew = () => {
-    this.isNewCall().subscribe(
-      (response) => {
-        return true;
-      },
-      (error) => {
-        return false;
-      }
-    );
   };
 }

@@ -15,11 +15,11 @@ export class UnirseRuedaComponent implements OnInit {
   horarioSeleccionado: Object;
   @Input() rueda: any;
   celda: any;
-  usuario: UsersService;
+  mensaje:string;
 
-  constructor(private router: Router,private formBuilder:FormBuilder,rueda: RuedaService,usuario: UsersService) {
+  constructor(private router: Router,private formBuilder:FormBuilder,rueda: RuedaService,public userService: UsersService,) {
     this.rueda = rueda;
-    this.usuario = usuario;
+    this.mensaje="";
    }
 
   ngOnInit(): void {
@@ -58,21 +58,27 @@ export class UnirseRuedaComponent implements OnInit {
    * Función para el envío del formulario
    */
   onSubmit = () => {
-    const data = {
-      idRueda:this.rueda.id,
-      horario:this.horarioSeleccionado
-    }
-    // Envia los datos para solicitar que el usuario sea agregado a la rueda
-    this.usuario.unirseRueda(data).subscribe(
-      (response:any) => {
-        // Avanza hasta la página principal
-        this.router.navigate(['/main']);
+    this.mensaje="";
+    if(Object.entries(this.horarioSeleccionado).length==0){
+      this.mensaje = "Debe seleccionar alguna hora del calendario"
 
-      }, error => {
-        console.error(error);
-
+    } else {
+      const data = {
+        idRueda:this.rueda.id,
+        horario:this.horarioSeleccionado
       }
-    )
+      // Envia los datos para solicitar que el usuario sea agregado a la rueda
+      this.userService.unirseRueda(data).subscribe(
+        (response:any) => {
+          // Avanza hasta la página principal
+          this.router.navigate(['/main']);
+
+        }, error => {
+          console.error(error);
+
+        }
+      )
+    }
   }
 
 }

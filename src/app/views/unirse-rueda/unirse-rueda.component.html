@@ -1,31 +1,66 @@
-
-<form class="container-sm pt-5" [formGroup]="formRueda" (ngSubmit)="onSubmit()" >
-  <!-- Datos básicos de la rueda -->
-  <div class="row">
-    <div class="col-12">
-      <label for="nombre">Nombre</label>
-      <input type="text" class="form-control" formControlName="nombre">
-    </div>
-    <div class="col-12">
-      <label for="descripcion">Desripción</label>
-      <textarea type="text" class="form-control" formControlName="descripcion"></textarea>
-    </div>
+<div class="container-sm bg-theme-darker">
+  <div class="abs-center py-5">
+    <form class="bg-white px-5 py-3" [formGroup]="formRueda" (ngSubmit)="onSubmit()">
+      <div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+          <div class="">
+            <!-- Datos básicos de la rueda -->
+            <div class="row">
+              <div class="col-12">
+                <label for="nombre">Nombre</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="nombre"
+                />
+              </div>
+              <div class="col-12">
+                <label for="descripcion">Desripción</label>
+                <textarea
+                  type="text"
+                  class="form-control"
+                  formControlName="descripcion"
+                ></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="origen">Origen</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="origen"
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="destino">Destino</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="destino"
+                />
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-12">
+                <small class="text-danger">{{mensaje}}</small>
+              </div>
+            </div>
+            <!-- Horario de la rueda -->
+            <app-rueda-horario
+              class="row"
+              [rueda]="rueda"
+              (onclickCell)="seleccionarHora($event)"
+              [readonly]="false"
+            ></app-rueda-horario>
+            <!-- Botones para el formulario -->
+            <div class="form-group pt-2 text-center">
+              <button type="submit" class="btn btn-danger w-50">Enviar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
-  <div class="row">
-    <div class="col-md-6">
-      <label for="origen">Origen</label>
-      <input type="text" class="form-control" formControlName="origen">
-    </div>
-    <div class="col-md-6">
-      <label for="destino">Destino</label>
-      <input type="text" class="form-control" formControlName="destino">
-    </div>
-  </div>
-  <hr>
-  <!-- Horario de la rueda -->
-  <app-rueda-horario class="row" [rueda]="rueda" (onclickCell)="seleccionarHora($event)" [readonly]="false"></app-rueda-horario>
-  <!-- Botones para el formulario -->
-  <div class="form-group pt-2 text-center">
-    <button type="submit" class="btn btn-danger w-50 ">Enviar</button>
-  </div>
-</form>
+</div>

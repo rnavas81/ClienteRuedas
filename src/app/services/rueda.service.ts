@@ -129,48 +129,48 @@ export class RuedaService {
     return table;
   };
 
-  // Agrega los viajes, si es el primer dia crea la fila y agrega una columna con las horas
-  generarCeldas = (item, primera, tr_body, type, user, i,mostrar=false,onclick=undefined) => {
-    for (const key in item[type]) {
-      const viaje = item[type][key];
-      if (primera) {
-        let tr = document.createElement('tr');
-        tr.setAttribute('idRow',key);
-        tr_body.push(tr);
-        let th = document.createElement('th');
-        th.textContent = key;
-        tr.appendChild(th);
-      }
-      let td = document.createElement('td');
-      td.dataset.hora = key;
-      td.dataset.dia = item.dia;
-      td.dataset.tipo = type;
-      if(typeof onclick === 'function'){
-        td.onclick = event => {
-          onclick(event,td);
-        }
-      }
-      viaje.forEach((coche) => {
-        var c = document.createElement('div');
-        if(mostrar){
-          var div = document.createElement('div');
-          div.classList.add('conductor');
-          div.textContent = coche.conductor;
-          c.appendChild(div);
-          div = document.createElement('div');
-          div.textContent = coche.pasajeros.join(', ');
-          c.appendChild(div);
-          if (coche.conductor == user || coche.pasajeros.find((e) => e == user)) {
-            c.classList.add('bg-light');
-          }
-        }
-        td.appendChild(c);
-      });
-      tr_body[i].appendChild(td);
-      i++;
-    }
-    return i;
-  };
+  // // Agrega los viajes, si es el primer dia crea la fila y agrega una columna con las horas
+  // generarCeldas = (item, primera, tr_body, type, user, i,mostrar=false,onclick=undefined) => {
+  //   for (const key in item[type]) {
+  //     const viaje = item[type][key];
+  //     if (primera) {
+  //       let tr = document.createElement('tr');
+  //       tr.setAttribute('idRow',key);
+  //       tr_body.push(tr);
+  //       let th = document.createElement('th');
+  //       th.textContent = key;
+  //       tr.appendChild(th);
+  //     }
+  //     let td = document.createElement('td');
+  //     td.dataset.hora = key;
+  //     td.dataset.dia = item.dia;
+  //     td.dataset.tipo = type;
+  //     if(typeof onclick === 'function'){
+  //       td.onclick = event => {
+  //         onclick(event,td);
+  //       }
+  //     }
+  //     viaje.forEach((coche) => {
+  //       var c = document.createElement('div');
+  //       if(mostrar){
+  //         var div = document.createElement('div');
+  //         div.classList.add('conductor');
+  //         div.textContent = coche.conductor;
+  //         c.appendChild(div);
+  //         div = document.createElement('div');
+  //         div.textContent = coche.pasajeros.join(', ');
+  //         c.appendChild(div);
+  //         if (coche.conductor == user || coche.pasajeros.find((e) => e == user)) {
+  //           c.classList.add('bg-light');
+  //         }
+  //       }
+  //       td.appendChild(c);
+  //     });
+  //     tr_body[i].appendChild(td);
+  //     i++;
+  //   }
+  //   return i;
+  // };
 
 
 

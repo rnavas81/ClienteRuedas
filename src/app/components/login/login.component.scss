@@ -1,9 +1,3 @@
-.abs-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-}
 
 .form {
   width: 750px;
@@ -70,18 +64,6 @@
 }
 .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
   background-color: #c0392b !important;
-}
-
-.bg-theme{
-  background-color: #007cba;
-}
-
-.bg-theme-dark{
-  background-color: #006ba1;
-}
-
-.bg-theme-darker{
-  background-color: #005a87;
 }
 
 .input_user:after, .input_pass:after{
