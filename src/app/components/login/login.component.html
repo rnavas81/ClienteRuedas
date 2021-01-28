@@ -12,8 +12,8 @@
             <div class="d-flex justify-content-center form_container">
               <form [formGroup]="loginF" (ngSubmit)="login()">
                 <div class="input-group-md mb-3">
-                  <p class="alert alert-danger" *ngIf="mensaje === 500">Error del servidor</p>
-                  <p class="alert alert-danger" *ngIf="mensaje === 400">Credenciales invalidos.</p>
+                  <p class="alert alert-danger" *ngIf="mensaje === '500'">Error del servidor</p>
+                  <p class="alert alert-danger" *ngIf="mensaje === '400'">Credenciales invalidos.</p>
                 </div>
                 <div class="input-group mb-3">
                   <div class="input-group-append">

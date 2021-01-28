@@ -17,15 +17,16 @@ export class RegistroComponent implements OnInit {
   registroF: FormGroup;
 
   constructor(public userService: UsersService, private formBuilder: FormBuilder) {
+  }
+
+  ngOnInit(): void {
     this.registroF = this.formBuilder.group({
       name: ['', Validators.required],
       subname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required]],
+      avatar:['']
     });
-  }
-
-  ngOnInit(): void {
 
   }
 
