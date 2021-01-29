@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CabeceraComponent } from './components/vistaRueda/cabecera/cabecera.component';
 import { NavVerticalComponent } from './components/vistaRueda/nav-vertical/nav-vertical.component';
 import { PerfilUsuarioComponent } from './views/perfil-usuario/perfil-usuario.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PerfilUsuarioComponent } from './views/perfil-usuario/perfil-usuario.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

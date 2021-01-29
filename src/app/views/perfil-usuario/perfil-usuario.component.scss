@@ -40,6 +40,12 @@ aside.vertical{
     }
 }
 
+.horario-movil{
+    th, td{
+        border: 0;
+    }
+}
+
 footer.footer{
     background-color: #0CADFB;
 }
@@ -52,6 +58,6 @@ footer.footer{
 
 @media (min-width: 700px){
     div.horario-movil{
-        display: none;   
+        display: none;  
     }
 }

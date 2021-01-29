@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { VerRuedaService } from 'src/app/services/ver-rueda.service';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -7,13 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PerfilUsuarioComponent implements OnInit {
 
-  constructor() {
+  rueda: any;
+  horario: any;
 
-    let horario = document.getElementById('horario');
-    
+  constructor(rueda: VerRuedaService) {
+    this.rueda = rueda;
   }
-
+  
   ngOnInit(): void {
+    
+    this.rueda.getRueda().subscribe(
+      response => {
+        this.horario = response;
+        console.log(this.horario.generada);
+      }, error => {
+        console.log(error);
+      }
+    )
   }
 
 }
