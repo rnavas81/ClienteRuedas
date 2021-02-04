@@ -19,11 +19,11 @@ import { HttpClientModule } from '@angular/common/http';
     CabeceraComponent,
     AppComponent,
     NavVerticalComponent,
-    PerfilUsuarioComponent
+    PerfilUsuarioComponent,
     UnirseRuedaComponent,
     RuedaHorarioComponent,
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
     MainComponent,
   ],
   imports: [

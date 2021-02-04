@@ -1,179 +1,26 @@
-<header class="row m-0 sticky-top">
-    <div class="col-md-12 col-sm-12 p-0">
-        <nav class="navbar navbar-expand-lg navbar-light sticky-top cabecera py-0">
-            <div class="container-fluid">
-
-                <div class="d-flex float-left">
-                    <a href="#">
-                        <img src="../../../../assets/vistaRueda/cabecera/logo.jpeg" alt="Logo" class="vh-10">
-                    </a>
+<app-cabecera></app-cabecera>
+<main class="container-fluid m-0 principal">
+    <div class="row">
+        <app-nav-vertical class="col-md-3 col-sm-3"></app-nav-vertical>
+        <section class="col-md-9 col-sm-9 principal bg-white p-0 d-flex justify-content-center flex-column overflow-auto">
+            <h1 class="ml-5 my-3">Mi rueda</h1>
+            <div class="row m-0 p-0">
+                <div class="col-md-6 col-sm-6">
+                    <h5 class="d-inline">Nombre:</h5> {{nombre}}
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <h5 class="d-inline">Descripcion:</h5> {{descripcion}}
+                </div>
+                <div class="col-md-6 col-sm-6 my-1">
+                   <h5 class="d-inline">Origen:</h5> {{origen}}
                 </div>
 
-                <div class="d-flex float-right">
-                    <i class="fas fa-envelope"></i>
+                <div class="col-md-6 col-sm-6 my-1">
+                    <h5 class="d-inline">Destino:</h5> {{destino}}
                 </div>
-
             </div>
-        </nav>
+            <app-rueda-horario class="row horario m-0 p-0">
+            </app-rueda-horario>
+        </section>
     </div>
-</header>
-
-<main class="row m-0 principal">
-    <aside class="col-md-3 col-sm-3 p-0 vertical">
-
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <div class="userProfile text-center m-3">
-                    <img src="../../../../assets/vistaRueda/navVertical/perfil.png"
-                        class="rounded-circle bg-light img-fluid">
-                    <p class="h3 text-light pt-2">Maki Navaja</p>
-                </div>
-            </li>
-
-            <div class="btnNavegacion px-3 pt-4">
-                <li class="nav-item w-100">
-                    <a class="btn btn-outline-primary w-100" href="#">Editar perfil</a>
-                </li>
-
-                <li class="nav-item w-100">
-                    <a class="btn btn-outline-primary active w-100 font-weight-bold" aria-current="page" href="#">Mis
-                        ruedas</a>
-                </li>
-
-                <!--<li class="nav-item w-100">
-                    <a class="btn btn-outline-primary w-100" href="#">Ruedas suscritas</a>
-                </li>-->
-
-                <li class="nav-item w-100">
-                    <a class="btn btn-outline-primary w-100" href="#">Acerca de</a>
-                </li>
-            </div>
-
-            <li class="nav-item text-center mt-5 mb-3">
-                <button class="btn btn-danger" onclick="" name="cerrarSesion">Cerrar sesion</button>
-            </li>
-
-        </ul>
-    </aside>
-
-    <section class="col-md-9 col-sm-9 principal">
-        <p class="h3 ml-5 my-3">Mi rueda</p>
-
-        <!-- Tabla completa - Visible desde 700px de ancho -->
-        <div class="table-responsive horario-pc">
-            <table class="table horario">
-                <tr class="text-center bg-secondary text-light">
-                    <th>Horas</th>
-                    <th>Lunes</th>
-                    <th>Martes</th>
-                    <th>Miercoles</th>
-                    <th>Jueves</th>
-                    <th>Viernes</th>
-                </tr>
-                <tr>
-                    <th class="text-center bg-secondary text-light">08:30</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th class="text-center bg-secondary text-light">09:25</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th class="text-center bg-secondary text-light">10:20</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th class="text-center bg-secondary text-light">11:45</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th class="text-center bg-secondary text-light">12:40</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th class="text-center bg-secondary text-light">13:35</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- Carousel dias, visible hasta 700px de ancho -->
-        <div id="carouselExampleControls" class="carousel slide horario-movil" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="table-responsive horario-movil">
-                    <table class="table horario-movil">
-                        <tr class="text-center bg-secondary text-light">
-                            <th>Hora</th>
-                            <th>Lunes</th>
-                        </tr>
-                        <tr>
-                            <th class="text-center bg-secondary text-light w-25"></th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th class="text-center bg-secondary text-light w-25"></th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th class="text-center bg-secondary text-light w-25"></th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th class="text-center bg-secondary text-light w-25"></th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th class="text-center bg-secondary text-light w-25"></th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th class="text-center bg-secondary text-light w-25"></th>
-                            <td></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-
-    </section>
 </main>
-
-<!--<footer class="row m-0 footer">
-    <div class="col-md-12 col-sm-12 p-0">
-        <div class="text-center">
-            <p class="my-1 h3 text-light">CarShare &copy; 2021</p>
-        </div>
-    </div>
-</footer>-->

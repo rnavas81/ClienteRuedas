@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { VerRuedaService } from 'src/app/services/ver-rueda.service';
+import { UsersService } from 'src/app/services/users.service';
+import { RuedaService } from 'src/app/services/rueda.service';
+import { RuedaHorarioComponent } from 'src/app/components/rueda-horario/rueda-horario.component';
+
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -9,22 +13,33 @@ import { VerRuedaService } from 'src/app/services/ver-rueda.service';
 export class PerfilUsuarioComponent implements OnInit {
 
   rueda: any;
-  horario: any;
+  @ViewChild (RuedaHorarioComponent) horario: RuedaHorarioComponent;
 
-  constructor(rueda: VerRuedaService) {
-    this.rueda = rueda;
-  }
   
-  ngOnInit(): void {
-    
+
+  //Atributos de la rueda
+  origen: string;
+  destino: string;
+  nombre: string;
+  descripcion: string;
+
+  constructor(userService: UsersService, ruedaService: RuedaService) {
+    this.rueda = ruedaService;
+
+    this.nombre = this.rueda.nombre;
+    this.descripcion = this.rueda.descripcion;
+    this.origen = this.rueda.origen;
+    this.destino = this.rueda.destino;
+  }
+
+  ngOnInit(): void {    
     this.rueda.getRueda().subscribe(
       response => {
-        this.horario = response;
-        console.log(this.horario.generada);
+        this.rueda.setRueda(response);
+        this.horario.recargar();
       }, error => {
-        console.log(error);
+        console.error(error);
       }
     )
   }
-
 }

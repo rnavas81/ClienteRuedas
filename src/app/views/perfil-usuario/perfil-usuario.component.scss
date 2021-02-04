@@ -11,35 +11,6 @@ nav.cabecera{
     }
 }
 
-aside.vertical{
-    background-color: #0CADFB;
-    div.userProfile{
-        img{
-            height: 40%;
-            width: 40%;
-        }
-    }
-    div.btnNavegacion{
-        li{
-            margin-top: 1rem;
-            //margin-left: 1rem;
-        }
-    }
-}
-
-.principal{
-    height: 90vh;
-    table.horario{
-        // tr.titulo{
-        //     text-align: center;
-        //     background-color: #007DBA;
-        // }
-        th, td{
-            border: 0;
-        }
-    }
-}
-
 .horario-movil{
     th, td{
         border: 0;

@@ -17,11 +17,12 @@ export class UsersService {
   access_token: string;
   error: string;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(user: any) {
     return this.http.post(environment.url_api + 'login', user);
   }
+
   loginSubscribe = (user, callback) => {
     this.login(user).subscribe(
       (data) => {
@@ -41,6 +42,7 @@ export class UsersService {
       }
     );
   };
+
   register(user: any) {
     return this.http.post(environment.url_api + 'signup', user);
   }
@@ -87,4 +89,18 @@ export class UsersService {
     };
     return this.http.post(url, data, extra);
   };
+
+  /*logout = () => {
+    return this.http.post(environment.url_api + 'logout');
+  }*/
+
+  logout = () => {
+    this.name = undefined;
+    this.surname = undefined;
+    this.email = undefined;
+    this.access_token = undefined;
+    localStorage.removeItem('access_token');
+    this.router.navigate(["/"]);
+  }
+
 }
