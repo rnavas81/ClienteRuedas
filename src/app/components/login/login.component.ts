@@ -22,7 +22,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {  }
+  ngOnInit(): void {
+    this.mensaje = this.userService.msg;
+    console.log(this.mensaje);
+  }
 
   login(){
     this.mensaje = "";

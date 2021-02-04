@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 import { RegistroComponent } from './components/registro/registro.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.component';
+import { RecuperarComponent } from './components/recuperar/recuperar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
     RuedaHorarioComponent,
     MainComponent,
     LoginComponent,
-    RegistroComponent
+    RegistroComponent,
+    RecuperarPassComponent,
+    RecuperarComponent
   ],
   imports: [
     BrowserModule,
