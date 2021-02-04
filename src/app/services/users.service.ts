@@ -16,6 +16,7 @@ export class UsersService {
   email: string;
   access_token: string;
   error: string;
+  msg: string;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -50,6 +51,7 @@ export class UsersService {
   registerSubscribe = (user) => {
     this.register(user).subscribe(
       (data) => {
+        this.error = '500';
         this.router.navigate(['/home']);
       },
       (error) => {
@@ -57,6 +59,24 @@ export class UsersService {
       }
     );
   };
+
+  recuperar(email: any){
+    return this.http.post(environment.url_api + 'forget', email);
+  }
+
+  recuperarSubscribe = (email) => {
+    this.recuperar(email).subscribe(
+      (data) => {
+        this.error = 'Compruebe su email';
+        this.router.navigate(['/home']);
+      },
+      (error) => {
+        this.msg = 'Compruebe su email';
+        this.router.navigate(['/home']);
+      }
+    );
+  };
+
   /**
    * Envía la petición para unirse a una rueda
    * @param data

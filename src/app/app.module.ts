@@ -13,6 +13,8 @@ import { CabeceraComponent } from './components/vistaRueda/cabecera/cabecera.com
 import { NavVerticalComponent } from './components/vistaRueda/nav-vertical/nav-vertical.component';
 import { PerfilUsuarioComponent } from './views/perfil-usuario/perfil-usuario.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.component';
+import { RecuperarComponent } from './components/recuperar/recuperar.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     RegistroComponent,
     MainComponent,
+    RecuperarPassComponent,
+    RecuperarComponent
   ],
   imports: [
     BrowserModule,
