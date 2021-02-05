@@ -18,7 +18,15 @@ export class UsersService {
   error: string;
   msg: string;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    if(sessionStorage.getItem("user")){
+      var data =JSON.parse(sessionStorage.getItem("user"));
+      this.id = data['id'];
+      this.name = data['name'];
+      this.surname = data['surname'];
+      this.email = data['email'];
+    }
+  }
 
   login(user: any) {
     return this.http.post(environment.url_api + 'login', user);
@@ -33,7 +41,8 @@ export class UsersService {
           this.surname = data['surname'];
           this.email = data['email'];
         }
-        localStorage.setItem('access_token', data['access_token']);
+        sessionStorage.setItem('access_token', data['access_token']);
+        sessionStorage.setItem('user',JSON.stringify(data));
         this.error = null;
         if (typeof callback === 'function') callback(true);
       },
@@ -119,7 +128,8 @@ export class UsersService {
     this.surname = undefined;
     this.email = undefined;
     this.access_token = undefined;
-    localStorage.removeItem('access_token');
+    sessionStorage.removeItem('access_token');
+    sessionStorage.removeItem('user');
     this.router.navigate(["/"]);
   }
 

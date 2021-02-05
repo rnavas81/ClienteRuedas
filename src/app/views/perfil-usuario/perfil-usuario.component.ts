@@ -15,7 +15,7 @@ export class PerfilUsuarioComponent implements OnInit {
   rueda: any;
   @ViewChild (RuedaHorarioComponent) horario: RuedaHorarioComponent;
 
-  
+
 
   //Atributos de la rueda
   origen: string;
@@ -23,7 +23,7 @@ export class PerfilUsuarioComponent implements OnInit {
   nombre: string;
   descripcion: string;
 
-  constructor(userService: UsersService, ruedaService: RuedaService) {
+  constructor(public userService: UsersService,public ruedaService: RuedaService) {
     this.rueda = ruedaService;
 
     this.nombre = this.rueda.nombre;
@@ -32,8 +32,8 @@ export class PerfilUsuarioComponent implements OnInit {
     this.destino = this.rueda.destino;
   }
 
-  ngOnInit(): void {    
-    this.rueda.getRueda().subscribe(
+  ngOnInit(): void {
+    this.rueda.getRueda(1).subscribe(
       response => {
         this.rueda.setRueda(response);
         this.horario.recargar();

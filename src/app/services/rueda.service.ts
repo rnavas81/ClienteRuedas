@@ -54,7 +54,7 @@ export class RuedaService {
    * @param callback función de vuelta con el valor true || false
    */
   get = async (id = null, callback) => {
-    const url = environment.url_api + "rueda" + (id != null ? '/id' : '');
+    const url = environment.url_api + "rueda" + (id != null ? `/${id}` : '');
     var data = {};
     this.http.get(url, data).subscribe(
       response => {
@@ -148,11 +148,11 @@ export class RuedaService {
           pasajeros.className = "d-block";
 
           //console.log(coche.pasajeros);
-          
+
           if (coche.conductor == (this.nombreUsuario + " " + this.apellidoUsuario)) {
             va = true;
           }
-          
+
           coche.pasajeros.forEach(pasajero => {
             if(pasajero == (this.nombreUsuario + " " + this.apellidoUsuario)){
               va = true;
@@ -180,8 +180,10 @@ export class RuedaService {
   };
 
   // Función que consulta la rueda según la ID que le pasemos --> rueda/generada/1
-  getRueda = (id) => {
-    const url = environment.url_api + 'rueda/generada/' + id;
+  getRueda = (id=null) => {
+    const url = environment.url_api + 'rueda/generada' + (!!id?`/${id}`:'');
+    console.log(id,url);
+
     var data = {};
     return this.http.get(url, data);
   };
