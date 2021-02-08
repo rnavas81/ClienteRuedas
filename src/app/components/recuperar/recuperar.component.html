@@ -1,0 +1,51 @@
+
+<div class="container-fluid bg-theme-darker">
+  <div class="abs-center">
+    <form action="#" class="p-3 form">
+      <div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+          <div class="user_card">
+            <div class="d-flex justify-content-center">
+              <div class="brand_logo_container">
+                <img [src]="'assets/img/logo.png'"  class="brand_logo" alt="Logo">
+              </div>
+            </div>
+            <div class="d-flex justify-content-center form_container">
+              <form [formGroup]="recuperar" (ngSubmit)="forget()">
+                <div class="input-group mb-3">
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                  </div>
+                  <input type="email" formControlName="email" name="email" class="form-control input_user" value="" placeholder="Email" required autocomplete="username" />
+                </div>
+                <div *ngIf="recuperar.get('email').errors && recuperar.get('email').dirty">
+                  <p class="alert alert-danger" *ngIf="recuperar.get('email').hasError('required')">El email es obligatorio</p>
+                  <p class="alert alert-danger" *ngIf="recuperar.get('email').hasError('email')">El email no es valido</p>
+                </div>
+
+                <div class="form-group">
+                  <div class="custom-control custom-checkbox">
+                    <!-- <input type="checkbox" class="custom-control-input" id="customControlInline">
+                    <label class="custom-control-label" for="customControlInline">Remember me</label> -->
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center mt-3 login_container">
+                  <button class="btn login_btn" [disabled]="recuperar.invalid">Recuperar Contraseña</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="mt-4">
+              <div class="d-flex justify-content-center links">
+                Ya tienes cuenta <a routerLink="" class="ml-2">Inicia sesión</a>
+              </div>
+              <div class="d-flex justify-content-center links">
+                <a routerLink="/signup">Registro</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

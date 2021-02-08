@@ -1,0 +1,34 @@
+nav.cabecera{
+    background-color: #0CADFB;
+    div{
+        div{
+            a{
+                img{
+                    height: 10vh;
+                }
+            }
+        }
+    }
+}
+
+.horario-movil{
+    th, td{
+        border: 0;
+    }
+}
+
+footer.footer{
+    background-color: #0CADFB;
+}
+
+@media (max-width: 700px){
+    div.horario-pc{
+        display: none;
+    }
+}
+
+@media (min-width: 700px){
+    div.horario-movil{
+        display: none;  
+    }
+}
