@@ -1,0 +1,25 @@
+div.addUser{
+    img{
+        background-color: white;
+        height: 100px;
+    }
+}
+
+table{
+    border: 1px solid #004B6F;
+    thead{
+        .header { 
+            position: sticky; 
+            top:0; 
+        } 
+    }
+    tbody{
+        tr{
+            border: 1px solid #004B6F;
+        }
+        tr:hover{
+            background-color: #005a87;
+            color: white;
+        }
+    }
+}

@@ -1,0 +1,108 @@
+<app-cabecera></app-cabecera>
+<main class="container-fluid m-0 principal">
+    <div class="row">
+        <app-nav-vertical class="col-md-3 col-sm-3"></app-nav-vertical>
+        <section class="col-md-9 col-sm-9 bg-white p-1">
+            <!--<div class="row sticky-top">
+                <div class="col-9 align-self-center">
+                    <h1 class="m-0 p-0">Administración de usuarios</h1>
+                </div>
+                <div class="addUser col-3 d-flex justify-content-end">
+                    <img src="../../../assets/addUser.png" class="btn" data-toggle="modal" data-target="#exampleModal">
+                </div>
+            </div>-->
+            <div class="row d-flex justify-content-center m-0 table">
+                <!--<div id="tablaUsuarios">
+
+                </div>-->
+
+                <!-- Button trigger modal -->
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-head text-center mt-1">
+                                <h2>Crear nuevo usuario</h2>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="form-group">
+                                        <label>Nombre *</label>
+                                        <input type="text" name="newName" class="w-100" placeholder="Introduce el nombre">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Apellidos *</label>
+                                        <input type="text" name="newApellido" class="w-100" placeholder="Introduce los apellidos">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email *</label>
+                                        <input type="email" name="newEmail" class="w-100" placeholder="Introduce el email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contraseña *</label>
+                                        <input type="password" name="newPassword" class="w-100" placeholder="Introduce la contraseña">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-success" (click)="crearUsuario()">Crear usuario</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="w-100">
+                    <thead class="sticky-top header">
+                        <tr class="bg-white">
+                            <td colspan="4">
+                                <h1 class="m-0 p-0">Administración de usuarios</h1>
+                            </td>
+                            <td colspan="2" class="text-right">
+                                <button class="btn btn-success" name="addUser" title="Borrar usuario"
+                                    data-toggle="modal" data-target="#exampleModal">
+                                    <fa-icon [icon]="faAddSquare"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="text-center bg-primary text-white">
+                            <th class="h4">Nombre</th>
+                            <th class="h4">Apellidos</th>
+                            <th class="h4">correo electrónico</th>
+                            <th class="h4">Roles</th>
+                            <th colspan="2" class="h4">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let usuario of usuarios; index as i;">
+                            <td>{{usuario.nombre}}</td>
+                            <td>{{usuario.apellidos}}</td>
+                            <td>{{usuario.correo}}</td>
+                            <td>
+                                <select class="form-control">
+                                    <option>Administrador</option>
+                                    <option>Usuario</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-warning" type="submit" name="editarUsuario"
+                                    title="Editar usuario">
+                                    <fa-icon [icon]="faPencil" class="text-white"></fa-icon>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" type="submit" name="borrarUsuario"
+                                    title="Borrar usuario">
+                                    <fa-icon [icon]="faTrash"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </div>
+</main>
