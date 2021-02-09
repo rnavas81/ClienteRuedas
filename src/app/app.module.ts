@@ -15,6 +15,9 @@ import { PerfilUsuarioComponent } from './views/perfil-usuario/perfil-usuario.co
 import { HttpClientModule } from '@angular/common/http';
 import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.component';
 import { RecuperarComponent } from './components/recuperar/recuperar.component';
+import { EditarPerfilComponent } from './views/editar-perfil/editar-perfil.component';
+import { UsuarioPerfilComponent } from './components/usuario-perfil/usuario-perfil.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
@@ -28,12 +31,15 @@ import { RecuperarComponent } from './components/recuperar/recuperar.component';
     RegistroComponent,
     MainComponent,
     RecuperarPassComponent,
-    RecuperarComponent
+    RecuperarComponent,
+    EditarPerfilComponent,
+    UsuarioPerfilComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    NgxDropzoneModule,
     ReactiveFormsModule,
     HttpClientModule,
   ],

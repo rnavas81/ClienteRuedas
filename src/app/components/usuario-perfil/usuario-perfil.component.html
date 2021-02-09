@@ -1,0 +1,125 @@
+<div class="container bootstrap snippet bg-white">
+  <div class="row mt-5">
+    <div class="col-sm-3">
+      <!--left col-->
+
+      <!-- Avatar -->
+      <br />
+      <hr />
+      <!-- <div class="userProfile text-center m-3 pt-4 dropzone">
+        <img
+          src="../../../../assets/vistaRueda/navVertical/perfil.png"
+          alt="Imagen de perfil"
+          class="rounded-circle img-fluid bg-white border mb-4"
+        />
+        <input type="file" class="text-center center-block file-upload">
+      </div> -->
+      <div ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)" [multiple]=false class="rounded-circle same">
+        <ngx-dropzone-label>
+          <div>
+          <img
+          src="../../../../assets/vistaRueda/navVertical/perfil.png"
+          alt="Imagen de perfil"
+          class="rounded-circle img-fluid bg-white border mb-4 mt-4"
+          />
+          </div>
+        </ngx-dropzone-label>
+        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)" class="rounded-circle img-fluid bg-white border mb-4 mt-4">
+          <ngx-dropzone-label></ngx-dropzone-label>
+        </ngx-dropzone-image-preview>
+      </div>
+      <hr />
+      <br />
+    </div>
+    <!--/col-3-->
+    <div class="col-sm-9">
+      <br />
+      <div class="tab-content">
+        <div class="tab-pane active" id="home">
+          <hr />
+          <div class="row p-4">
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
+              <label for="first_name"><h4>Nombre</h4></label>
+              <input
+                type="text"
+                class="form-control"
+                name="first_name"
+                id="first_name"
+                placeholder="first name"
+                title="enter your first name if any."
+              />
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
+              <label for="last_name"><h4>Apellidos</h4></label>
+              <input
+                type="text"
+                class="form-control"
+                name="last_name"
+                id="last_name"
+                placeholder="last name"
+                title="enter your last name if any."
+              />
+            </div>
+
+            <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
+              <label for="phone"><h4>Email</h4></label>
+              <input
+                type="text"
+                class="form-control"
+                name="phone"
+                id="phone"
+                placeholder="enter phone"
+                title="enter your phone number if any."
+              />
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
+              <label for="password"><h4>Contraseña</h4></label>
+              <input
+                type="password"
+                class="form-control"
+                name="password"
+                id="password"
+                placeholder="password"
+                title="enter your password."
+              />
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
+              <label for="password2"><h4>Verificar contraseña</h4></label>
+              <input
+                type="password"
+                class="form-control"
+                name="password2"
+                id="password2"
+                placeholder="password2"
+                title="enter your password2."
+              />
+            </div>
+            <div>
+
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+              <br />
+              <button class="btn btn-block btn-secondary" type="submit">
+                <i class="glyphicon glyphicon-ok-sign"></i> Save
+              </button>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+              <br />
+              <button class="btn btn-block btn-danger" type="reset">
+                <i class="glyphicon glyphicon-repeat"></i> Reset
+              </button>
+            </div>
+          </div>
+          <hr />
+        </div>
+        <!--/tab-pane-->
+      <!--/tab-pane-->
+    </div>
+    <!--/tab-content-->
+  </div>
+  <!--/col-9-->
+</div>
+<!--/row-->
