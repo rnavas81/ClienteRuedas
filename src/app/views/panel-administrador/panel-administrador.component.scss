@@ -6,16 +6,19 @@ div.addUser{
 }
 
 table{
-    border: 1px solid #004B6F;
+    //border: 1px solid #004B6F;
     thead{
-        .header { 
-            position: sticky; 
-            top:0; 
-        } 
+        tr{
+            th{
+                width: 200px;
+            }
+        }
     }
     tbody{
         tr{
-            border: 1px solid #004B6F;
+            td{
+                width: 150px;
+            }
         }
         tr:hover{
             background-color: #005a87;

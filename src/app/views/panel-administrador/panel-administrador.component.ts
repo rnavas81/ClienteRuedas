@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import * as iconos  from '@fortawesome/free-solid-svg-icons';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { environment } from 'src/environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AdministradorService } from 'src/app/services/administrador.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-panel-administrador',
@@ -8,51 +13,82 @@ import * as iconos  from '@fortawesome/free-solid-svg-icons';
 })
 export class PanelAdministradorComponent implements OnInit {
 
+  //Font awesome
   faPencil = iconos.faPencilAlt;
   faTrash = iconos.faTrash;
   faAddSquare = iconos.faPlusSquare;
-  faArrowUp = iconos.faArrowUp;
 
-  usuarios: any[] = [
-    {
-      "nombre": "Alejandro",
-      "apellidos": "Martín",
-      "correo": "alejandro@gmail.com"
-    },
-    {
-      "nombre": "Jorge",
-      "apellidos": "Olmo",
-      "correo": "jorge@gmail.com"
-    },
-    {
-      "nombre": "Rodrigo",
-      "apellidos": "Arriaga",
-      "correo": "rodrigo@gmail.com"
-    },
-  ]
+  //Datos del nuevo usuario
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+  rol: string;
 
-  constructor() { }
+  code: string;
+
+  //Formulario
+  registroForm: FormGroup;
+
+  //Errores
+  error: string;
+
+  //Lista de usuarios registrados en la BBDD
+  usuarios: any[];
+
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, public administrador: AdministradorService) { }
 
   ngOnInit(): void {
-    //this.generarTabla();
+    this.initForm();
+    this.cargarUsuariosBBDD();
   }
 
-  generarTabla = () => {
-    var contenedor = document.getElementById('tablaUsuarios');
-    var table = document.createElement("table");
-    var thead = document.createElement("thead");
-    var tr_thead = document.createElement("tr");
-    var th_thead = document.createElement("th");
-    var tbody = document.createElement("tbody");
+  // Inicia el formulario
+  private initForm(): void {
+    //console.log(this.registroForm);
 
-    this.usuarios.forEach(usuario => {
-      th_thead.innerText = usuario.nombre;
-      tr_thead.appendChild(th_thead);
+    this.registroForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      surname: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      rol: ['', [Validators.required]],
     });
+  }
 
-    table.appendChild(thead);
-    table.appendChild(tbody);
-    contenedor.appendChild(table);
+  private cargarUsuariosBBDD = () => {
+    this.administrador.getUsers().subscribe(
+      (data) => {                
+        this.usuarios = data['listaUsuarios'];
+        //console.log(this.usuarios);
+        this.code = '200';
+        //console.log(this.code);
+      },
+      (error) => {
+        console.error(error.status);
+      }
+    );
+  }
+
+
+  // Crea un usuario nuevo
+  onSubmit() {
+
+    // Creo el usuario con los datos necesarios para la BBDD
+    let usuario = this.registroForm.value;
+
+    this.administrador.registrarSubscribe(usuario);
+    $('#exampleModal').modal('hide');    
+
+  }
+
+  editar(indice) {
+    console.log(this.usuarios[indice]);
+  }
+
+  borrar(indice){
+    console.log(this.usuarios[indice]);
+    
   }
 
 }
