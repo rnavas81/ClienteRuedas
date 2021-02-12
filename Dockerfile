@@ -4,12 +4,8 @@ FROM node:alpine
 WORKDIR /app
 
 # Instala nodejs y npm
-RUN apk add nodejs npm
-RUN npm install -g @angular/cli
-
-
-# Para la verisón definitiva copia los ficheros de la aplicación en la imagen
-# COPY ./html /var/www/html
+RUN apk add nodejs npm &&\
+    npm install -g @angular/cli
 
 CMD ["npm" ,"start"]
 
