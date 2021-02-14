@@ -1,4 +1,13 @@
 .same{
-  width:18vw;
-  height:18vw;
+  width:16vw;
+  height:16vw;
+}
+
+ngx-dropzone-image-preview{
+  height: 200px !important;
+  min-height: 200px !important;
+  max-height: 200px !important;
+  min-width: 200px !important;
+  max-width: 200px !important;
+  border-radius: 50% !important;
 }

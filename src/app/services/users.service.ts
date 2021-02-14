@@ -123,6 +123,15 @@ export class UsersService {
     return this.http.post(environment.url_api + 'logout');
   }*/
 
+  edit = (user) => {
+    const url = `${environment.url_api}usuario/edit`;
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    return this.http.post(url, user, extra);
+  };
+
   logout = () => {
     this.name = undefined;
     this.surname = undefined;

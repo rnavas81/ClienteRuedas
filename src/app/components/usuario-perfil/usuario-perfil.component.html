@@ -1,5 +1,9 @@
+<div *ngIf="mensaje != null" class="container-fluid mb-0">
+  <p *ngIf="mensaje == '200'" class="alert alert-info">Modificación exitosa</p>
+  <p *ngIf="mensaje == '422'" class="alert alert-info">Error en los campos</p>
+</div>
 <div class="container bootstrap snippet bg-white">
-  <div class="row mt-5">
+  <div class="row mt-1">
     <div class="col-sm-3">
       <!--left col-->
 
@@ -14,17 +18,30 @@
         />
         <input type="file" class="text-center center-block file-upload">
       </div> -->
-      <div ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)" [multiple]=false class="rounded-circle same">
+      <div
+        ngx-dropzone
+        [accept]="'image/*'"
+        (change)="onSelect($event)"
+        [multiple]="false"
+        class="rounded-circle same"
+      >
         <ngx-dropzone-label>
           <div>
-          <img
-          src="../../../../assets/vistaRueda/navVertical/perfil.png"
-          alt="Imagen de perfil"
-          class="rounded-circle img-fluid bg-white border mb-4 mt-4"
-          />
+            <img
+              src="../../../../assets/vistaRueda/navVertical/perfil.png"
+              alt="Imagen de perfil"
+              class="rounded-circle img-fluid bg-white border mb-4 mt-4"
+            />
           </div>
         </ngx-dropzone-label>
-        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)" class="rounded-circle img-fluid bg-white border mb-4 mt-4">
+        <ngx-dropzone-image-preview
+          ngProjectAs="ngx-dropzone-preview"
+          *ngFor="let f of files"
+          [file]="f"
+          [removable]="true"
+          (removed)="onRemove(f)"
+          class="rounded-circle img-fluid bg-white border mb-4 mt-4"
+        >
           <ngx-dropzone-label></ngx-dropzone-label>
         </ngx-dropzone-image-preview>
       </div>
@@ -38,88 +55,110 @@
         <div class="tab-pane active" id="home">
           <hr />
           <div class="row p-4">
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
-              <label for="first_name"><h4>Nombre</h4></label>
-              <input
-                type="text"
-                class="form-control"
-                name="first_name"
-                id="first_name"
-                placeholder="first name"
-                title="enter your first name if any."
-              />
-            </div>
+            <form [formGroup]="edit" (ngSubmit)="send()" class="row">
+              <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
+                <label for="first_name"><h4>Nombre</h4></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="first_name"
+                  id="first_name"
+                  placeholder="first name"
+                  title="Modifica tu nombre."
+                  required
+                  formControlName="name"
+                />
+              </div>
 
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
-              <label for="last_name"><h4>Apellidos</h4></label>
-              <input
-                type="text"
-                class="form-control"
-                name="last_name"
-                id="last_name"
-                placeholder="last name"
-                title="enter your last name if any."
-              />
-            </div>
+              <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
+                <label for="last_name"><h4>Apellidos</h4></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="last_name"
+                  id="last_name"
+                  placeholder="last name"
+                  title="Modifica tu apellido."
+                  required
+                  formControlName="surname"
+                />
+              </div>
 
-            <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
-              <label for="phone"><h4>Email</h4></label>
-              <input
-                type="text"
-                class="form-control"
-                name="phone"
-                id="phone"
-                placeholder="enter phone"
-                title="enter your phone number if any."
-              />
-            </div>
+              <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
+                <label for="phone"><h4>Email</h4></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="email"
+                  id="email"
+                  placeholder="enter phone"
+                  title="Modifica tu email."
+                  required
+                  formControlName="email"
+                  autocomplete="username"
+                />
+              </div>
 
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
-              <label for="password"><h4>Contraseña</h4></label>
-              <input
-                type="password"
-                class="form-control"
-                name="password"
-                id="password"
-                placeholder="password"
-                title="enter your password."
-              />
-            </div>
+              <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
+                <label for="password"><h4>Contraseña</h4></label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  id="password"
+                  placeholder="password"
+                  title="Modifica tu contraseña"
+                  formControlName="password"
+                  autocomplete="new-password"
+                />
+              </div>
 
-            <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
-              <label for="password2"><h4>Verificar contraseña</h4></label>
-              <input
-                type="password"
-                class="form-control"
-                name="password2"
-                id="password2"
-                placeholder="password2"
-                title="enter your password2."
-              />
-            </div>
-            <div>
-
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-6">
-              <br />
-              <button class="btn btn-block btn-secondary" type="submit">
-                <i class="glyphicon glyphicon-ok-sign"></i> Save
-              </button>
-            </div>
-            <div class="col-sm-6 col-md-6 col-lg-6">
-              <br />
-              <button class="btn btn-block btn-danger" type="reset">
-                <i class="glyphicon glyphicon-repeat"></i> Reset
-              </button>
-            </div>
+              <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
+                <label for="password2"><h4>Verificar contraseña</h4></label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password2"
+                  id="password2"
+                  placeholder="password2"
+                  title="verifica tu contaseña"
+                  formControlName="password2"
+                  autocomplete="new-password"
+                />
+              </div>
+              <div></div>
+              <div class="col-sm-6 col-md-6 col-lg-6">
+                <br />
+                <button
+                  class="btn btn-block btn-secondary"
+                  type="submit"
+                  [disabled]="edit.invalid"
+                >
+                  <i class="glyphicon glyphicon-ok-sign"></i> Guardar
+                </button>
+              </div>
+              <div class="col-sm-6 col-md-6 col-lg-6">
+                <br />
+                <button class="btn btn-block btn-danger" type="reset">
+                  <i class="glyphicon glyphicon-repeat"></i> Reset
+                </button>
+              </div>
+            </form>
           </div>
           <hr />
         </div>
         <!--/tab-pane-->
-      <!--/tab-pane-->
+        <!--/tab-pane-->
+      </div>
+      <!--/tab-content-->
     </div>
-    <!--/tab-content-->
+    <!--/col-9-->
   </div>
-  <!--/col-9-->
+  <!--/row-->
 </div>
-<!--/row-->
+<div class="row">
+  <form #f="ngForm" (ngSubmit)="onSubmitform(f)">
+    <input type="file" name="myFile" (change)="fileEvent($event)"  accept="image/*"/>
+    <button>Upload Image</button>
+  </form>
+</div>
