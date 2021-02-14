@@ -1,13 +1,13 @@
 #Descarga la imagen node para instalar angular
-FROM node:alpine
+FROM node:lts-alpine3.13
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-# Instala nodejs y npm
-RUN apk add nodejs npm &&\
-    npm install -g @angular/cli
+RUN apk add --update nodejs nodejs-npm &&\
+    npm install -g @angular/cli@11.2.0
 
-CMD ["npm" ,"start"]
+COPY package*.json ./
 
-# Abre el puerto
+CMD mkdir ./node_modules; npm install; npm start;
+
 EXPOSE 4200
