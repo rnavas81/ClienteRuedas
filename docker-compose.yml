@@ -1,5 +1,5 @@
 # Fichero de configuración para los contenedores del cliente de la aplicación CarShare
-version: "3.8"
+version: "3.7"
 services:
   # Crea un proxy inverso
   carshare-clientproxy:
@@ -26,14 +26,14 @@ services:
     environment:
       # Esta ruta debe estar incluida en el fichero hosts del anfitrión
       - VIRTUAL_HOST=carshare.client.local
-      - VIRTUAL_PORT=4200
     # Para la versión de desarrollo se mapea la carpeta con una local
     volumes:
-      - ./:/app/
+      - ./:/usr/src/app
     networks:
       - carshare-client
     depends_on:
       - carshare-clientproxy
+    # command: sh -c "npm install"
 
 
 networks:
