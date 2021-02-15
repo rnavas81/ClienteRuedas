@@ -6,20 +6,7 @@ div.addUser{
 }
 
 table{
-    //border: 1px solid #004B6F;
-    thead{
-        tr{
-            th{
-                width: 200px;
-            }
-        }
-    }
     tbody{
-        tr{
-            td{
-                width: 150px;
-            }
-        }
         tr:hover{
             background-color: #005a87;
             color: white;

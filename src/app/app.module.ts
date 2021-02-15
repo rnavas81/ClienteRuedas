@@ -18,6 +18,7 @@ import { RecuperarComponent } from './components/recuperar/recuperar.component';
 import { PanelAdministradorComponent } from './views/panel-administrador/panel-administrador.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+
 @NgModule({
   declarations: [
     CabeceraComponent,
@@ -31,7 +32,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MainComponent,
     RecuperarPassComponent,
     RecuperarComponent,
-    PanelAdministradorComponent
+    PanelAdministradorComponent,
   ],
   imports: [
     BrowserModule,

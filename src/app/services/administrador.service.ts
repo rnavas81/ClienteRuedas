@@ -11,35 +11,21 @@ export class AdministradorService {
 
   constructor(public http: HttpClient) { }
 
-
-  registrarSubscribe = (usuario) => {
-    //Suscripción a la función de consulta a la API
-
-    switch (usuario.rol) {
-      case 'Administrador':
-        usuario.rol = 1; break;
-      case 'Usuario':
-        usuario.rol = 2; break;
-    }
-
-    this.registrar(usuario).subscribe(
-      (data) => {
-        this.code = '200';
-        console.log(this.code);
-      },
-      (error) => {
-        console.error(error.status);
-      }
-    );
-  }
-
-  //Función creación usuario en la API
+  //Llamada a createUser en la API
   registrar(nuevoUsuario: any) {
     return this.http.post(environment.url_api + 'administrador/createUser', nuevoUsuario);
   }
 
+  //Llamada a la API que devuelve la lista de usuarios
   getUsers = () => {
     return this.http.get(environment.url_api + 'administrador/getUsers');
+  }
+
+  //LLamada a editUser en la API
+  editUser = (usuario) => {
+    console.log(usuario);
+    
+    return this.http.post(environment.url_api + 'administrador/editUser', usuario);
   }
 
 }

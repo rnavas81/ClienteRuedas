@@ -5,9 +5,11 @@
         <section class="col-md-9 col-sm-9 bg-white p-0">
             <div class="row d-flex justify-content-center m-0 table">
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <!-- ------------------------------------------------------------------------------------ -->
+                                                <!-- Modal Crear usuario -->
+                <!-- ------------------------------------------------------------------------------------ -->
+                <div class="modal fade" id="createUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-head text-center mt-1">
@@ -52,22 +54,100 @@
                                     <button type="button" class="btn btn-danger" data-dismiss="modal"
                                         title="Cerrar">Cerrar</button>
                                     <button type="submit" class="btn btn-success" name="crearUsuario"
-                                        title="Crear usuario">Crear usuario</button>
+                                        title="Crear usuario">Crear
+                                        usuario</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------ -->
+
+
+
+                <!-- ------------------------------------------------------------------------------------ -->
+                                                <!-- Modal editar usuario -->
+                <!-- ------------------------------------------------------------------------------------ -->
+                <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-head text-center mt-1">
+                                <h2>Editar Usuario</h2>
+                            </div>
+                            <form id="formEditar" [formGroup]="editForm">
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label for="name">Nombre *</label>
+                                            <input id="editName" type="text" name="newName" class="w-100"
+                                                placeholder="Introduce el nombre" formControlName="editName"
+                                                value="{{editName}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="surname">Apellidos *</label>
+                                            <input id="editSurname" type="text" name="newApellido" class="w-100"
+                                                placeholder="Introduce los apellidos" formControlName="editSurname"
+                                                value="{{editSurname}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email *</label>
+                                            <input id="editEmail" type="email" name="newEmail" class="w-100"
+                                                placeholder="Introduce el email" formControlName="editEmail"
+                                                value="{{editEmail}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password1">Contraseña *</label>
+                                            <input id="password1" type="password" name="editPassword1" class="w-100"
+                                                placeholder="Introduce la contraseña" formControlName="editPassword1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password2">Repita la contraseña *</label>
+                                            <input id="password2" type="password" name="editPassword2" class="w-100"
+                                                placeholder="Vuelva a introducir la contraseña"
+                                                formControlName="editPassword2">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="rol">Rol *</label>
+                                            <select *ngIf="editRol == '1'" id="editRol" class="w-100 form-control" name="editRol"
+                                                formControlName="editRol">
+                                                <option name="Usuario">Usuario</option>
+                                                <option name="Administrador">Administrador</option>
+                                            </select>
+                                            <select *ngIf="editRol == '2'" id="editRol" class="w-100 form-control" name="editRol"
+                                                formControlName="editRol">
+                                                <option name="Usuario" selected>Usuario</option>
+                                                <option name="Administrador">Administrador</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                        title="Cerrar">Cerrar</button>
+                                    <button type="submit" class="btn btn-success" name="crearUsuario"
+                                        title="Guardar cambios">Guardar cambios</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------ -->
 
                 <table class="sticky-top table-responsive d-flex justify-content-center mx-2">
-                    <thead>
+                    <thead class="w-auto text-center">
                         <tr class="bg-white">
-                            <td colspan="4">
+                            <td colspan="2">
                                 <h1 class="m-0 p-0">Administración de usuarios</h1>
                             </td>
-                            <td colspan="2" class="text-right">
+                            <td class="text-right">
                                 <button class="btn btn-success" name="addUser" title="Agregar usuario"
-                                    data-toggle="modal" data-target="#exampleModal">
+                                    data-toggle="modal" data-target="#createUser">
                                     <fa-icon [icon]="faAddSquare"></fa-icon>
                                 </button>
                             </td>
@@ -75,54 +155,23 @@
                         <tr class="bg-primary text-white">
                             <th class="h5 px-1">Nombre</th>
                             <th class="h5 px-1">Apellidos</th>
-                            <th class="h5 px-1">correo electrónico</th>
-                            <th class="h5 px-1">Roles</th>
-                            <th class="h5 px-1">Acciones</th>
+                            <th class="h5 px-1"></th>
                         </tr>
                     </thead>
                 </table>
 
                 <table class="table-responsive d-flex justify-content-center mx-2">
-                    <!--<thead class="sticky-top header">
-                        <tr class="bg-white">
-                            <td colspan="4">
-                                <h1 class="m-0 p-0">Administración de usuarios</h1>
-                            </td>
-                            <td colspan="2" class="text-right">
-                                <button class="btn btn-success" name="addUser" title="Agregar usuario"
-                                    data-toggle="modal" data-target="#exampleModal">
-                                    <fa-icon [icon]="faAddSquare"></fa-icon>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="text-center bg-primary text-white">
-                            <th class="h4">Nombre</th>
-                            <th class="h4">Apellidos</th>
-                            <th class="h4">correo electrónico</th>
-                            <th class="h4">Roles</th>
-                            <th colspan="2" class="h4">Acciones</th>
-                        </tr>
-                    </thead>-->
-                    <tbody>
-                        <tr *ngFor="let usuario of usuarios; index as i;" class="text-center">
-                            <td>{{usuario.name}}</td>
-                            <td>{{usuario.surname}}</td>
-                            <td>{{usuario.email}}</td>
-                            <td>
-                                <select class="form-control">
-                                    <option *ngIf="usuario.rol == 1" selected>Administrador</option>
-                                    <option *ngIf="usuario.rol == 2" selected>Usuario</option>
-                                </select>
-                            </td>
-                            <td>
-                                <button class="btn btn-warning" type="submit" name="editarUsuario"
-                                    title="Editar usuario" (click)="editar(i)">
+                    <tbody class="w-100">
+                        <tr *ngFor="let usuario of usuarios; index as i;" class="d-flex justify-content-center">
+                            <td class="w-25 text-center">{{usuario.name}}</td>
+                            <td class="w-25 text-center">{{usuario.surname}}</td>
+                            <td class="text-right">
+                                <button class="btn btn-warning" name="editUser" title="Editar usuario"
+                                    data-toggle="modal" data-target="#editUser" (click)="editUser(i)">
                                     <fa-icon [icon]="faPencil" class="text-white"></fa-icon>
                                 </button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger" type="submit" name="borrarUsuario"
-                                    title="Borrar usuario" (click)="borrar(i)">
+                                <button class="btn btn-danger" type="submit" name="borrarUsuario" title="Borrar usuario"
+                                    (click)="borrar(i)">
                                     <fa-icon [icon]="faTrash"></fa-icon>
                                 </button>
                             </td>
