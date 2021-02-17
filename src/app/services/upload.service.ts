@@ -13,8 +13,6 @@ export class UploadService {
   constructor(private http: HttpClient){ }
 
   upImg(data:any){
-    var data =JSON.parse(sessionStorage.getItem("user"));
-    var id = data['id'];
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');

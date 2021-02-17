@@ -6,45 +6,47 @@
   <div class="row mt-1">
     <div class="col-sm-3">
       <!--left col-->
-
       <!-- Avatar -->
       <br />
       <hr />
-      <!-- <div class="userProfile text-center m-3 pt-4 dropzone">
-        <img
-          src="../../../../assets/vistaRueda/navVertical/perfil.png"
-          alt="Imagen de perfil"
-          class="rounded-circle img-fluid bg-white border mb-4"
-        />
-        <input type="file" class="text-center center-block file-upload">
-      </div> -->
-      <div
-        ngx-dropzone
-        [accept]="'image/*'"
-        (change)="onSelect($event)"
-        [multiple]="false"
-        class="rounded-circle same"
-      >
-        <ngx-dropzone-label>
-          <div>
-            <img
-              src="../../../../assets/vistaRueda/navVertical/perfil.png"
-              alt="Imagen de perfil"
-              class="rounded-circle img-fluid bg-white border mb-4 mt-4"
-            />
-          </div>
-        </ngx-dropzone-label>
-        <ngx-dropzone-image-preview
-          ngProjectAs="ngx-dropzone-preview"
-          *ngFor="let f of files"
-          [file]="f"
-          [removable]="true"
-          (removed)="onRemove(f)"
+
+      <div class="row justify-content-center">
+        <div class="col-4 col-sm-12 col-md-12 col-lg-12">
+          <img
+          *ngIf="avatar !== null"
+          src="{{ avatar }}"
+          alt="Imagen de {{ name }}"
           class="rounded-circle img-fluid bg-white border mb-4 mt-4"
-        >
-          <ngx-dropzone-label></ngx-dropzone-label>
-        </ngx-dropzone-image-preview>
+          style="margin: auto;"
+          />
+          <img
+            *ngIf="avatar == null"
+            [src]="'assets/perfil.png'"
+            alt="Imagen por defecto"
+            class="rounded-circle img-fluid bg-white border mb-4 mt-4"
+          />
+        </div>
       </div>
+      <div class="row justify-content-center">
+        <button type="button" (click)="fileInput.click()">
+          <span>Upload</span>
+          <input #fileInput type="file" name="myFile"
+          (change)="fileEvent($event)"
+          accept="image/*" style="display:none;" />
+          </button>
+      </div>
+
+      <!-- <div class="row">
+        <form #f="ngForm" (ngSubmit)="onSubmitform(f)">
+          <input
+            type="file"
+            name="myFile"
+            (change)="fileEvent($event)"
+            accept="image/*"
+          />
+          <button>Upload Image</button>
+        </form>
+      </div> -->
       <hr />
       <br />
     </div>
@@ -156,9 +158,4 @@
   </div>
   <!--/row-->
 </div>
-<div class="row">
-  <form #f="ngForm" (ngSubmit)="onSubmitform(f)">
-    <input type="file" name="myFile" (change)="fileEvent($event)"  accept="image/*"/>
-    <button>Upload Image</button>
-  </form>
-</div>
+

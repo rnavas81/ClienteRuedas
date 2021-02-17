@@ -21,6 +21,7 @@ import { UploadService } from 'src/app/services/upload.service';
 export class UsuarioPerfilComponent implements OnInit {
   edit: FormGroup;
   mensaje: string;
+  avatar: string;
 
   files: File[] = [];
 
@@ -37,6 +38,8 @@ export class UsuarioPerfilComponent implements OnInit {
     private router: Router,
     private uploadService: UploadService
   ) {
+    // console.log(this.userService.avatar);
+    this.avatar = this.userService.avatar;
     this.edit = this.formBuilder.group({
       email: [userService.email, [Validators.required, Validators.email]],
       surname: [userService.surname, [Validators.required]],
@@ -52,6 +55,7 @@ export class UsuarioPerfilComponent implements OnInit {
   /* File onchange event */
   fileEvent(e) {
     this.filedata = e.target.files[0];
+  
   }
   /* Upload button functioanlity */
   onSubmitform(f: NgForm) {
@@ -62,11 +66,15 @@ export class UsuarioPerfilComponent implements OnInit {
 
     this.uploadService.upImg(myFormData).subscribe(
       (data) => {
-        console.log(data);
+        console.log(data['url']);
+        let user = JSON.parse(sessionStorage.getItem('user'));
+        user['avatar'] = data['url'];
+        sessionStorage.setItem('user', JSON.stringify(user));
       },
       (error) => {
         console.log(error);
-      });
+      }
+    );
   }
 
   onSelect(event) {
@@ -121,5 +129,26 @@ export class UsuarioPerfilComponent implements OnInit {
         console.log(error.status);
       }
     );
+
+
+    (function (document, window, index) {
+      var inputs = document.querySelectorAll('.inputfile');
+      Array.prototype.forEach.call(inputs, function (input) {
+        var label = input.nextElementSibling,
+          labelVal = label.innerHTML;
+
+        input.addEventListener('change', function (e) {
+          var fileName = '';
+          if (this.files && this.files.length > 1)
+            fileName = (
+              this.getAttribute('data-multiple-caption') || ''
+            ).replace('{count}', this.files.length);
+          else fileName = e.target.value.split('\\').pop();
+
+          if (fileName) label.querySelector('span').innerHTML = fileName;
+          else label.innerHTML = labelVal;
+        });
+      });
+    })(document, window, 0);
   }
 }
