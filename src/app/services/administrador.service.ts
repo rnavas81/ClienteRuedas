@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdministradorService {
-
-  code: string;
 
   constructor(public http: HttpClient) { }
 
@@ -23,9 +21,12 @@ export class AdministradorService {
 
   //LLamada a editUser en la API
   editUser = (usuario) => {
-    console.log(usuario);
-    
     return this.http.post(environment.url_api + 'administrador/editUser', usuario);
+  }
+
+  //Llamada a la API que borra el usuario
+  deleteUser = (usuario) => {
+    return this.http.post(environment.url_api + 'administrador/deleteUser', usuario);
   }
 
 }

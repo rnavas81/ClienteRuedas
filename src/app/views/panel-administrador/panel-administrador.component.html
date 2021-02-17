@@ -6,7 +6,7 @@
             <div class="row d-flex justify-content-center m-0 table">
 
                 <!-- ------------------------------------------------------------------------------------ -->
-                                                <!-- Modal Crear usuario -->
+                <!-- Modal Crear usuario -->
                 <!-- ------------------------------------------------------------------------------------ -->
                 <div class="modal fade" id="createUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -51,8 +51,8 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal"
-                                        title="Cerrar">Cerrar</button>
+                                    <button id="btn-cerrar-create" type="button" class="btn btn-danger"
+                                        data-dismiss="modal" title="Cerrar">Cerrar</button>
                                     <button type="submit" class="btn btn-success" name="crearUsuario"
                                         title="Crear usuario">Crear
                                         usuario</button>
@@ -68,7 +68,7 @@
 
 
                 <!-- ------------------------------------------------------------------------------------ -->
-                                                <!-- Modal editar usuario -->
+                <!-- Modal editar usuario -->
                 <!-- ------------------------------------------------------------------------------------ -->
                 <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -77,26 +77,26 @@
                             <div class="modal-head text-center mt-1">
                                 <h2>Editar Usuario</h2>
                             </div>
-                            <form id="formEditar" [formGroup]="editForm">
+                            <form id="formEditar" (ngSubmit)="editar()" [formGroup]="editForm">
                                 <div class="modal-body">
                                     <div class="container">
                                         <div class="form-group">
                                             <label for="name">Nombre *</label>
                                             <input id="editName" type="text" name="newName" class="w-100"
                                                 placeholder="Introduce el nombre" formControlName="editName"
-                                                value="{{editName}}">
+                                                value="{{user['name']}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="surname">Apellidos *</label>
                                             <input id="editSurname" type="text" name="newApellido" class="w-100"
                                                 placeholder="Introduce los apellidos" formControlName="editSurname"
-                                                value="{{editSurname}}">
+                                                value="{{user['surname']}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email *</label>
                                             <input id="editEmail" type="email" name="newEmail" class="w-100"
                                                 placeholder="Introduce el email" formControlName="editEmail"
-                                                value="{{editEmail}}">
+                                                value="{{user['email']}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="password1">Contraseña *</label>
@@ -111,30 +111,52 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="rol">Rol *</label>
-                                            <select *ngIf="editRol == '1'" id="editRol" class="w-100 form-control" name="editRol"
+                                            <select id="editRol" class="w-100 form-control" name="editRol"
                                                 formControlName="editRol">
-                                                <option name="Usuario">Usuario</option>
-                                                <option name="Administrador">Administrador</option>
-                                            </select>
-                                            <select *ngIf="editRol == '2'" id="editRol" class="w-100 form-control" name="editRol"
-                                                formControlName="editRol">
-                                                <option name="Usuario" selected>Usuario</option>
-                                                <option name="Administrador">Administrador</option>
+                                                <option id="op_usuario" name="Usuario">Usuario</option>
+                                                <option id="op_administrador" name="Administrador">
+                                                    Administrador</option>
                                             </select>
                                         </div>
                                     </div>
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal"
-                                        title="Cerrar">Cerrar</button>
-                                    <button type="submit" class="btn btn-success" name="crearUsuario"
+                                    <button id="btn-cerrar-edit" type="button" class="btn btn-danger"
+                                        data-dismiss="modal" title="Cerrar">Cerrar</button>
+                                    <button type="submit" class="btn btn-success close-modal" name="crearUsuario"
                                         title="Guardar cambios">Guardar cambios</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------ -->
+
+
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- Modal Borrar usuario -->
+                <!-- ------------------------------------------------------------------------------------ -->
+                <div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Eliminar usuario</h5>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿Estas seguro de querer borrar el usuario <b>{{user['name'] + ' ' + user['surname']}}</b>?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-danger" (click)="deleteUser()"
+                                    data-dismiss="modal">Borrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- ------------------------------------------------------------------------------------ -->
                 <!-- ------------------------------------------------------------------------------------ -->
                 <!-- ------------------------------------------------------------------------------------ -->
@@ -171,7 +193,7 @@
                                     <fa-icon [icon]="faPencil" class="text-white"></fa-icon>
                                 </button>
                                 <button class="btn btn-danger" type="submit" name="borrarUsuario" title="Borrar usuario"
-                                    (click)="borrar(i)">
+                                    data-toggle="modal" data-target="#deleteUser" (click)="borrar(i)">
                                     <fa-icon [icon]="faTrash"></fa-icon>
                                 </button>
                             </td>

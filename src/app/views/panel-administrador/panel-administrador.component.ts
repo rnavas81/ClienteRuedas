@@ -30,6 +30,8 @@ export class PanelAdministradorComponent implements OnInit {
   rolNuevo: any;
 
   code: string;
+  indiceBorrar: number;
+  indiceEditar: number;
 
   //Formulario
   registroForm: FormGroup;
@@ -44,7 +46,6 @@ export class PanelAdministradorComponent implements OnInit {
   editPassword1: string;
   editPassword2: string;
   editRol: string;
-
   //Errores
   error: string;
 
@@ -57,6 +58,13 @@ export class PanelAdministradorComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.cargarUsuariosBBDD();
+    this.user = new Array();
+    this.user["id"] = "";
+    this.user["name"] = "";
+    this.user["surname"] = "";
+    this.user["email"] = "";
+    this.user["rol"] = "";
+    this.user["passwd"] = "";
   }
 
   // Inicia el formulario
@@ -72,6 +80,7 @@ export class PanelAdministradorComponent implements OnInit {
     });
 
     this.editForm = this.formBuilder.group({
+      idUsuario: ['', [Validators.required]],
       editName: ['', [Validators.required]],
       editSurname: ['', [Validators.required]],
       editEmail: ['', [Validators.required]],
@@ -88,7 +97,6 @@ export class PanelAdministradorComponent implements OnInit {
     let usuario = this.registroForm.value;
 
     //Suscripción a la función de consulta a la API
-
     switch (usuario.rol) {
       case 'Administrador':
         usuario.rol = 1; break;
@@ -100,23 +108,21 @@ export class PanelAdministradorComponent implements OnInit {
       (data) => {
         this.code = '200';
         this.cargarUsuariosBBDD();
-        $('#createUser').modal('hide');
+        document.getElementById('btn-cerrar-create').click();
       },
       (error) => {
         console.error(error.status);
       }
     );
-    
+
   }
 
-
+  //Carga de usuarios de la BBDD
   public cargarUsuariosBBDD = () => {
     this.administrador.getUsers().subscribe(
       (data) => {
         this.usuarios = data['listaUsuarios'];
-        //console.log(this.usuarios);
         this.code = '200';
-        //console.log(this.code);
       },
       (error) => {
         console.error(error.status);
@@ -125,41 +131,70 @@ export class PanelAdministradorComponent implements OnInit {
   }
 
 
+  //Recogemos el usuario que queremos modificar de la tabla
   editUser = (i) => {
-    this.editId = this.usuarios[i].id;
-    this.editName = this.usuarios[i].name;
-    this.editSurname = this.usuarios[i].surname;
-    this.editEmail = this.usuarios[i].email;
-    this.editRol = this.usuarios[i].rol;
-    this.user =  new Array();
-    this.user["id"]=this.editId;
-    this.user["name"]=this.editName;
-    this.user["surname"]=this.editSurname;
-    this.user["rol"]=this.editRol;
-    console.log(this.user);
-    
+    this.indiceEditar = i;
+    this.user = new Array();
+    this.user["id"] = this.usuarios[i].id;
+    this.user["name"] = this.usuarios[i].name;
+    this.user["surname"] = this.usuarios[i].surname;
+    this.user["email"] = this.usuarios[i].email;
+    this.user["rol"] = this.usuarios[i].rol;
+    console.log(this.user["rol"]);
+
+    switch (this.user["rol"]) {
+      case 1:
+        document.getElementById('op_administrador').setAttribute("selected", "selected");
+        break;
+      case 2:
+        document.getElementById('op_usuario').setAttribute("selected", "selected");
+        break;
+    }
   }
 
   //Editar el usuario
-  editar(indice) {
+  editar() {
 
-    this.usuarios[indice].email = document.getElementById('input' + indice).nodeValue;
-  
+    //Recogemos los valores del formulario
+    let usuarioEditar = this.editForm.value;
+
+    usuarioEditar.idUsuario = this.user['id'];
+
+    //Comprobamos si ha habido cambios o no, Si no hay cambios, recogemos el nombre original
+    if (usuarioEditar.editName == "") {
+      usuarioEditar.editName = this.usuarios[this.indiceEditar].name;
+    }
+
+    if (usuarioEditar.editSurname == "") {
+      usuarioEditar.editSurname = this.usuarios[this.indiceEditar].surname;
+    }
+
+    if (usuarioEditar.editEmail == "") {
+      usuarioEditar.editEmail = this.usuarios[this.indiceEditar].email;
+    }
+
+    if (usuarioEditar.editPassword2 == "") {
+      usuarioEditar.editPassword2 = null;
+    }
+
     //Ponemos el rol correspondiente en el atributo del usuario
-    switch (this.usuarios[indice].rol) {
+    switch (usuarioEditar.editRol) {
       case 'Administrador':
-        this.usuarios[indice].rol = 1;
+        usuarioEditar.editRol = 1;
         break;
       case 'Usuario':
-        this.usuarios[indice].rol = 2;
+        usuarioEditar.editRol = 2;
         break;
     }
 
-    this.administrador.editUser(this.usuarios[indice]).subscribe(
+    console.log(usuarioEditar);
+    
+
+    this.administrador.editUser(usuarioEditar).subscribe(
       (data) => {
         this.code = '200';
         this.cargarUsuariosBBDD();
-        $('#editUser').modal('hide');
+        document.getElementById('btn-cerrar-edit').click();
       },
       (error) => {
         console.error(error.status);
@@ -167,9 +202,26 @@ export class PanelAdministradorComponent implements OnInit {
     )
   }
 
-  borrar(indice) {
-    console.log(this.usuarios[indice]);
 
+  //Recogemos el indice de la tabla que vamos a borrar
+  borrar(indice) {
+    this.indiceBorrar = indice;
+    this.user['name'] = this.usuarios[indice].name;
+    this.user['surname'] = this.usuarios[indice].surname;
+  }
+
+  //Recuperamos ese usuario y le decimos que lo borre de l BBDD
+  deleteUser = () => {
+    let usuarioAux = this.usuarios[this.indiceBorrar];
+    this.administrador.deleteUser(usuarioAux).subscribe(
+      (data) => {
+        this.code = '200';
+        this.cargarUsuariosBBDD();
+      },
+      (error) => {
+        console.error(error.status);
+      }
+    )
   }
 
 }
