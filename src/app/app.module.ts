@@ -20,6 +20,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EditarPerfilComponent } from './views/editar-perfil/editar-perfil.component';
 import { UsuarioPerfilComponent } from './components/usuario-perfil/usuario-perfil.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { VLoginComponent } from './views/v-login/v-login.component';
+import { VSignUpComponent } from './views/v-sign-up/v-sign-up.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     RecuperarComponent,
     PanelAdministradorComponent,
     EditarPerfilComponent,
-    UsuarioPerfilComponent
+    UsuarioPerfilComponent,
+    VLoginComponent,
+    VSignUpComponent
   ],
   imports: [
     BrowserModule,
