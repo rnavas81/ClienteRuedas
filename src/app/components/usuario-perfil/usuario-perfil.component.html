@@ -27,13 +27,21 @@
           />
         </div>
       </div>
-      <div class="row justify-content-center">
-        <button type="button" (click)="fileInput.click()">
-          <span>Upload</span>
-          <input #fileInput type="file" name="myFile"
+      <div class="row justify-content-center pl-4">
+        <div id="carta_nominador_div">
+          <div class="row justify-content-center">
+            <span id="fichero_seleccionado">Ninguna imagen seleccionada</span>
+          </div>
+          <div class="row justify-content-center">
+            <label for="carta_nominador" style="width: 142px; height: 52px;  border-radius: 100px;cursor: pointer;" >
+                 <span class="iborrainputfile btn btn-block btn-secondary" >Cambiar icono</span>
+            </label>
+          </div>
+          <input type="file"
+          name="myFile"
           (change)="fileEvent($event)"
-          accept="image/*" style="display:none;" />
-          </button>
+          accept="image/*" id="carta_nominador" class="inputfile inputfile-1">
+        </div>
       </div>
 
       <!-- <div class="row">

@@ -12,6 +12,7 @@ import {
 import { Router } from '@angular/router';
 import { NavVerticalComponent } from '../vistaRueda/nav-vertical/nav-vertical.component';
 import { UploadService } from 'src/app/services/upload.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-usuario-perfil',
@@ -55,7 +56,7 @@ export class UsuarioPerfilComponent implements OnInit {
   /* File onchange event */
   fileEvent(e) {
     this.filedata = e.target.files[0];
-  
+
   }
   /* Upload button functioanlity */
   onSubmitform(f: NgForm) {
@@ -77,52 +78,33 @@ export class UsuarioPerfilComponent implements OnInit {
     );
   }
 
-  onSelect(event) {
-    console.log(event);
-    this.files.push(...event.addedFiles);
-
-    const formData = new FormData();
-
-    // formData.append("file[]",this.files[0]);
-    for (var i = 0; i < this.files.length; i++) {
-      formData.append('file[]', this.files[i]);
-    }
-
-    this.http
-      .post('http://127.0.0.1:8000/api/upload', formData)
-      .subscribe((res) => {
-        console.log(res);
-        alert('Uploaded Successfully.');
-      });
-
-    console.log(formData);
-  }
-
-  onRemove(event) {
-    console.log(event);
-    this.files.splice(this.files.indexOf(event), 1);
-  }
-
   send() {
     let dat = this.edit.value;
-    const user = {
-      id: this.userService.id,
-      name: dat.name,
-      surname: dat.surname,
-      email: dat.email,
-      password: dat.password,
-      password2: dat.password2,
-    };
-    console.log(user);
-    this.userService.edit(user).subscribe(
+    var myFormData = new FormData();
+    myFormData.append('image', this.filedata);
+    myFormData.append('id', String(this.userService.id));
+    myFormData.append('name', String(dat.name));
+    myFormData.append('surname', String(dat.surname));
+    myFormData.append('email', String(dat.email));
+    myFormData.append('password', String(dat.password));
+    myFormData.append('password2', String(dat.password2));
+    console.log(myFormData);
+
+    this.userService.modify(myFormData).subscribe(
       (data) => {
         console.log(data);
         this.mensaje = data['status'];
         console.log(data['status']);
-        this.userService.email = user.email;
-        this.userService.name = user.name;
-        this.userService.surname = user.surname;
-        sessionStorage.setItem('user', JSON.stringify(user));
+        var user = JSON.parse(sessionStorage.getItem("user"));
+        user['email'] = dat.email;
+        user['name'] = dat.name;
+        user['surname'] = dat.surname;
+        user['avatar'] = data['url'];
+        this.userService.email = dat.email;
+        this.userService.name = dat.name;
+        this.userService.surname = dat.surname;
+        this.userService.avatar = data['url'];
+        sessionStorage.setItem('user',JSON.stringify(user));
       },
       (error) => {
         this.mensaje = error.status;
@@ -130,25 +112,10 @@ export class UsuarioPerfilComponent implements OnInit {
       }
     );
 
-
-    (function (document, window, index) {
-      var inputs = document.querySelectorAll('.inputfile');
-      Array.prototype.forEach.call(inputs, function (input) {
-        var label = input.nextElementSibling,
-          labelVal = label.innerHTML;
-
-        input.addEventListener('change', function (e) {
-          var fileName = '';
-          if (this.files && this.files.length > 1)
-            fileName = (
-              this.getAttribute('data-multiple-caption') || ''
-            ).replace('{count}', this.files.length);
-          else fileName = e.target.value.split('\\').pop();
-
-          if (fileName) label.querySelector('span').innerHTML = fileName;
-          else label.innerHTML = labelVal;
-        });
-      });
-    })(document, window, 0);
+    $("#carta_nominador").change(function(){
+      var fichero_seleccionado = $(this).val();
+      var nombre_fichero_seleccionado = fichero_seleccionado.replace(/.*[\/\\]/, ''); //Eliminamos el path hasta el fichero seleccionado
+      $("#fichero_seleccionado").text(nombre_fichero_seleccionado);
+    });
   }
 }

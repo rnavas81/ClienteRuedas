@@ -136,6 +136,15 @@ export class UsersService {
     return this.http.post(url, user, extra);
   };
 
+  modify(data:any){
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    const url = `${environment.url_api}usuario/modify`;
+
+    return this.http.post(url,data,{headers: headers});
+  }
+
   logout = () => {
     this.name = undefined;
     this.surname = undefined;
