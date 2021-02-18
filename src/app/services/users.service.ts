@@ -14,6 +14,7 @@ export class UsersService {
   name: string;
   surname: string;
   email: string;
+  avatar: string;
   access_token: string;
   error: string;
   msg: string;
@@ -21,10 +22,12 @@ export class UsersService {
   constructor(private http: HttpClient, private router: Router) {
     if(sessionStorage.getItem("user")){
       var data =JSON.parse(sessionStorage.getItem("user"));
+      console.log(data);
       this.id = data['id'];
       this.name = data['name'];
       this.surname = data['surname'];
       this.email = data['email'];
+      this.avatar = data['avatar']
     }
   }
 
@@ -40,6 +43,7 @@ export class UsersService {
           this.name = data['name'];
           this.surname = data['surname'];
           this.email = data['email'];
+          this.avatar = data['avatar'];
         }
         sessionStorage.setItem('access_token', data['access_token']);
         sessionStorage.setItem('user',JSON.stringify(data));
@@ -122,6 +126,24 @@ export class UsersService {
   /*logout = () => {
     return this.http.post(environment.url_api + 'logout');
   }*/
+
+  edit = (user) => {
+    const url = `${environment.url_api}usuario/edit`;
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    return this.http.post(url, user, extra);
+  };
+
+  modify(data:any){
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    const url = `${environment.url_api}usuario/modify`;
+
+    return this.http.post(url,data,{headers: headers});
+  }
 
   logout = () => {
     this.name = undefined;

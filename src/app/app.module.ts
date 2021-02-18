@@ -17,6 +17,9 @@ import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.co
 import { RecuperarComponent } from './components/recuperar/recuperar.component';
 import { PanelAdministradorComponent } from './views/panel-administrador/panel-administrador.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { EditarPerfilComponent } from './views/editar-perfil/editar-perfil.component';
+import { UsuarioPerfilComponent } from './components/usuario-perfil/usuario-perfil.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 
 @NgModule({
@@ -33,11 +36,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     RecuperarPassComponent,
     RecuperarComponent,
     PanelAdministradorComponent,
+    EditarPerfilComponent,
+    UsuarioPerfilComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    NgxDropzoneModule,
     ReactiveFormsModule,
     HttpClientModule,
     FontAwesomeModule,

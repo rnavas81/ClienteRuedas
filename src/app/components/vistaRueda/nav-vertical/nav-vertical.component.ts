@@ -13,7 +13,7 @@ export class NavVerticalComponent implements OnInit {
   nombreUsuario: string;
   apellidoUsuario: string;
 
-  constructor(public userService: UsersService, private router: Router) {    
+  constructor(public userService: UsersService, private router: Router) {
     this.nombreUsuario = userService.name;
     this.apellidoUsuario = userService.surname;
   }

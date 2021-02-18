@@ -6,6 +6,7 @@ import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.co
 import { PerfilUsuarioComponent } from './views/perfil-usuario/perfil-usuario.component';
 import { UnirseRuedaComponent } from './views/unirse-rueda/unirse-rueda.component';
 import { PanelAdministradorComponent } from './views/panel-administrador/panel-administrador.component';
+import { EditarPerfilComponent } from './views/editar-perfil/editar-perfil.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path:'recuperar', component: RecuperarPassComponent },
   { path:'main', component: PerfilUsuarioComponent },
   { path: 'administrador', component: PanelAdministradorComponent },
+  { path:'profile', component: EditarPerfilComponent },
 ];
 
 @NgModule({
