@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  url_api: 'http://carshare.server.local:81/api/',
+  url_api: 'http://carshare.server.local:81/public/api/',
   production: false,
 };
 

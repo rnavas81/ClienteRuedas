@@ -15,6 +15,7 @@ import { PerfilUsuarioComponent } from './views/perfil-usuario/perfil-usuario.co
 import { HttpClientModule } from '@angular/common/http';
 import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.component';
 import { RecuperarComponent } from './components/recuperar/recuperar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { RecuperarComponent } from './components/recuperar/recuperar.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

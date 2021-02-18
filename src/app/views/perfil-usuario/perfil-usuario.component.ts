@@ -33,13 +33,5 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.rueda.getRueda(1).subscribe(
-      response => {
-        this.rueda.setRueda(response);
-        this.horario.recargar();
-      }, error => {
-        console.error(error);
-      }
-    )
   }
 }

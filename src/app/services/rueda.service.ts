@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { RuedaHorarioComponent } from '../components/rueda-horario/rueda-horario.component';
 import { UsersService } from './users.service';
 
 @Injectable({
@@ -53,27 +52,27 @@ export class RuedaService {
    * @param id
    * @param callback función de vuelta con el valor true || false
    */
-  get = async (id = null, callback) => {
+  get = (id = null) => {
     const url = environment.url_api + "rueda" + (id != null ? `/${id}` : '');
     var data = {};
-    this.http.get(url, data).subscribe(
-      response => {
-        this.id = response["id"];
-        this.nombre = response["nombre"];
-        this.descripcion = response["descripcion"];
-        this.origen = response["origen"];
-        this.destino = response["destino"];
-        this.horario = response["viajes"];
+    return this.http.get(url, data);
 
-        if (typeof callback === 'function') callback(true);
+  }
+  // Función que consulta la rueda según la ID que le pasemos --> rueda/generada/1
+  getGenerada = (id=null) => {
+    const url = environment.url_api + 'rueda/generada' + (!!id?`/${id}`:'');
+    var data = {};
+    return this.http.get(url, data);
+  };
+  setData = data => {
+    this.id = data["id"];
+    this.nombre = data["nombre"];
+    this.descripcion = data["descripcion"];
+    this.origen = data["origen"];
+    this.destino = data["destino"];
+    if(typeof data["viajes"] !== 'undefined')this.horario = data["viajes"];
+    if(typeof data["generada"] !== 'undefined')this.horario = data["generada"];
 
-      },
-      error => {
-        console.log(error);
-        if (typeof callback === 'function') callback(false);
-
-      }
-    );
   }
   /**
    * Genera la tabla html en función del horario
@@ -119,13 +118,21 @@ export class RuedaService {
         }
         newElement.row.setAttribute('idRow', item.hora);
         let th = document.createElement('th');
-        th.textContent = item.hora;
         newElement.row.appendChild(th);
         idRow = tr_body.length;
         tr_body.push(newElement);
+        th.textContent=item.hora;
+
+        if(item.tipo==1){// Viajes de ida
+          th.style.color="red";
+
+        } else {// Viajes de vuelta
+          th.style.color="green";
+        }
 
       }
       let td = document.createElement('td');
+      td.classList.add("celda-horario");
       td.dataset.id = item.id;
       td.dataset.hora = item.hora;
       td.dataset.dia = item.dia;
@@ -179,16 +186,6 @@ export class RuedaService {
     return table;
   };
 
-  // Función que consulta la rueda según la ID que le pasemos --> rueda/generada/1
-  getRueda = (id=null) => {
-    const url = environment.url_api + 'rueda/generada' + (!!id?`/${id}`:'');
-    console.log(id,url);
-
-    var data = {};
-    return this.http.get(url, data);
-  };
-
-
   setRueda = (rueda) => {
     this.nombre = rueda.nombre;
     this.descripcion = rueda.descripcion;
@@ -196,50 +193,4 @@ export class RuedaService {
     this.destino = rueda.destino;
     this.horario = rueda.generada;
   }
-
-  // // Agrega los viajes, si es el primer dia crea la fila y agrega una columna con las horas
-  // generarCeldas = (item, primera, tr_body, type, user, i,mostrar=false,onclick=undefined) => {
-  //   for (const key in item[type]) {
-  //     const viaje = item[type][key];
-  //     if (primera) {
-  //       let tr = document.createElement('tr');
-  //       tr.setAttribute('idRow',key);
-  //       tr_body.push(tr);
-  //       let th = document.createElement('th');
-  //       th.textContent = key;
-  //       tr.appendChild(th);
-  //     }
-  //     let td = document.createElement('td');
-  //     td.dataset.hora = key;
-  //     td.dataset.dia = item.dia;
-  //     td.dataset.tipo = type;
-  //     if(typeof onclick === 'function'){
-  //       td.onclick = event => {
-  //         onclick(event,td);
-  //       }
-  //     }
-  //     viaje.forEach((coche) => {
-  //       var c = document.createElement('div');
-  //       if(mostrar){
-  //         var div = document.createElement('div');
-  //         div.classList.add('conductor');
-  //         div.textContent = coche.conductor;
-  //         c.appendChild(div);
-  //         div = document.createElement('div');
-  //         div.textContent = coche.pasajeros.join(', ');
-  //         c.appendChild(div);
-  //         if (coche.conductor == user || coche.pasajeros.find((e) => e == user)) {
-  //           c.classList.add('bg-light');
-  //         }
-  //       }
-  //       td.appendChild(c);
-  //     });
-  //     tr_body[i].appendChild(td);
-  //     i++;
-  //   }
-  //   return i;
-  // };
-
-
-
 }
