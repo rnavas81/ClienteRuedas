@@ -22,6 +22,7 @@ import { UsuarioPerfilComponent } from './components/usuario-perfil/usuario-perf
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { VLoginComponent } from './views/v-login/v-login.component';
 import { VSignUpComponent } from './views/v-sign-up/v-sign-up.component';
+import { HomeComponent } from './views/home/home.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { VSignUpComponent } from './views/v-sign-up/v-sign-up.component';
     EditarPerfilComponent,
     UsuarioPerfilComponent,
     VLoginComponent,
-    VSignUpComponent
+    VSignUpComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
