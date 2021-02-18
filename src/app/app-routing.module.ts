@@ -5,13 +5,13 @@ import { PerfilUsuarioComponent } from './views/perfil-usuario/perfil-usuario.co
 import { UnirseRuedaComponent } from './views/unirse-rueda/unirse-rueda.component';
 import { PanelAdministradorComponent } from './views/panel-administrador/panel-administrador.component';
 import { EditarPerfilComponent } from './views/editar-perfil/editar-perfil.component';
-import { VLoginComponent } from './views/v-login/v-login.component';
 import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.component';
 import { VSignUpComponent } from './views/v-sign-up/v-sign-up.component';
+import { HomeComponent } from './views/home/home.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent }, // ESTO DEBERIA SER EL HOME
-  { path: 'login', component: VLoginComponent },
+  { path: '', component: HomeComponent }, // ESTO DEBERIA SER EL HOME
+  { path: 'login', component: LoginComponent },
   { path: 'signup', component: VSignUpComponent },
   { path: 'unirse', component: UnirseRuedaComponent },
   { path:'recuperar', component: RecuperarPassComponent },

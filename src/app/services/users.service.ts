@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class UsersService {
   public static readonly SESSION_STORAGE_USER: string = 'CAR_SHARE_USER';
-  public static readonly SESSION_STORAGE_KEY: string = 'CAR_SHARE_KEY';
+  public static readonly SESSION_STORAGE_TOKEN: string = 'CAR_SHARE_KEY';
   id: number;
 
   name: string;
@@ -20,8 +20,8 @@ export class UsersService {
   msg: string;
 
   constructor(private http: HttpClient, private router: Router) {
-    if(sessionStorage.getItem("user")){
-      var data =JSON.parse(sessionStorage.getItem("user"));
+    if(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER)){
+      var data =JSON.parse(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER));
       console.log(data);
       this.id = data['id'];
       this.name = data['name'];
@@ -29,6 +29,9 @@ export class UsersService {
       this.email = data['email'];
       this.avatar = data['avatar']
     }
+  }
+  isLogged = () => {
+    return !!sessionStorage.getItem(UsersService.SESSION_STORAGE_USER) && !!sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN);
   }
 
   login(user: any) {
@@ -45,8 +48,8 @@ export class UsersService {
           this.email = data['email'];
           this.avatar = data['avatar'];
         }
-        sessionStorage.setItem('access_token', data['access_token']);
-        sessionStorage.setItem('user',JSON.stringify(data));
+        sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data['access_token']);
+        sessionStorage.setItem(UsersService.SESSION_STORAGE_USER,JSON.stringify(data));
         this.error = null;
         if (typeof callback === 'function') callback(true);
       },
@@ -70,7 +73,7 @@ export class UsersService {
     this.register(user).subscribe(
       (data) => {
         this.error = '500';
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       },
       (error) => {
         console.error(error.status);
@@ -155,8 +158,8 @@ export class UsersService {
     this.surname = undefined;
     this.email = undefined;
     this.access_token = undefined;
-    sessionStorage.removeItem('access_token');
-    sessionStorage.removeItem('user');
+    sessionStorage.removeItem(UsersService.SESSION_STORAGE_TOKEN);
+    sessionStorage.removeItem(UsersService.SESSION_STORAGE_USER);
     this.router.navigate(["/"]);
   }
 

@@ -1,0 +1,12 @@
+div.imagen {
+  img {
+    // border-radius: 40%;
+  }
+}
+@media  (max-width: 450px){
+  main {
+    .image-col {
+      height: fit-content imp !important;
+    }
+  }
+}
