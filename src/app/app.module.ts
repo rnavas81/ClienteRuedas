@@ -17,6 +17,7 @@ import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.co
 import { RecuperarComponent } from './components/recuperar/recuperar.component';
 import { PanelAdministradorComponent } from './views/panel-administrador/panel-administrador.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SeleccionarRolComponent } from './views/seleccionar-rol/seleccionar-rol.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     RecuperarPassComponent,
     RecuperarComponent,
     PanelAdministradorComponent,
+    SeleccionarRolComponent,
   ],
   imports: [
     BrowserModule,

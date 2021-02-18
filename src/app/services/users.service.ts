@@ -17,6 +17,7 @@ export class UsersService {
   access_token: string;
   error: string;
   msg: string;
+  rol: number;
 
   constructor(private http: HttpClient, private router: Router) {
     if(sessionStorage.getItem("user")){
@@ -25,6 +26,7 @@ export class UsersService {
       this.name = data['name'];
       this.surname = data['surname'];
       this.email = data['email'];
+      this.rol = data['rol'];
     }
   }
 
@@ -32,19 +34,26 @@ export class UsersService {
     return this.http.post(environment.url_api + 'login', user);
   }
 
+  set = data => {
+    
+    this.id = data['id'];
+    this.name = data['name'];
+    this.surname = data['surname'];
+    this.email = data['email'];
+    this.rol = parseInt(data['rol']);
+
+    sessionStorage.setItem('access_token', data['access_token']);
+    sessionStorage.setItem('user',JSON.stringify(data));
+  }
+
   loginSubscribe = (user, callback) => {
     this.login(user).subscribe(
       (data) => {
+        console.log(data);
         if (data instanceof Object) {
-          this.id = data['id'];
-          this.name = data['name'];
-          this.surname = data['surname'];
-          this.email = data['email'];
         }
-        sessionStorage.setItem('access_token', data['access_token']);
-        sessionStorage.setItem('user',JSON.stringify(data));
         this.error = null;
-        if (typeof callback === 'function') callback(true);
+        if (typeof callback === 'function') callback(data);
       },
       (error) => {
         this.error = error.status.toString();
