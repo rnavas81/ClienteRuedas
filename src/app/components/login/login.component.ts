@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.mensaje = this.userService.msg;
     this.userService.msg = null;
+    document.getElementById('op_usuario').setAttribute("selected","selected");
   }
 
   login() {
