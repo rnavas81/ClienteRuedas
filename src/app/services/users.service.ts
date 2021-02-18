@@ -51,7 +51,12 @@ export class UsersService {
         if (typeof callback === 'function') callback(true);
       },
       (error) => {
-        this.error = error.status.toString();
+        console.log(error.error.message);
+        if (error.error.message == null) {
+          this.error = "500";
+        }else{
+          this.error = error.error.message;
+        }
         if (typeof callback === 'function') callback(false);
       }
     );
