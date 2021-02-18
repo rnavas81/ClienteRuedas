@@ -20,11 +20,13 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
+    if(userService.isLogged()){
+      this.avanzar();
+    }
   }
 
   ngOnInit(): void {
     this.mensaje = this.userService.msg;
-    console.log(this.mensaje);
     this.userService.msg = null;
   }
 
@@ -46,25 +48,27 @@ export class LoginComponent implements OnInit {
      */
     this.userService.loginSubscribe(user,(response) => {
       if (response) {
-        this.userService.isNew().subscribe(
-          (data) => {
-            console.log(data);
-            if(data["registered"] === true){
-              this.router.navigate(['/main']);
-            } else {
-              this.router.navigate(['/unirse']);
-            }
-            return true;
-          },
-          (error) => {
-            return false;
-          }
-        );
+        this.avanzar();
       }else{
         console.log(this.userService.error);
-
         this.mensaje = this.userService.error;
       }
     });
+  }
+  avanzar = () => {
+    this.userService.isNew().subscribe(
+      (data) => {
+        console.log(data);
+        if(data["registered"] === true){
+          this.router.navigate(['/main']);
+        } else {
+          this.router.navigate(['/unirse']);
+        }
+        return true;
+      },
+      (error) => {
+        return false;
+      }
+    );
   }
 }
