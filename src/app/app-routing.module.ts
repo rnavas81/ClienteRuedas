@@ -10,7 +10,7 @@ import { EditarPerfilComponent } from './views/editar-perfil/editar-perfil.compo
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'home', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'signup', component: RegistroComponent },
   { path: 'unirse', component: UnirseRuedaComponent },
   { path:'recuperar', component: RecuperarPassComponent },

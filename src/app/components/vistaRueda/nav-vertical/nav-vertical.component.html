@@ -2,7 +2,21 @@
     <ul class="nav flex-column text-center">
         <li class="nav-item">
             <div class="userProfile text-center m-3">
-                <img src="../../../../assets/vistaRueda/navVertical/perfil.png" alt="Imagen de perfil" class="rounded-circle img-fluid bg-white">
+                <!-- <img [src]="'assets/perfil.png'" alt="Imagen de perfil" class="rounded-circle img-fluid bg-white"> -->
+
+                <img
+                  *ngIf="avatar !== null"
+                  src="{{ avatar }}"
+                  alt="Imagen de {{ name }}"
+                  class="rounded-circle img-fluid bg-white border mb-4 mt-4"
+                  style="margin: auto;"
+                />
+                <img
+                  *ngIf="avatar == null"
+                  [src]="'assets/perfil.png'"
+                  alt="Imagen por defecto"
+                  class="rounded-circle img-fluid bg-white border mb-4 mt-4"
+                />
                 <p class="h3 text-white pt-2">{{nombreUsuario + " " + apellidoUsuario}}</p>
             </div>
         </li>
