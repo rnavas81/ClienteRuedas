@@ -12,10 +12,12 @@ export class NavVerticalComponent implements OnInit {
   //Atributos del usuario
   nombreUsuario: string;
   apellidoUsuario: string;
+  avatar: string;
 
-  constructor(public userService: UsersService, private router: Router) {    
+  constructor(public userService: UsersService, private router: Router) {
     this.nombreUsuario = userService.name;
     this.apellidoUsuario = userService.surname;
+    this.avatar = userService.avatar;
   }
 
   ngOnInit(): void {
