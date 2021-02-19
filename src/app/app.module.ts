@@ -17,6 +17,7 @@ import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.co
 import { RecuperarComponent } from './components/recuperar/recuperar.component';
 import { PanelAdministradorComponent } from './views/panel-administrador/panel-administrador.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SeleccionarRolComponent } from './views/seleccionar-rol/seleccionar-rol.component';
 import { EditarPerfilComponent } from './views/editar-perfil/editar-perfil.component';
 import { UsuarioPerfilComponent } from './components/usuario-perfil/usuario-perfil.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
@@ -39,6 +40,7 @@ import { HomeComponent } from './views/home/home.component';
     RecuperarPassComponent,
     RecuperarComponent,
     PanelAdministradorComponent,
+    SeleccionarRolComponent,
     EditarPerfilComponent,
     UsuarioPerfilComponent,
     VLoginComponent,

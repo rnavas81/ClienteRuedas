@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,12 +15,12 @@ export class LoginComponent implements OnInit {
 
   loginF: FormGroup;
 
-  constructor(public userService: UsersService, private formBuilder: FormBuilder,private router: Router) {
+  constructor(public userService: UsersService, private formBuilder: FormBuilder, private router: Router) {
     this.loginF = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
-    if(userService.isLogged()){
+    if (userService.isLogged()) {
       this.avanzar();
     }
   }
@@ -28,9 +28,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.mensaje = this.userService.msg;
     this.userService.msg = null;
+    // document.getElementById('op_usuario').setAttribute("selected", "selected");
   }
 
-  login(){
+  login() {
     this.mensaje = "";
     if (this.loginF.invalid) {
       return;
@@ -46,21 +47,29 @@ export class LoginComponent implements OnInit {
      * Si está en la rueda accede a la página principal
      * Si no, accede al formulario para seleccionar su horario
      */
-    this.userService.loginSubscribe(user,(response) => {
+    this.userService.loginSubscribe(user, (response) => {
       if (response) {
         this.avanzar();
-      }else{
+      } else {
         console.log(this.userService.error);
         this.mensaje = this.userService.error;
       }
     });
   }
+
   avanzar = () => {
     this.userService.isNew().subscribe(
       (data) => {
-        console.log(data);
-        if(data["registered"] === true){
-          this.router.navigate(['/main']);
+        console.log(data,this.userService);
+        if (data["registered"] === true) {
+          switch (this.userService.rol) {
+            case 1:
+              this.router.navigate(['/main']);
+              break;
+            case 2:
+              this.router.navigate(['/seleccionarRol']);
+              break;
+          }
         } else {
           this.router.navigate(['/unirse']);
         }
