@@ -1,0 +1,207 @@
+<app-cabecera></app-cabecera>
+<main class="container-fluid m-0 principal">
+    <div class="row">
+        <app-nav-vertical class="col-md-3 col-sm-3"></app-nav-vertical>
+        <section class="col-md-9 col-sm-9 bg-white p-0">
+            <div class="row d-flex justify-content-center m-0 table">
+
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- Modal Crear usuario -->
+                <!-- ------------------------------------------------------------------------------------ -->
+                <div class="modal fade" id="createUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-head text-center mt-1">
+                                <h2>Crear nuevo usuario</h2>
+                            </div>
+                            <form id="formRegistro" (ngSubmit)="onSubmit()" [formGroup]="registroForm">
+                                <div class="modal-body">
+
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label for="name">Nombre *</label>
+                                            <input id="name" type="text" name="newName" class="w-100"
+                                                placeholder="Introduce el nombre" formControlName="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="surname">Apellidos *</label>
+                                            <input id="surname" type="text" name="newApellido" class="w-100"
+                                                placeholder="Introduce los apellidos" formControlName="surname">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email *</label>
+                                            <input id="email" type="email" name="newEmail" class="w-100"
+                                                placeholder="Introduce el email" formControlName="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Contraseña *</label>
+                                            <input id="password" type="password" name="newPassword" class="w-100"
+                                                placeholder="Introduce la contraseña" formControlName="password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="rol">Rol *</label>
+                                            <select id="rol" class="w-100 form-control" name="newRol"
+                                                formControlName="rol">
+                                                <option name="Usuario">Usuario</option>
+                                                <option name="Administrador">Administrador</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="btn-cerrar-create" type="button" class="btn btn-danger"
+                                        data-dismiss="modal" title="Cerrar">Cerrar</button>
+                                    <button type="submit" class="btn btn-success" name="crearUsuario"
+                                        title="Crear usuario">Crear
+                                        usuario</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------ -->
+
+
+
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- Modal editar usuario -->
+                <!-- ------------------------------------------------------------------------------------ -->
+                <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-head text-center mt-1">
+                                <h2>Editar Usuario</h2>
+                            </div>
+                            <form id="formEditar" (ngSubmit)="editar()" [formGroup]="editForm">
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <div class="form-group">
+                                            <label for="name">Nombre *</label>
+                                            <input id="editName" type="text" name="newName" class="w-100"
+                                                placeholder="Introduce el nombre" formControlName="editName"
+                                                value="{{user['name']}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="surname">Apellidos *</label>
+                                            <input id="editSurname" type="text" name="newApellido" class="w-100"
+                                                placeholder="Introduce los apellidos" formControlName="editSurname"
+                                                value="{{user['surname']}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email *</label>
+                                            <input id="editEmail" type="email" name="newEmail" class="w-100"
+                                                placeholder="Introduce el email" formControlName="editEmail"
+                                                value="{{user['email']}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password1">Contraseña *</label>
+                                            <input id="password1" type="password" name="editPassword1" class="w-100"
+                                                placeholder="Introduce la contraseña" formControlName="editPassword1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password2">Repita la contraseña *</label>
+                                            <input id="password2" type="password" name="editPassword2" class="w-100"
+                                                placeholder="Vuelva a introducir la contraseña"
+                                                formControlName="editPassword2">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="rol">Rol *</label>
+                                            <select id="editRol" class="w-100 form-control" name="editRol"
+                                                formControlName="editRol">
+                                                <option id="op_usuario" name="Usuario">Usuario</option>
+                                                <option id="op_administrador" name="Administrador">
+                                                    Administrador</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="btn-cerrar-edit" type="button" class="btn btn-danger"
+                                        data-dismiss="modal" title="Cerrar">Cerrar</button>
+                                    <button type="submit" class="btn btn-success close-modal" name="crearUsuario"
+                                        title="Guardar cambios">Guardar cambios</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------ -->
+
+
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- Modal Borrar usuario -->
+                <!-- ------------------------------------------------------------------------------------ -->
+                <div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Eliminar usuario</h5>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿Estas seguro de querer borrar el usuario <b>{{user['name'] + ' ' + user['surname']}}</b>?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-danger" (click)="deleteUser()"
+                                    data-dismiss="modal">Borrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------ -->
+                <!-- ------------------------------------------------------------------------------------ -->
+
+                <table class="sticky-top table-responsive d-flex justify-content-center mx-2">
+                    <thead class="w-auto text-center">
+                        <tr class="bg-white">
+                            <td colspan="2">
+                                <h1 class="m-0 p-0">Administración de usuarios</h1>
+                            </td>
+                            <td class="text-right">
+                                <button class="btn btn-success" name="addUser" title="Agregar usuario"
+                                    data-toggle="modal" data-target="#createUser">
+                                    <fa-icon [icon]="faAddSquare"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="bg-primary text-white">
+                            <th class="h5 px-1">Nombre</th>
+                            <th class="h5 px-1">Apellidos</th>
+                            <th class="h5 px-1"></th>
+                        </tr>
+                    </thead>
+                </table>
+
+                <table class="table-responsive d-flex justify-content-center mx-2">
+                    <tbody class="w-100">
+                        <tr *ngFor="let usuario of usuarios; index as i;" class="d-flex justify-content-center">
+                            <td class="w-25 text-center">{{usuario.name}}</td>
+                            <td class="w-25 text-center">{{usuario.surname}}</td>
+                            <td class="text-right">
+                                <button class="btn btn-warning" name="editUser" title="Editar usuario"
+                                    data-toggle="modal" data-target="#editUser" (click)="editUser(i)">
+                                    <fa-icon [icon]="faPencil" class="text-white"></fa-icon>
+                                </button>
+                                <button class="btn btn-danger" type="submit" name="borrarUsuario" title="Borrar usuario"
+                                    data-toggle="modal" data-target="#deleteUser" (click)="borrar(i)">
+                                    <fa-icon [icon]="faTrash"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </div>
+</main>

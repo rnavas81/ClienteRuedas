@@ -15,6 +15,16 @@ import { PerfilUsuarioComponent } from './views/perfil-usuario/perfil-usuario.co
 import { HttpClientModule } from '@angular/common/http';
 import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.component';
 import { RecuperarComponent } from './components/recuperar/recuperar.component';
+import { PanelAdministradorComponent } from './views/panel-administrador/panel-administrador.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SeleccionarRolComponent } from './views/seleccionar-rol/seleccionar-rol.component';
+import { EditarPerfilComponent } from './views/editar-perfil/editar-perfil.component';
+import { UsuarioPerfilComponent } from './components/usuario-perfil/usuario-perfil.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { VLoginComponent } from './views/v-login/v-login.component';
+import { VSignUpComponent } from './views/v-sign-up/v-sign-up.component';
+import { HomeComponent } from './views/home/home.component';
+
 
 @NgModule({
   declarations: [
@@ -28,14 +38,23 @@ import { RecuperarComponent } from './components/recuperar/recuperar.component';
     RegistroComponent,
     MainComponent,
     RecuperarPassComponent,
-    RecuperarComponent
+    RecuperarComponent,
+    PanelAdministradorComponent,
+    SeleccionarRolComponent,
+    EditarPerfilComponent,
+    UsuarioPerfilComponent,
+    VLoginComponent,
+    VSignUpComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    NgxDropzoneModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

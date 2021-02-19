@@ -1,0 +1,5 @@
+.iborrainputfile { font-size: 14px; font-weight: normal;}
+
+.inputfile { width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; z-index: -1; }
+.inputfile-1 + label { color: black; background-color: #000; }
+.inputfile + label { max-width: 80%; cursor: pointer; width: 142px;  border-radius: 25px; height: 52px; }
