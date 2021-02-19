@@ -60,14 +60,13 @@ export class LoginComponent implements OnInit {
   avanzar = () => {
     this.userService.isNew().subscribe(
       (data) => {
-        console.log(data,this.userService);
         if (data["registered"] === true) {
           switch (this.userService.rol) {
             case 1:
-              this.router.navigate(['/main']);
-              break;
-            case 2:
               this.router.navigate(['/seleccionarRol']);
+              break;
+              case 2:
+              this.router.navigate(['/main']);
               break;
           }
         } else {
