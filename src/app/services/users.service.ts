@@ -23,7 +23,6 @@ export class UsersService {
   constructor(private http: HttpClient, private router: Router) {
     if(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER)){
       var data =JSON.parse(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER));
-      console.log(data);
       this.id = data['id'];
       this.name = data['name'];
       this.surname = data['surname'];
@@ -40,31 +39,22 @@ export class UsersService {
     return this.http.post(environment.url_api + 'login', user);
   }
 
-  set = data => {
-    
-    this.id = data['id'];
-    this.name = data['name'];
-    this.surname = data['surname'];
-    this.email = data['email'];
-    this.rol = parseInt(data['rol']);
-
-    sessionStorage.setItem('access_token', data['access_token']);
-    sessionStorage.setItem('user',JSON.stringify(data));
+  set = (data:any) => {
+    const user = {
+      id : data.id,
+      name : data.name,
+      surname : data.surname,
+      email : data.email,
+      rol : parseInt(data.rol),
+    }
+    sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data.access_token);
+    sessionStorage.setItem(UsersService.SESSION_STORAGE_USER,JSON.stringify(data));
   }
 
   loginSubscribe = (user, callback) => {
     this.login(user).subscribe(
       (data) => {
-        console.log(data);
-        if (data instanceof Object) {
-          this.id = data['id'];
-          this.name = data['name'];
-          this.surname = data['surname'];
-          this.email = data['email'];
-          this.avatar = data['avatar'];
-        }
-        sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data['access_token']);
-        sessionStorage.setItem(UsersService.SESSION_STORAGE_USER,JSON.stringify(data));
+        this.set(data);
         this.error = null;
         if (typeof callback === 'function') callback(data);
       },
@@ -123,8 +113,6 @@ export class UsersService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
     data.idUser = this.id;
-    console.log(data);
-
     return this.http.post(url, data, extra);
   };
   unirseRuedaSubscribe = (data) => {
