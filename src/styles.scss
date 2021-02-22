@@ -30,3 +30,9 @@ body {
     font-size: 0.8em;
   }
 }
+
+// Tema de Rodrigo
+body.dark-theme {
+  background-color: black;
+  color: $primary;
+}

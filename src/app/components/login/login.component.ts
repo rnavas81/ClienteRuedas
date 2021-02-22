@@ -49,9 +49,10 @@ export class LoginComponent implements OnInit {
      */
     this.userService.loginSubscribe(user, (response) => {
       if (response) {
+        this.userService.set(response);
         this.avanzar();
       } else {
-        console.log(this.userService.error);
+        // console.log(this.userService.error);
         this.mensaje = this.userService.error;
       }
     });
@@ -60,7 +61,9 @@ export class LoginComponent implements OnInit {
   avanzar = () => {
     this.userService.isNew().subscribe(
       (data) => {
+
         if (data["registered"] === true) {
+          console.log(this.userService.rol);
           switch (this.userService.rol) {
             case 1:
               this.router.navigate(['/seleccionarRol']);
