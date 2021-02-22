@@ -5,7 +5,7 @@
 export const environment = {
   url_api: 'http://carshare.server.local:81/api/',
   production: false,
-  LOCALSTORAGE_THEME:'643398d765d47721e56a0fce931e7c2c021163dc26a6472cc86f73a06344f1e6'
+  LOCALSTORAGE_THEME:'5019520ddc9999c3de04259d855b9e008e0fc1329cde42ae0795a1170ce3a041'
 };
 
 /*
