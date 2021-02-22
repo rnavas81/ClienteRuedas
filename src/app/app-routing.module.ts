@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { PerfilUsuarioComponent } from './views/perfil-usuario/perfil-usuario.component';
 import { UnirseRuedaComponent } from './views/unirse-rueda/unirse-rueda.component';
 import { PanelAdministradorComponent } from './views/panel-administrador/panel-administrador.component';
+import { SeleccionarRolComponent } from './views/seleccionar-rol/seleccionar-rol.component';
 import { EditarPerfilComponent } from './views/editar-perfil/editar-perfil.component';
 import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.component';
 import { VSignUpComponent } from './views/v-sign-up/v-sign-up.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path:'recuperar', component: RecuperarPassComponent },
   { path:'main', component: PerfilUsuarioComponent },
   { path: 'administrador', component: PanelAdministradorComponent },
+  { path: 'seleccionarRol', component: SeleccionarRolComponent },
   { path:'profile', component: EditarPerfilComponent },
 ];
 

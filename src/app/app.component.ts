@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule }  from '@angular/forms';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-root',
@@ -7,5 +9,17 @@ import { FormsModule }  from '@angular/forms';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'html';
+  title = 'Carshare';
+
+  constructor(){
+    this.cargarTema()
+  }
+
+  cargarTema = () => {
+    const tema = localStorage.getItem(environment.LOCALSTORAGE_THEME);
+    if(!!tema){
+      document.getElementsByTagName('body')[0].classList.add(tema);
+
+    }
+  }
 }

@@ -5,14 +5,14 @@
                 <!-- <img [src]="'assets/perfil.png'" alt="Imagen de perfil" class="rounded-circle img-fluid bg-white"> -->
 
                 <img
-                  *ngIf="avatar !== null"
+                  *ngIf="!!avatar && avatar.trim().length>0"
                   src="{{ avatar }}"
-                  alt="Imagen de {{ name }}"
+                  alt="Imagen de {{ nombreUsuario }}"
                   class="rounded-circle img-fluid bg-white border mb-4 mt-4"
                   style="margin: auto;"
                 />
                 <img
-                  *ngIf="avatar == null"
+                  *ngIf="!avatar || avatar.trim().length==0"
                   [src]="'assets/perfil.png'"
                   alt="Imagen por defecto"
                   class="rounded-circle img-fluid bg-white border mb-4 mt-4"

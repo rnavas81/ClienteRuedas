@@ -1,0 +1,27 @@
+<div class="container-fluid bg-theme-darker">
+    <div class="abs-center">
+        <fieldset class="bg-white p-5 rounded d-flex align-item-center">
+            <div class="row">
+                <div class="col-12">
+                    <form [formGroup]="seleccionRol" (ngSubmit)="entrar()">
+                        <div class="input-group mb-3">
+                            <label>Entrar como:&nbsp;</label>
+                            <select class="form-control" name="entrarComo" formControlName="entrarComo">
+                                <option id="#op_usuario" name="Usuario">Usuario</option>
+                                <option id="#op_administrador" name="Administrador">Administrador</option>
+                            </select>
+                        </div>
+                        <div class="input-group mb-3">
+                            <button class="btn btn-outline-success w-100" type="submit" name="entrar">Continuar</button>
+                        </div>
+                        <div class="input-group mb-3">
+                            <button class="btn btn-outline-danger w-100" type="button" name="logout"
+                                (click)="logout()">Cerrar
+                                sesion</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

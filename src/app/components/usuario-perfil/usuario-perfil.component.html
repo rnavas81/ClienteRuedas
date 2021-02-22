@@ -13,18 +13,18 @@
       <div class="row justify-content-center">
         <div class="col-4 col-sm-12 col-md-12 col-lg-12">
           <img
-          *ngIf="avatar !== null"
+          *ngIf="!!avatar && avatar.trim().length>0"
           src="{{ avatar }}"
-          alt="Imagen de {{ name }}"
+          alt="Imagen de {{ userService.name }}"
           class="rounded-circle img-fluid bg-white border mb-4 mt-4"
           style="margin: auto;"
-          />
-          <img
-            *ngIf="avatar == null"
-            [src]="'assets/perfil.png'"
-            alt="Imagen por defecto"
-            class="rounded-circle img-fluid bg-white border mb-4 mt-4"
-          />
+        />
+        <img
+          *ngIf="!avatar || avatar.trim().length==0"
+          [src]="'assets/perfil.png'"
+          alt="Imagen por defecto"
+          class="rounded-circle img-fluid bg-white border mb-4 mt-4"
+        />
         </div>
       </div>
       <div class="row justify-content-center pl-4">
@@ -34,13 +34,13 @@
           </div>
           <div class="row justify-content-center">
             <label for="carta_nominador" style="width: 142px; height: 52px;  border-radius: 100px;cursor: pointer;" >
-                 <span class="iborrainputfile btn btn-block btn-secondary" >Cambiar icono</span>
+                 <span class="iborrainputfile btn btn-block btn-secondary disabled">Cambiar icono</span>
             </label>
           </div>
           <input type="file"
           name="myFile"
           (change)="fileEvent($event)"
-          accept="image/*" id="carta_nominador" class="inputfile inputfile-1">
+          accept="image/*" id="carta_nominador" class="inputfile inputfile-1" disabled>
         </div>
       </div>
 
