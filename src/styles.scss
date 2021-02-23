@@ -6,6 +6,13 @@ body {
   min-height: 100vh;
 }
 
+.cursor-default {
+  cursor: default;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .abs-center {
   display: flex;
   align-items: center;

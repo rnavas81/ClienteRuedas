@@ -24,6 +24,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { VLoginComponent } from './views/v-login/v-login.component';
 import { VSignUpComponent } from './views/v-sign-up/v-sign-up.component';
 import { HomeComponent } from './views/home/home.component';
+import { AcercadeComponent } from './views/acercade/acercade.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { HomeComponent } from './views/home/home.component';
     UsuarioPerfilComponent,
     VLoginComponent,
     VSignUpComponent,
-    HomeComponent
+    HomeComponent,
+    AcercadeComponent
   ],
   imports: [
     BrowserModule,
