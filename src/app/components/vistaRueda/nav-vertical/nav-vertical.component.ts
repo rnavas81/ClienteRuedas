@@ -13,11 +13,13 @@ export class NavVerticalComponent implements OnInit {
   nombreUsuario: string;
   apellidoUsuario: string;
   avatar: string;
+  esAdmin: number;
 
   constructor(public userService: UsersService, private router: Router) {
     this.nombreUsuario = userService.name;
     this.apellidoUsuario = userService.surname;
     this.avatar = userService.avatar;
+    this.esAdmin = userService.rol;
   }
 
   ngOnInit(): void {

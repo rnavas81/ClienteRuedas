@@ -1,47 +1,57 @@
 <nav class="p-0 vertical sticky-top" aria-label="menu vertical">
     <ul class="nav flex-column text-center">
         <li class="nav-item">
-            <div class="userProfile text-center m-3">
+            <div class="userProfile text-center">
                 <!-- <img [src]="'assets/perfil.png'" alt="Imagen de perfil" class="rounded-circle img-fluid bg-white"> -->
 
-                <img
-                  *ngIf="!!avatar && avatar.trim().length>0"
-                  src="{{ avatar }}"
-                  alt="Imagen de {{ nombreUsuario }}"
-                  class="rounded-circle img-fluid bg-white border mb-4 mt-4"
-                  style="margin: auto;"
-                />
-                <img
-                  *ngIf="!avatar || avatar.trim().length==0"
-                  [src]="'assets/perfil.png'"
-                  alt="Imagen por defecto"
-                  class="rounded-circle img-fluid bg-white border mb-4 mt-4"
-                />
+                <img *ngIf="!!avatar && avatar.trim().length>0" src="{{ avatar }}" alt="Imagen de {{ nombreUsuario }}"
+                    class="rounded-circle img-fluid bg-white border mt-2" style="margin: auto;" />
+                <img *ngIf="!avatar || avatar.trim().length==0" [src]="'assets/perfil.png'" alt="Imagen por defecto"
+                    class="rounded-circle img-fluid bg-white border mt-2" />
                 <p class="h3 text-white pt-2">{{nombreUsuario + " " + apellidoUsuario}}</p>
             </div>
         </li>
 
-        <div class="btnNavegacion px-3 pt-4">
+        <hr class="w-100 bg-white my-0">
+
+        <div class="btnNavegacion px-3">
             <li class="nav-item w-100">
-                <a class="btn btn-secondary w-100" routerLink="/profile">Editar perfil</a>
+                <a class="btn btn-secondary w-100 p-0" routerLink="/profile">Editar perfil</a>
             </li>
 
             <li class="nav-item w-100">
-                <button class="btn btn-outline-secondary active w-100 font-weight-bold" (click)="misRuedas()" name="misRuedas">
+                <button class="btn btn-secondary w-100 p-0" (click)="misRuedas()" name="misRuedas">
                     Mis ruedas</button>
             </li>
 
             <li class="nav-item w-100">
-                <a class="btn btn-secondary w-100" href="#">Ruedas suscritas</a>
+                <a class="btn btn-secondary w-100 p-0" href="#">Ruedas suscritas</a>
             </li>
 
-            <li class="nav-item w-100">
-                <a class="btn btn-secondary w-100" href="/acercade">Acerca de</a>
+            <li class="nav-item w-100 mb-3">
+                <a class="btn btn-secondary w-100 p-0" href="/acercade">Acerca de</a>
             </li>
         </div>
 
-        <li class="nav-item text-center mt-5 mb-3">
-            <button class="btn btn-danger" (click)="cerrarSesion()" name="cerrarSesion">Cerrar sesion</button>
+        <hr class="w-100 bg-white my-0">
+
+        <div *ngIf="esAdmin == 1">
+            <div class="btnNavegacion px-3">
+                <li class="nav-item w-100">
+                    <button class="btn btn-secondary  w-100 p-0" name="adminRuedas">
+                        Admin. Ruedas</button>
+                </li>
+
+                <li class="nav-item w-100 mb-3">
+                    <button class="btn btn-outline-secondary active font-weight-bold w-100 p-0" name="adminUsuarios">
+                        Admin. Usuarios</button>
+                </li>
+            </div>
+
+            <hr class="w-100 bg-white my-0">
+        </div>
+        <li class="nav-item text-center my-3">
+            <button class="btn bg-light text-white" (click)="cerrarSesion()" name="cerrarSesion">Cerrar sesion</button>
         </li>
 
     </ul>
