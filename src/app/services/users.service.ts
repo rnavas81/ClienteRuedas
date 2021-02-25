@@ -40,13 +40,13 @@ export class UsersService {
   }
 
   set = (data:any) => {
-    const user = {
-      id : data.id,
-      name : data.name,
-      surname : data.surname,
-      email : data.email,
-      rol : parseInt(data.rol),
-    }
+    
+      this.id=data.id;
+      this.name=data.name;
+      this.surname=data.surname;
+      this.email=data.email;
+      this.rol=parseInt(data.rol);
+    
     sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data.access_token);
     sessionStorage.setItem(UsersService.SESSION_STORAGE_USER,JSON.stringify(data));
   }

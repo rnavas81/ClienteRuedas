@@ -25,13 +25,65 @@ export class NavVerticalComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit(): void {
+    this.seleccionarRuta();
+  }
+
   cerrarSesion = () => {
     console.log("Cerrar sesion");
     this.userService.logout();
   };
 
-  misRuedas = () =>{
-    this.router.navigate(["/main"]);
+  seleccionarRuta = () => {
+
+    let item;
+
+    switch (this.router.url) {
+      case "/editProfile":
+        item = document.getElementsByName('editProfile')[0];
+        break;
+
+      case "/main":
+        item = document.getElementsByName('main')[0];
+        break;
+
+      case "/acercaDe":
+        item = document.getElementsByName('acercaDe')[0];
+        break;
+
+      case "/adminRuedas":
+        item = document.getElementsByName('adminRuedas')[0];
+        break;
+
+      case "/adminUsuarios":
+        item = document.getElementsByName('adminUsuarios')[0];
+        break;
+    }
+
+    this.limpiarClases();
+    item.classList.remove("btn-secondary");
+    item.classList.add("active", "font-weight-bold", "btn-outline-secondary", "py-2");
+
   }
 
+  limpiarClases = () => {
+    console.log("Limpiando clases");
+
+    document.getElementsByName('editProfile')[0].classList.remove("active", "font-weight-bold", "btn-outline-secondary");
+    document.getElementsByName('editProfile')[0].classList.add("btn-secondary");
+
+    document.getElementsByName('main')[0].classList.remove("active", "font-weight-bold", "btn-outline-secondary");
+    document.getElementsByName('main')[0].classList.add("btn-secondary");
+
+    document.getElementsByName('acercaDe')[0].classList.remove("active", "font-weight-bold", "btn-outline-secondary");
+    document.getElementsByName('acercaDe')[0].classList.add("btn-secondary");
+
+    if (this.esAdmin == 1) {
+      document.getElementsByName('adminRuedas')[0].classList.remove("active", "font-weight-bold", "btn-outline-secondary");
+      document.getElementsByName('adminRuedas')[0].classList.add("btn-secondary");
+
+      document.getElementsByName('adminUsuarios')[0].classList.remove("active", "font-weight-bold", "btn-outline-secondary");
+      document.getElementsByName('adminUsuarios')[0].classList.add("btn-secondary");
+    }
+  }
 }

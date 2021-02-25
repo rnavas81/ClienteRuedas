@@ -12,24 +12,21 @@
             </div>
         </li>
 
-        <hr class="w-100 bg-white my-0">
+        <li class="nav-item w-100">
+            <a class="btn btn-secondary w-100 p-0" href="/editProfile" name="editProfile" >Editar perfil</a>
+        </li>
+
+        <hr class="w-100 bg-white mt-3 mb-0">
 
         <div class="btnNavegacion px-3">
-            <li class="nav-item w-100">
-                <a class="btn btn-secondary w-100 p-0" routerLink="/profile">Editar perfil</a>
-            </li>
 
             <li class="nav-item w-100">
-                <button class="btn btn-secondary w-100 p-0" (click)="misRuedas()" name="misRuedas">
-                    Mis ruedas</button>
-            </li>
-
-            <li class="nav-item w-100">
-                <a class="btn btn-secondary w-100 p-0" href="#">Ruedas suscritas</a>
+                <a class="btn btn-secondary w-100 p-0" href ="/main" name="main" >
+                    Mi rueda</a>
             </li>
 
             <li class="nav-item w-100 mb-3">
-                <a class="btn btn-secondary w-100 p-0" href="/acercade">Acerca de</a>
+                <a class="btn btn-secondary w-100 p-0" href="/acercade" name="acercaDe" >Acerca de</a>
             </li>
         </div>
 
@@ -38,13 +35,13 @@
         <div *ngIf="esAdmin == 1">
             <div class="btnNavegacion px-3">
                 <li class="nav-item w-100">
-                    <button class="btn btn-secondary  w-100 p-0" name="adminRuedas">
-                        Admin. Ruedas</button>
+                    <a class="btn btn-secondary  w-100 p-0" href="/adminRuedas" name="adminRuedas" >
+                        Admin. Ruedas</a>
                 </li>
 
                 <li class="nav-item w-100 mb-3">
-                    <button class="btn btn-outline-secondary active font-weight-bold w-100 p-0" name="adminUsuarios">
-                        Admin. Usuarios</button>
+                    <a class="btn btn-secondary w-100 p-0" href="/adminUsuarios" name="adminUsuarios" >
+                        Admin. Usuarios</a>
                 </li>
             </div>
 
