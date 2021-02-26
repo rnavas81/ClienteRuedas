@@ -10,6 +10,7 @@ import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.co
 import { VSignUpComponent } from './views/v-sign-up/v-sign-up.component';
 import { HomeComponent } from './views/home/home.component';
 import { AcercadeComponent } from './views/acercade/acercade.component';
+import { ListaRuedasComponent } from './views/lista-ruedas/lista-ruedas.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, // ESTO DEBERIA SER EL HOME
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'seleccionarRol', component: SeleccionarRolComponent },
   { path:'editProfile', component: EditarPerfilComponent },
   { path:'acercade', component:AcercadeComponent},
+  { path:'lista-ruedas', component:ListaRuedasComponent},
 ];
 
 @NgModule({

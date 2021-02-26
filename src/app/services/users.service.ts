@@ -10,7 +10,6 @@ export class UsersService {
   public static readonly SESSION_STORAGE_USER: string = 'CAR_SHARE_USER';
   public static readonly SESSION_STORAGE_TOKEN: string = 'CAR_SHARE_KEY';
   id: number;
-
   name: string;
   surname: string;
   email: string;
@@ -19,6 +18,7 @@ export class UsersService {
   error: string;
   msg: string;
   rol: number;
+  rueda:number;
 
   constructor(private http: HttpClient, private router: Router) {
     if(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER)){
@@ -29,6 +29,7 @@ export class UsersService {
       this.email = data['email'];
       this.rol = data['rol'];
       this.avatar = data['avatar']
+      this.rueda = 0;
     }
   }
   isLogged = () => {
@@ -40,13 +41,12 @@ export class UsersService {
   }
 
   set = (data:any) => {
-    
-      this.id=data.id;
-      this.name=data.name;
-      this.surname=data.surname;
-      this.email=data.email;
-      this.rol=parseInt(data.rol);
-    
+    this.id = data.id;
+    this.name = data.name;
+    this.surname = data.surname;
+    this.email = data.email;
+    this.rol = parseInt(data.rol);
+    this.rueda = parseInt(data.rueda);
     sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data.access_token);
     sessionStorage.setItem(UsersService.SESSION_STORAGE_USER,JSON.stringify(data));
   }

@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { UnirseRuedaComponent } from './views/unirse-rueda/unirse-rueda.component';
 import { RuedaHorarioComponent } from './components/rueda-horario/rueda-horario.component';
-import { MainComponent } from './views/main/main.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 import { RegistroComponent } from './components/registro/registro.component';
@@ -24,6 +23,7 @@ import { VLoginComponent } from './views/v-login/v-login.component';
 import { VSignUpComponent } from './views/v-sign-up/v-sign-up.component';
 import { HomeComponent } from './views/home/home.component';
 import { AcercadeComponent } from './views/acercade/acercade.component';
+import { ListaRuedasComponent } from './views/lista-ruedas/lista-ruedas.component';
 
 
 @NgModule({
@@ -35,7 +35,6 @@ import { AcercadeComponent } from './views/acercade/acercade.component';
     RuedaHorarioComponent,
     LoginComponent,
     RegistroComponent,
-    MainComponent,
     RecuperarPassComponent,
     RecuperarComponent,
     PanelAdministradorComponent,
@@ -45,7 +44,8 @@ import { AcercadeComponent } from './views/acercade/acercade.component';
     VLoginComponent,
     VSignUpComponent,
     HomeComponent,
-    AcercadeComponent
+    AcercadeComponent,
+    ListaRuedasComponent,
   ],
   imports: [
     BrowserModule,

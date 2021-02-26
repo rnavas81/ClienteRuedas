@@ -8,37 +8,29 @@
             <div class="row">
               <div class="col-12">
                 <label for="nombre">Nombre</label>
-                <input
+                <!-- <input
                   type="text"
                   class="form-control"
                   formControlName="nombre"
-                />
+                  />
+                -->
+                <select class="form-control" formControlName="nombre" #t (change)="cambiarDatos(t.value);">
+                  <option *ngFor="let item of ruedas;" value={{item.id}}>{{item.nombre}}</option>
+                </select>
               </div>
               <div class="col-12">
                 <label for="descripcion">Desripción</label>
-                <textarea
-                  type="text"
-                  class="form-control"
-                  formControlName="descripcion"
-                ></textarea>
+                <textarea type="text" class="form-control" formControlName="descripcion"></textarea>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <label for="origen">Origen</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="origen"
-                />
+                <input type="text" class="form-control" formControlName="origen" />
               </div>
               <div class="col-md-6">
                 <label for="destino">Destino</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="destino"
-                />
+                <input type="text" class="form-control" formControlName="destino" />
               </div>
             </div>
             <hr />
@@ -48,14 +40,11 @@
               </div>
             </div>
             <!-- Horario de la rueda -->
-            <app-rueda-horario
-              class="row"
-              (onclickCell)="seleccionarHora($event)"
-              [readonly]="false"
-            ></app-rueda-horario>
+            <app-rueda-horario class="row" (onclickCell)="seleccionarHora($event)" [readonly]="false" idRueda={{this.selected}}>
+            </app-rueda-horario>
             <!-- Botones para el formulario -->
             <div class="form-group pt-2 text-center">
-              <button type="submit" class="btn btn-primary w-50">Enviar</button>
+              <button id="btn-enviar" disabled type="submit" class="btn btn-primary w-50">Enviar</button>
             </div>
           </div>
         </div>

@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'Carshare';
 
   constructor(){
-    this.cargarTema()
+    this.cargarTema();
   }
 
   cargarTema = () => {
