@@ -23,8 +23,6 @@ export class UsersService {
   constructor(private http: HttpClient, private router: Router) {
     if(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER)){
       var data =JSON.parse(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER));
-      console.log(data);
-
       this.id = data['id'];
       this.name = data['name'];
       this.surname = data['surname'];
@@ -61,7 +59,6 @@ export class UsersService {
         if (typeof callback === 'function') callback(data);
       },
       (error) => {
-        console.log(error.error.message);
         if (error.error.message == null) {
           this.error = "500";
         }else{

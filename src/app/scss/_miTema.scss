@@ -2,3 +2,18 @@ $primary : #004B6F;
 $secondary: #007DBA;
 $info: #94c2d6;
 $light: #6fb2d0;
+
+body.rodrigo {
+    --primary : #00520b;
+    --secondary: #25ba00;
+    --info: #9ad694;
+    --light: #83d06f;
+    .text-primary {
+      color: var(--primary) !important;
+    }
+
+    .btn-light {
+      background-color: var(--info) !important;
+      border-color: var(--info) !important;
+    }
+}
