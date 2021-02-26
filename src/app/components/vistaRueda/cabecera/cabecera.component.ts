@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
+import { environment, temas } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cabecera',
@@ -14,15 +15,22 @@ export class CabeceraComponent implements OnInit {
   apellidoUsuario: string;
   avatar: string;
   esAdmin: number;
+  temas:any;
+  seleccionado:string;
 
   constructor(public userService: UsersService, private router: Router) {
     this.nombreUsuario = userService.name;
     this.apellidoUsuario = userService.surname;
     this.avatar = userService.avatar;
     this.esAdmin = userService.rol;
+    this.temas = temas;
+    this.seleccionado='default';
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem(environment.LOCALSTORAGE_THEME)) {
+      this.seleccionado = localStorage.getItem(environment.LOCALSTORAGE_THEME);
+    }
   }
 
   ngAfterViewInit(): void {
@@ -30,7 +38,6 @@ export class CabeceraComponent implements OnInit {
   }
 
   cerrarSesion = () => {
-    console.log("Cerrar sesion");
     this.userService.logout();
   };
 
@@ -67,7 +74,6 @@ export class CabeceraComponent implements OnInit {
   }
 
   limpiarClases = () => {
-    console.log("Limpiando clases");
 
     document.getElementsByName('editProfile')[0].classList.remove("active", "font-weight-bold", "btn-outline-secondary");
     document.getElementsByName('editProfile')[0].classList.add("btn-secondary");
@@ -98,7 +104,18 @@ export class CabeceraComponent implements OnInit {
       updateElement2.classList.remove("oculto");
     } else {
       updateElement2.classList.add("oculto");
-    } 
+    }
+  }
+  cambiarTema = tema => {
+    temas.forEach(item => {
+      document.getElementsByTagName('body')[0].classList.remove(item.value);
+    });
+    if(tema=='default'){
+      localStorage.removeItem(environment.LOCALSTORAGE_THEME);
+    } else {
+      localStorage.setItem(environment.LOCALSTORAGE_THEME,tema);
+      document.getElementsByTagName('body')[0].classList.add(tema);
+    }
   }
 
 }

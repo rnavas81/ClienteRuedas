@@ -10,6 +10,10 @@ export const environment = {
   APP_VERSION:'1.1.0',
   ANGULAR_VERSION:'11.2'
 };
+export const temas = [
+  {label:'Rodrigo',value:'rodrigo'},
+  {label:'Alejandro',value:'alejandro'},
+];
 
 /*
  * For easier debugging in development mode, you can import the following file
