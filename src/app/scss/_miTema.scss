@@ -1,19 +1,137 @@
-$primary : #004B6F;
-$secondary: #007DBA;
+$primary: #004b6f;
+$secondary: #007dba;
 $info: #94c2d6;
 $light: #6fb2d0;
 
 body.rodrigo {
-    --primary : #00520b;
-    --secondary: #25ba00;
-    --info: #9ad694;
-    --light: #83d06f;
-    .text-primary {
-      color: var(--primary) !important;
-    }
+  $theme-colors: (
+    primary: #00520b,
+    secondary: #25ba00,
+    success: #43c490,
+    info: #9ad694,
+    warning: #d8c86b,
+    danger: #c24e7b,
+    light: #83d06f,
+    dark: #00520b,
+  );
+  --primary: #00520b;
+  --secondary: #25ba00;
+  --info: #9ad694;
+  --light: #83d06f;
+  --white: rgb(247, 247, 247);
+  // Text
+  .text-primary {
+    color: var(--primary) !important;
+  }
+  // Backgrounds
+  .bg-primary {
+    background-color: var(--primary) !important;
+  }
+  .bg-light {
+    background-color: var(--light) !important;
+  }
+  // Buttons
+  .btn {
+    border-radius: 0%;
+  }
+  .btn.btn-primary {
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
+  }
+  .btn.btn-light {
+    background-color: var(--info) !important;
+    border-color: var(--info) !important;
+  }
+  .btn.btn-secondary,.btn.btn-outline-secondary {
+    color: var(--white) !important;
+    background-color: var(--secondary) !important;
+    border-color: var(--primary) !important;
+  }
+  a.bg-light:hover, a.bg-light:focus, button.bg-light:hover, button.bg-light:focus {
+    background-color: var(--white) !important;
+    color: var(--primary) !important;
+  }
 
-    .btn-light {
-      background-color: var(--info) !important;
-      border-color: var(--info) !important;
+  .input-group-text {
+    background: var(--light) !important;
+    color: white !important;
+    border: 0 !important;
+    border-radius: 0% !important;
+  }
+  // Forms
+  .form-control {
+    &:focus {
+      border-color: var(--primary);
     }
+    border-radius: 0%;
+  }
+  // Tables
+  table.table-bordered {
+    border: 1px dashed var(--primary);
+    thead {
+      th,
+      td {
+        border-bottom-width: 1px solid var(--secondary);
+      }
+    }
+    tbody {
+      tr {
+        &:hover {
+          background-color: var(--primary) !important;
+          color: var(--white) !important;
+        }
+      }
+      th,
+      td {
+        border: none;
+      }
+    }
+  }
+  table {
+    tbody {
+      tr {
+        &:hover {
+          background-color: var(--light) !important;
+          color: var(--primary) !important;
+        }
+      }
+    }
+  }
+  // Others
+  a {
+    color: var(--primary);
+    &:hover {
+      color: var(--secondary) !important;
+    }
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  h5 {
+    font-size: 1rem;
+  }
+
+  // Login
+  .brand_logo_container {
+    background-color: var(--secondary);
+  }
+
+  .login_btn {
+    background: var(--secondary) !important;
+    color: white !important;
+  }
+  .cabecera {
+    div {
+
+      &:nth-child(1){
+        order:2;
+      }
+      &:nth-child(2){
+        order: 1;
+      }
+      &:nth-child(3){
+        order:0
+      }
+    }
+  }
 }
