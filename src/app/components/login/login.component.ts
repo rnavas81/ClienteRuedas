@@ -63,15 +63,7 @@ export class LoginComponent implements OnInit {
       (data) => {
 
         if (data["registered"] === true) {
-          console.log(this.userService.rol);
-          switch (this.userService.rol) {
-            case 1:
-              this.router.navigate(['/seleccionarRol']);
-              break;
-              case 2:
-              this.router.navigate(['/main']);
-              break;
-          }
+          this.router.navigate(['/main']);
         } else {
           this.router.navigate(['/unirse']);
         }

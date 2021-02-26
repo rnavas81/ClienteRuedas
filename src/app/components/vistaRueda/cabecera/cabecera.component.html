@@ -1,18 +1,83 @@
-<header class="m-0">
-  <div class="col-md-12 col-sm-12 p-0">
-      <nav class="navbar navbar-expand-lg navbar-light sticky-top cabecera py-0" aria-label="cabecera">
-          <div class="container-fluid">
+<header class="m-0 sticky-top bg-theme-darker">
+  <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-light cabecera py-0 d-flex" aria-label="cabecera">
+          <div class="p-0 d-flex">
 
-              <div class="d-flex float-left">
+              
                   <a href="/login">
                       <img [src]="'assets/logo.png'" alt="Logo" class="vh-10 rounded-circle img-fluid bg-white border mb-4 mt-4">
                   </a>
-              </div>
+
+                  <div class="align-self-center menu-icon ml-3 w-auto" id="menu-icon" (click)="toggleNav()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            
               <!--<div class="d-flex float-right">
                   <i class="fas fa-envelope"></i>
               </div>-->
 
           </div>
+          <div class="flex-grow-1"></div>
+          <div></div>
       </nav>
   </div>
+
+  <div class="bg-theme-darker menu menu-list open position-absolute px-3 py-1 oculto" id="menu-list" (click)="toggleNav()">
+    <ul class="flex-column text-center p-0">
+        <li class="nav-item">
+            <div class="userProfile text-center">
+                <!-- <img [src]="'assets/perfil.png'" alt="Imagen de perfil" class="rounded-circle img-fluid bg-white"> -->
+
+                <img *ngIf="!!avatar && avatar.trim().length>0" src="{{ avatar }}" alt="Imagen de {{ nombreUsuario }}"
+                    class="rounded-circle img-fluid bg-white border mt-2" style="margin: auto;" />
+                <img *ngIf="!avatar || avatar.trim().length==0" [src]="'assets/perfil.png'" alt="Imagen por defecto"
+                    class="rounded-circle img-fluid bg-white border mt-2" />
+                <p class="h3 text-white pt-2">{{nombreUsuario + " " + apellidoUsuario}}</p>
+            </div>
+        </li>
+
+        <li class="nav-item w-100">
+            <a class="btn btn-secondary w-100 p-0" href="/editProfile" name="editProfile">Editar perfil</a>
+        </li>
+
+        <hr class="w-100 bg-white mt-3 mb-0">
+
+        <div class="btnNavegacion px-3">
+
+            <li class="nav-item w-100">
+                <a class="btn btn-secondary w-100 p-0" href="/main" name="main">
+                    Mi rueda</a>
+            </li>
+
+            <li class="nav-item w-100 mb-3">
+                <a class="btn btn-secondary w-100 p-0" href="/acercade" name="acercaDe">Acerca de</a>
+            </li>
+        </div>
+
+        <hr class="w-100 bg-white my-0">
+
+        <div *ngIf="esAdmin == 1">
+            <div class="btnNavegacion px-3">
+                <li class="nav-item w-100">
+                    <a class="btn btn-secondary  w-100 p-0" href="/adminRuedas" name="adminRuedas">
+                        Admin. Ruedas</a>
+                </li>
+
+                <li class="nav-item w-100 mb-3">
+                    <a class="btn btn-secondary w-100 p-0" href="/adminUsuarios" name="adminUsuarios">
+                        Admin. Usuarios</a>
+                </li>
+            </div>
+
+            <hr class="w-100 bg-white my-0">
+        </div>
+        <li class="nav-item text-center my-3">
+            <button class="btn bg-light text-white" (click)="cerrarSesion()" name="cerrarSesion">Cerrar sesion</button>
+        </li>
+
+    </ul>
+</div>
+
 </header>

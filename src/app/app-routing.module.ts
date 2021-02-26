@@ -18,9 +18,9 @@ const routes: Routes = [
   { path: 'unirse', component: UnirseRuedaComponent },
   { path:'recuperar', component: RecuperarPassComponent },
   { path:'main', component: PerfilUsuarioComponent },
-  { path: 'administrador', component: PanelAdministradorComponent },
+  { path: 'adminUsuarios', component: PanelAdministradorComponent },
   { path: 'seleccionarRol', component: SeleccionarRolComponent },
-  { path:'profile', component: EditarPerfilComponent },
+  { path:'editProfile', component: EditarPerfilComponent },
   { path:'acercade', component:AcercadeComponent},
 ];
 
