@@ -1,0 +1,30 @@
+.tabla {
+  height: calc(100vh - 111px);
+  table {
+    .col-nombre {
+      width: 45%;
+    }
+    .col-origen {
+      width: 45%;
+    }
+    .col-botones{
+      text-align: right;
+      min-width: 110px;
+    }
+
+  }
+}
+.mytoast {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: fit-content;
+  .content-toasts {
+    display: block;
+    margin: 20vh auto 0;
+  }
+}

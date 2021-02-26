@@ -49,6 +49,11 @@ export class RuedaService {
     var data = {};
     return this.http.get(url, data);
   };
+  getAll = () => {
+    const url = environment.url_api + 'rueda';
+    var data = {};
+    return this.http.get(url, data);
+  };
   /**
    * Consulta la rueda según la ID que le pasemos --> rueda/generada/1
    * @param id
@@ -175,4 +180,28 @@ export class RuedaService {
     });
     return table;
   };
+  /**
+   * Envía datos para una nueva rueda
+   * @param data Datos de la nueva rueda
+   */
+  crear = data => {
+    const url = environment.url_api + 'rueda';
+    return this.http.post(url, data);
+  }
+  /**
+   * Envia datos para modificar una rueda
+   * @param data Datos para modificar la rueda
+   */
+  editar = data => {
+    const url = environment.url_api + 'rueda';
+    return this.http.put(url, data);
+  }
+  /**
+   * Envia datos para eliminar una rueda
+   * @param id
+   */
+  borrar = id => {
+    const url = environment.url_api + `rueda/${id}`;
+    return this.http.delete(url);
+  }
 }

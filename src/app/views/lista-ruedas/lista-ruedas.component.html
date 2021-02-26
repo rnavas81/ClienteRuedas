@@ -1,0 +1,104 @@
+<app-cabecera></app-cabecera>
+<main class="bg-white">
+  <!-- Contenedor general -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 overflow-auto tabla">
+        <table class="table">
+          <thead class="">
+            <tr>
+              <th colspan="3">
+                <h2 class="d-inline-block">Ruedas</h2>
+                <button class="btn btn-primary float-right" name="add" title="Agregar rueda" data-toggle="modal"
+                  data-target="#modalRueda" (click)="this.nueva()">
+                  <fa-icon [icon]="faAddSquare"></fa-icon>
+                </button>
+              </th>
+            </tr>
+            <tr>
+              <th>Nombre</th>
+              <th>Origen</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let rueda of ruedas; index as i" scope="row">
+              <td class="col-nombre">{{ rueda.nombre }}</td>
+              <td class="col-origen">{{ rueda.origen }}</td>
+              <td class="col-botones">
+                <button class="btn btn-sm btn-primary" name="edit" title="Editar rueda" data-toggle="modal"
+                  data-target="#modalRueda" (click)="editar(rueda.id)">
+                  <fa-icon [icon]="faPencil" class="text-white"></fa-icon>
+                </button>
+                <button class="btn btn-sm btn-danger" type="submit" name="borrarRueda" title="Borrar rueda"
+                  data-toggle="modal" data-target="#modalDelete" (click)="modalBorrar(rueda.id)">
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- MODAL RUEDA -->
+<div class="modal fade" id="modalRueda" tabindex="-1" role="dialog" aria-labelledby="Modal Rueda" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-head text-center mt-1">
+        <h2 id='modalTitulo'>{{this.modalTitulo}}</h2>
+      </div>
+      <form id="formularioModal" (ngSubmit)="onSubmit()" [formGroup]="formularioModal">
+        <input type="hidden" name="id" formControlName="id">
+        <div class="modal-body">
+          <div class="container">
+            <div class="form-group">
+              <label class="required" for="name">Nombre</label>
+              <input class="form-control w-100" id="nombre" type="text" name="nombre" placeholder="Nombre para la rueda"
+                formControlName="nombre" />
+            </div>
+            <div class="form-group">
+              <label class="required" for="surname">Descripción</label>
+              <textarea class="form-control w-100" name="descripcion" id="descripcion"
+                placeholder="Descripción de la rueda" formControlName="descripcion" cols="4"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="required" for="name">Origen</label>
+              <input class="form-control w-100" id="origen" type="text" name="origen" placeholder="Origen de la rueda"
+                formControlName="origen" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-cerrar-modal" type="button" class="btn btn-danger" data-dismiss="modal" title="Cerrar">
+            Cerrar
+          </button>
+          <button type="submit" class="btn btn-success" name="modalAceptar" id="modalAceptar" title={{this.modalBoton}}>
+            {{this.modalBoton}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- MODAL BORRAR RUEDA -->
+<div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar rueda</h5>
+      </div>
+      <div class="modal-body">
+        <p>¿Estas seguro de querer borrar la rueda?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" (click)="this.borrarRueda()" data-dismiss="modal">Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mytoast">
+  <div id="content-toasts" class="content-toasts"></div>
+</div>

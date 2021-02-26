@@ -28,11 +28,14 @@
 
             <li class="nav-item w-100">
                 <button class="btn btn-outline-secondary active w-100 font-weight-bold" (click)="misRuedas()" name="misRuedas">
-                    Mis ruedas</button>
+                    Mi rueda</button>
             </li>
 
             <li class="nav-item w-100">
                 <a class="btn btn-secondary w-100" href="#">Ruedas suscritas</a>
+            </li>
+            <li *ngIf="this.userService.rol==1">
+              <a class="btn btn-secondary w-100" href="/lista-ruedas">Gestión de ruedas</a>
             </li>
 
             <li class="nav-item w-100">
