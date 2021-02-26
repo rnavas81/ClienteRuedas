@@ -22,6 +22,7 @@ export class PerfilUsuarioComponent implements OnInit {
   destino: string;
   nombre: string;
   descripcion: string;
+  idRueda: number;
 
   constructor(public userService: UsersService,public ruedaService: RuedaService) {
     this.rueda = ruedaService;
@@ -33,5 +34,7 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.idRueda = this.userService.rueda;
+
   }
 }

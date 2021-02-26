@@ -10,7 +10,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NavVerticalComponent } from '../vistaRueda/nav-vertical/nav-vertical.component';
 import { UploadService } from 'src/app/services/upload.service';
 import * as $ from 'jquery';
 

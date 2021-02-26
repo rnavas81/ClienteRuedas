@@ -23,13 +23,15 @@ export class UsersService {
   constructor(private http: HttpClient, private router: Router) {
     if(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER)){
       var data =JSON.parse(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER));
+      console.log(data);
+
       this.id = data['id'];
       this.name = data['name'];
       this.surname = data['surname'];
       this.email = data['email'];
       this.rol = data['rol'];
       this.avatar = data['avatar']
-      this.rueda = 0;
+      this.rueda = data['rueda'];
     }
   }
   isLogged = () => {
