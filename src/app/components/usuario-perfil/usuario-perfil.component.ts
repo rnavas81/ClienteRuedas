@@ -94,16 +94,12 @@ export class UsuarioPerfilComponent implements OnInit {
         console.log(data);
         this.mensaje = data['status'];
         console.log(data['status']);
-        var user = JSON.parse(sessionStorage.getItem("user"));
+        var user = [];
         user['email'] = dat.email;
         user['name'] = dat.name;
         user['surname'] = dat.surname;
         user['avatar'] = data['url'];
-        this.userService.email = dat.email;
-        this.userService.name = dat.name;
-        this.userService.surname = dat.surname;
-        this.userService.avatar = data['url'];
-        sessionStorage.setItem('user',JSON.stringify(user));
+        this.userService.set(user);
       },
       (error) => {
         this.mensaje = error.status;

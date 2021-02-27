@@ -14,7 +14,7 @@ export class UsersService {
   surname: string;
   email: string;
   avatar: string;
-  access_token: string;
+  access_token: any;
   error: string;
   msg: string;
   rol: number;
@@ -28,12 +28,16 @@ export class UsersService {
       this.surname = data['surname'];
       this.email = data['email'];
       this.rol = data['rol'];
-      this.avatar = data['avatar']
+      this.avatar = data['avatar'];
       this.rueda = data['rueda'];
+      this.access_token = sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN);
     }
+    console.log('Esto es en el constructor');
+    console.log(this.access_token);
   }
   isLogged = () => {
-    return !!sessionStorage.getItem(UsersService.SESSION_STORAGE_USER) && !!sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN);
+    // return !!sessionStorage.getItem(UsersService.SESSION_STORAGE_USER) && !!sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN);
+    return false;
   }
 
   login(user: any) {
@@ -41,13 +45,53 @@ export class UsersService {
   }
 
   set = (data:any) => {
-    this.id = data.id;
-    this.name = data.name;
-    this.surname = data.surname;
-    this.email = data.email;
-    this.rol = parseInt(data.rol);
-    this.rueda = parseInt(data.rueda);
-    sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data.access_token);
+    if (!!data.id) {
+      this.id = data.id;
+    }else{
+      data.id = this.id;
+    }
+
+    if (!!data.name) {
+      this.name = data.name;
+    }else{
+      data.name = this.name;
+    }
+
+    if (!!data.surname) {
+      this.surname = data.surname;
+    }else{
+      data.surname = this.surname;
+    }
+
+    if (!!data.email) {
+     this.email = data.email;
+    }else{
+      data.email = this.email;
+    }
+
+    if (!!data.avatar) {
+      this.avatar = data.avatar;
+    }else{
+      data.avatar = this.avatar;
+    }
+
+    if (!!data.access_token) {
+      this.access_token = data.access_token;
+      sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data.access_token);
+    }
+    console.log('Esto es el tocken de acceso en el set ')
+    console.log(this.access_token);
+    if (!!data.rol) {
+     this.rol = data.rol;
+    }else{
+      data.rol = this.rol;
+    }
+
+    if (!!data.rueda) {
+     this.rueda = data.rueda;
+    }else{
+      data.rueda = this.rueda;
+    }
     sessionStorage.setItem(UsersService.SESSION_STORAGE_USER,JSON.stringify(data));
   }
 
@@ -55,6 +99,8 @@ export class UsersService {
     this.login(user).subscribe(
       (data) => {
         this.set(data);
+        console.log('Esto es login');
+        console.log(data);
         this.error = null;
         if (typeof callback === 'function') callback(data);
       },
@@ -109,8 +155,12 @@ export class UsersService {
   unirseRueda = (data) => {
     const url = `${environment.url_api}usuario/unirse`;
     const extra = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.access_token}),
     };
+    console.log('ESTO ES DE EXTRA');
+    console.log(extra);
     data.idUser = this.id;
     return this.http.post(url, data, extra);
   };
@@ -128,8 +178,12 @@ export class UsersService {
     const url = `${environment.url_api}usuario/estado`;
     const data = { idUser: this.id };
     const extra = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.access_token}),
     };
+    console.log('ESTO ES DE EXTRA');
+    console.log(extra);
     return this.http.post(url, data, extra);
   };
 
@@ -140,16 +194,23 @@ export class UsersService {
   edit = (user) => {
     const url = `${environment.url_api}usuario/edit`;
     const extra = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.access_token}),
     };
+    console.log('ESTO ES DE EXTRA');
+    console.log(extra);
 
     return this.http.post(url, user, extra);
   };
 
   modify(data:any){
     const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'multipart/form-data');
+    headers.append('X-Requested-With' , 'XMLHttpRequest');
+    headers.append('Authorization','Bearer ' + this.access_token);
+    console.log(headers);
     const url = `${environment.url_api}usuario/modify`;
 
     return this.http.post(url,data,{headers: headers});
