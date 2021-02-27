@@ -292,7 +292,7 @@ h5 {
     &:nth-child(3){
       order:2;
     }
-  }  
+  }
 }
 #vistaPrincipal{
   h1{
@@ -313,20 +313,23 @@ h5 {
 }
 
 body.jorge {
-  $primary: #b58900;
-  $secondary: #839496;
-  $success: #2aa198;
-  $info: #268bd2;
-  $warning: #cb4b16;
-  $danger: #d33682;
-  $light: #fdf6e3;
-  $dark: #073642;
+  // Cambiamos la fuente de la letra
+
+  font-family: 'Roboto Condensed', sans-serif;
+  // $primary: #b58900;
+  // $secondary: #839496;
+  // $success: #2aa198;
+  // $info: #268bd2;
+  // $warning: #cb4b16;
+  // $danger: #d33682;
+  // $light: #fdf6e3;
+  // $dark: #073642;
 
   $theme-colors: (
     primary: #b58900,
     secondary: #839496,
     success: #2aa198,
-    info: #268bd2,
+    info: #fef900,
     warning: #cb4b16,
     danger: #d33682,
     light: #fdf6e3,
@@ -335,11 +338,114 @@ body.jorge {
 
   --primary: #b58900;
   --secondary: #839496;
-  --info: #268bd2;
+  --info: #fef900;
   --light: #fdf6e3;
   --white: rgb(247, 247, 247);
+  --dark: #073642;
+  --danger:#d33682;
 
+  // Texto
+  .text-primary {
+    color: var(--primary) !important;
+  }
+  .text-white{
+    color: black !important;
+  }
+  // Fondos utilizados
+  .bg-primary {
+    background-color: var(--primary) !important;
+  }
+  .bg-light {
+    background-color: var(--light) !important;
+  }
+  // Botones e inputs
+  .btn {
+    border-radius: 50px;
+  }
+  .btn-success{
+    background-color: #ffc107;
+    border:black;
+  }
+  .btn.btn-primary {
+    background-color: var(--primary) !important;
+    color: white !important;
+  }
+  .btn.btn-light {
+    background-color: var(--info) !important;
+    border-color: var(--info) !important;
+  }
+  .btn.btn.btn-secondary{
+    background-color: var(--primary);
+  }
+  .btn.btn-danger{
+    background-color: var(--danger) !important;
+  }
+  .btn.btn-secondary,.btn.btn-outline-secondary {
+    color: var(--white) !important;
+    background-color: var(--secondary) !important;
+    border-color: var(--primary) !important;
+  }
+  a.bg-light:hover, a.bg-light:focus, button.bg-light:hover, button.bg-light:focus {
+    background-color: var(--white) !important;
+    color: var(--primary) !important;
+  }
+
+  .input-group-text {
+    background: var(--light) !important;
+    color: white !important;
+    border: 0 !important;
+    border-radius: 10px !important;
+  }
+
+  .cerrarSesion{
+    background-color: var(--danger) !important;
+    color: white;
+  }
+
+  input{
+    border-radius: 50px;
+  }
+
+  // Elementos especiales del login
   .brand_logo_container {
-    background: var(--) !important;
+    background-color: var(--secondary);
+  }
+
+  .login_btn {
+    background: var(--secondary) !important;
+    color: white !important;
+  }
+
+  // tablas
+  tr {
+    &:hover {
+      background-color: #ffc107 !important;
+      color: black !important;
+      font-size: 1.2rem;
+    }
+    th{
+      background-color: #ffc107 !important;
+      color: black !important;
+      font-size: 1.2rem;
+    }
+  }
+
+  // Tamaños de leteas
+  a {
+    color: var(--danger);
+    font-size: 1.2rem;
+    text-decoration: none;
+  }
+  a:hover{
+    color: blueviolet;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+  h2{
+    font-size: 2rem;
+  }
+  h5 {
+    font-size: 1rem;
   }
 }
