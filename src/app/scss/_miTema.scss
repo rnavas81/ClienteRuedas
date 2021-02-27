@@ -139,6 +139,179 @@ body.rodrigo {
   }
 }
 
+body.alejandro{
+  $theme-colors: (
+    primary: #000000,
+    secondary: #797979,
+    success: #0A4700,
+    info: #00423B,
+    warning: #927900,
+    danger: #920000,
+    light: #FFF,
+    dark: #000000,
+  );
+
+  --primary: #000000;
+  --secondary: #797979;
+  --success: #0A4700;
+  --info: #00423B;
+  --warning: #927900;
+  --danger: #920000;
+  --light: #FFF;
+
+// Text
+.text-primary {
+  color: var(--primary) !important;
+}
+// Backgrounds
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+.bg-light {
+  background-color: var(--light) !important;
+}
+// Buttons
+.btn {
+  border-radius: 10px;
+}
+.btn.btn-primary {
+  background-color: var(--primary) !important;
+  color: var(--secondary) !important;
+}
+.btn.btn-light {
+  background-color: var(--info) !important;
+  border-color: var(--info) !important;
+}
+.btn.btn.btn-secondary{
+  background-color: var(--primary);
+}
+.btn.btn-danger{
+  background-color: var(--danger) !important;
+}
+.btn.btn-secondary,.btn.btn-outline-secondary {
+  color: var(--white) !important;
+  background-color: var(--secondary) !important;
+  border-color: var(--primary) !important;
+}
+a.bg-light:hover, a.bg-light:focus, button.bg-light:hover, button.bg-light:focus {
+  background-color: var(--white) !important;
+  color: var(--primary) !important;
+}
+
+.input-group-text {
+  background: var(--light) !important;
+  color: white !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+}
+// Forms
+.form-control {
+  &:focus {
+    border-color: var(--primary);
+  }
+  border-radius: 0%;
+}
+// Tables
+table.table-bordered {
+  border: 1px dashed var(--primary);
+  thead {
+    th,
+    td {
+      border-bottom-width: 1px solid var(--secondary);
+    }
+  }
+  tbody {
+    tr {
+      &:hover {
+        background-color: var(--primary) !important;
+        color: var(--white) !important;
+      }
+    }
+    th,
+    td {
+      border: none;
+    }
+  }
+}
+table {
+  thead{
+    tr{
+      background-color: var(--primary) !important;
+    }
+  }
+  tbody {
+    tr {
+      &:hover {
+        background-color: var(--light) !important;
+        color: var(--primary) !important;
+      }
+      td{
+        color: var(--light) !important;
+      }
+      td:hover{
+        color: var(--primary) !important;
+      }
+    }
+  }
+}
+// Others
+a {
+  color: var(--primary);
+  &:hover {
+    color: var(--secondary) !important;
+  }
+}
+h1 {
+  font-size: 2rem;
+}
+h5 {
+  font-size: 1rem;
+}
+.cerrarSesion{
+  background-color: var(--secondary) !important;
+}
+
+// Login
+.brand_logo_container {
+  background-color: var(--secondary);
+}
+
+.login_btn {
+  background: var(--secondary) !important;
+  color: white !important;
+}
+.cabecera {
+  div {
+
+    &:nth-child(1){
+      order:0;
+    }
+    &:nth-child(2){
+      order: 1;
+    }
+    &:nth-child(3){
+      order:2;
+    }
+  }  
+}
+#vistaPrincipal{
+  h1{
+    color: var(--light) !important;
+  }
+  background-color: var(--secondary) !important;
+  #foco{
+    background-color: var(--primary) !important;
+    div{
+      background-color: var(--primary) !important;
+      .texto{
+        color: var(--light) !important;
+      }
+    }
+  }
+}
+
+}
+
 body.jorge {
   $primary: #b58900;
   $secondary: #839496;

@@ -30,7 +30,7 @@
       <div class="row justify-content-center pl-4">
         <div id="carta_nominador_div">
           <div class="row justify-content-center">
-            <span id="fichero_seleccionado">Ninguna imagen seleccionada</span>
+            <span id="fichero_seleccionado" class="texto">Ninguna imagen seleccionada</span>
           </div>
           <div class="row justify-content-center">
             <label for="carta_nominador" style="width: 142px; height: 52px;  border-radius: 100px;cursor: pointer;" >
@@ -67,7 +67,7 @@
           <div class="row p-4">
             <form [formGroup]="edit" (ngSubmit)="send()" class="row">
               <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
-                <label for="first_name"><h4>Nombre</h4></label>
+                <label for="first_name"><h4 class="texto">Nombre</h4></label>
                 <input
                   type="text"
                   class="form-control"
@@ -81,7 +81,7 @@
               </div>
 
               <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
-                <label for="last_name"><h4>Apellidos</h4></label>
+                <label for="last_name"><h4 class="texto">Apellidos</h4></label>
                 <input
                   type="text"
                   class="form-control"
@@ -95,7 +95,7 @@
               </div>
 
               <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
-                <label for="phone"><h4>Email</h4></label>
+                <label for="phone"><h4 class="texto">Email</h4></label>
                 <input
                   type="text"
                   class="form-control"
@@ -110,7 +110,7 @@
               </div>
 
               <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
-                <label for="password"><h4>Contraseña</h4></label>
+                <label for="password"><h4 class="texto">Contraseña</h4></label>
                 <input
                   type="password"
                   class="form-control"
@@ -124,7 +124,7 @@
               </div>
 
               <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
-                <label for="password2"><h4>Verificar contraseña</h4></label>
+                <label for="password2"><h4 class="texto">Verificar contraseña</h4></label>
                 <input
                   type="password"
                   class="form-control"
