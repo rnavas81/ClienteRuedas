@@ -11,12 +11,13 @@
               </div>
             </div>
             <div class="d-flex justify-content-center form_container">
+              <h1 class="hide">Recuperar contraseña</h1>
               <form [formGroup]="recuperar" (ngSubmit)="forget()">
                 <div class="input-group mb-3">
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                   </div>
-                  <input type="email" formControlName="email" name="email" class="form-control input_user" value="" placeholder="Email" required autocomplete="username" />
+                  <input type="email" formControlName="email" name="email" class="form-control input_user" value="" placeholder="Email" required autocomplete="username" title="introduce tu email"/>
                 </div>
                 <div *ngIf="recuperar.get('email').errors && recuperar.get('email').dirty">
                   <p class="alert alert-danger" *ngIf="recuperar.get('email').hasError('required')">El email es obligatorio</p>
