@@ -42,12 +42,16 @@ body.rodrigo {
     background-color: var(--info) !important;
     border-color: var(--info) !important;
   }
-  .btn.btn-secondary,.btn.btn-outline-secondary {
+  .btn.btn-secondary,
+  .btn.btn-outline-secondary {
     color: var(--white) !important;
     background-color: var(--secondary) !important;
     border-color: var(--primary) !important;
   }
-  a.bg-light:hover, a.bg-light:focus, button.bg-light:hover, button.bg-light:focus {
+  a.bg-light:hover,
+  a.bg-light:focus,
+  button.bg-light:hover,
+  button.bg-light:focus {
     background-color: var(--white) !important;
     color: var(--primary) !important;
   }
@@ -122,16 +126,47 @@ body.rodrigo {
   }
   .cabecera {
     div {
-
-      &:nth-child(1){
-        order:2;
+      &:nth-child(1) {
+        order: 2;
       }
-      &:nth-child(2){
+      &:nth-child(2) {
         order: 1;
       }
-      &:nth-child(3){
-        order:0
+      &:nth-child(3) {
+        order: 0;
       }
     }
+  }
+}
+
+body.jorge {
+  $primary: #b58900;
+  $secondary: #839496;
+  $success: #2aa198;
+  $info: #268bd2;
+  $warning: #cb4b16;
+  $danger: #d33682;
+  $light: #fdf6e3;
+  $dark: #073642;
+
+  $theme-colors: (
+    primary: #b58900,
+    secondary: #839496,
+    success: #2aa198,
+    info: #268bd2,
+    warning: #cb4b16,
+    danger: #d33682,
+    light: #fdf6e3,
+    dark: #073642,
+  );
+
+  --primary: #b58900;
+  --secondary: #839496;
+  --info: #268bd2;
+  --light: #fdf6e3;
+  --white: rgb(247, 247, 247);
+
+  .brand_logo_container {
+    background: var(--) !important;
   }
 }
