@@ -13,33 +13,52 @@ import { UsersService } from 'src/app/services/users.service';
 export class UnirseRuedaComponent implements OnInit {
   formRueda: FormGroup;
   horarioSeleccionado: Object;
-  @Input() rueda: any;
   celda: any;
   mensaje:string;
+  ruedas: any;
+  selected:number;
 
-  constructor(private router: Router,private formBuilder:FormBuilder,rueda: RuedaService,public userService: UsersService,) {
-    this.rueda = rueda;
+  constructor(private router: Router,private formBuilder:FormBuilder,private ruedaService: RuedaService,public userService: UsersService) {
     this.mensaje="";
+    ruedaService.getAll().subscribe(
+      response => {
+        this.ruedas=response;
+      },
+      error => console.error("error al recuperar")
+    );
    }
 
   ngOnInit(): void {
+
     this.horarioSeleccionado = {}
     this.formRueda = this.formBuilder.group({
-      nombre: ['',[Validators.required]],
-      descripcion: ['',Validators.required],
-      origen: ['',Validators.required],
-      destino: ['',Validators.required],
-    })
+      nombre: [{value:''},[Validators.required]],
+      descripcion: [{value:'',disabled:true}],
+      origen: [{value:'',disabled:true}],
+      destino: [{value:'',disabled:true}],
+    });
+    this.selected=0;
 
-    if(!!this.rueda){
+    if(!!this.ruedaService){
       this.formRueda.patchValue({
-        nombre:this.rueda.nombre,
-        descripcion:this.rueda.descripcion,
-        origen:this.rueda.origen,
-        destino:this.rueda.destino,
+        nombre:this.ruedaService.nombre,
+        descripcion:this.ruedaService.descripcion,
+        origen:this.ruedaService.origen,
+        destino:this.ruedaService.destino,
       })
     }
 
+
+  }
+
+  cambiarDatos = (id) => {
+    // const id = this.formRueda.controls["nombre"].value;
+    const data = this.ruedas.find(item=> item.id==id);
+    this.formRueda.controls["descripcion"].setValue(data.descripcion);
+    this.formRueda.controls["origen"].setValue(data.origen);
+    this.formRueda.controls["destino"].setValue(data.destino);
+    document.getElementById('btn-enviar').removeAttribute('disabled');
+    this.selected=id;
 
   }
 
@@ -59,17 +78,19 @@ export class UnirseRuedaComponent implements OnInit {
    */
   onSubmit = () => {
     this.mensaje="";
-    if(Object.entries(this.horarioSeleccionado).length==0){
+    if(Object.entries(this.horarioSeleccionado).length==0 && this.formRueda.controls["nombre"].valid){
       this.mensaje = "Debe seleccionar alguna hora del calendario"
 
     } else {
       const data = {
-        idRueda:this.rueda.id,
+        idRueda:this.formRueda.controls["nombre"].value,
         horario:this.horarioSeleccionado
       }
       // Envia los datos para solicitar que el usuario sea agregado a la rueda
       this.userService.unirseRueda(data).subscribe(
         (response:any) => {
+          // Guarda los nuevos datos del usuario
+          this.userService.set(response.data);
           // Avanza hasta la página principal
           this.router.navigate(['/main']);
 

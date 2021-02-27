@@ -10,7 +10,6 @@ export class UsersService {
   public static readonly SESSION_STORAGE_USER: string = 'CAR_SHARE_USER';
   public static readonly SESSION_STORAGE_TOKEN: string = 'CAR_SHARE_KEY';
   id: number;
-
   name: string;
   surname: string;
   email: string;
@@ -19,17 +18,18 @@ export class UsersService {
   error: string;
   msg: string;
   rol: number;
+  rueda:number;
 
   constructor(private http: HttpClient, private router: Router) {
     if(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER)){
       var data =JSON.parse(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER));
-      console.log(data);
       this.id = data['id'];
       this.name = data['name'];
       this.surname = data['surname'];
       this.email = data['email'];
       this.rol = data['rol'];
       this.avatar = data['avatar']
+      this.rueda = data['rueda'];
     }
   }
   isLogged = () => {
@@ -40,36 +40,25 @@ export class UsersService {
     return this.http.post(environment.url_api + 'login', user);
   }
 
-  set = data => {
-    
-    this.id = data['id'];
-    this.name = data['name'];
-    this.surname = data['surname'];
-    this.email = data['email'];
-    this.rol = parseInt(data['rol']);
-
-    sessionStorage.setItem('access_token', data['access_token']);
-    sessionStorage.setItem('user',JSON.stringify(data));
+  set = (data:any) => {
+    this.id = data.id;
+    this.name = data.name;
+    this.surname = data.surname;
+    this.email = data.email;
+    this.rol = parseInt(data.rol);
+    this.rueda = parseInt(data.rueda);
+    sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data.access_token);
+    sessionStorage.setItem(UsersService.SESSION_STORAGE_USER,JSON.stringify(data));
   }
 
   loginSubscribe = (user, callback) => {
     this.login(user).subscribe(
       (data) => {
-        console.log(data);
-        if (data instanceof Object) {
-          this.id = data['id'];
-          this.name = data['name'];
-          this.surname = data['surname'];
-          this.email = data['email'];
-          this.avatar = data['avatar'];
-        }
-        sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data['access_token']);
-        sessionStorage.setItem(UsersService.SESSION_STORAGE_USER,JSON.stringify(data));
+        this.set(data);
         this.error = null;
         if (typeof callback === 'function') callback(data);
       },
       (error) => {
-        console.log(error.error.message);
         if (error.error.message == null) {
           this.error = "500";
         }else{
@@ -123,8 +112,6 @@ export class UsersService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
     data.idUser = this.id;
-    console.log(data);
-
     return this.http.post(url, data, extra);
   };
   unirseRuedaSubscribe = (data) => {

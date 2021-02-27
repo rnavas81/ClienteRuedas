@@ -9,6 +9,8 @@ import { EditarPerfilComponent } from './views/editar-perfil/editar-perfil.compo
 import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.component';
 import { VSignUpComponent } from './views/v-sign-up/v-sign-up.component';
 import { HomeComponent } from './views/home/home.component';
+import { AcercadeComponent } from './views/acercade/acercade.component';
+import { ListaRuedasComponent } from './views/lista-ruedas/lista-ruedas.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, // ESTO DEBERIA SER EL HOME
@@ -17,9 +19,11 @@ const routes: Routes = [
   { path: 'unirse', component: UnirseRuedaComponent },
   { path:'recuperar', component: RecuperarPassComponent },
   { path:'main', component: PerfilUsuarioComponent },
-  { path: 'administrador', component: PanelAdministradorComponent },
+  { path: 'adminUsuarios', component: PanelAdministradorComponent },
   { path: 'seleccionarRol', component: SeleccionarRolComponent },
-  { path:'profile', component: EditarPerfilComponent },
+  { path:'editProfile', component: EditarPerfilComponent },
+  { path:'acercade', component:AcercadeComponent},
+  { path:'lista-ruedas', component:ListaRuedasComponent},
 ];
 
 @NgModule({

@@ -8,7 +8,17 @@ import { RuedaService } from 'src/app/services/rueda.service';
 })
 export class RuedaHorarioComponent implements OnInit {
   // Valores de entrada
-  @Input() idRueda: number = 1;
+  private _idRueda;
+  get idRueda():number{
+    return this._idRueda;
+  }
+  @Input()
+  set idRueda(val:number){
+    if(val!=this.idRueda){
+      this._idRueda = val;
+      this.cargarRueda();
+    }
+  }
   @Input() tipo: string = null;
   @Input() mostrarPasajeros: boolean;
   @Input() user: string = null;
@@ -19,6 +29,9 @@ export class RuedaHorarioComponent implements OnInit {
   constructor(public ruedaService: RuedaService) {}
 
   ngOnInit(): void {
+    this.cargarRueda();
+  }
+  cargarRueda = () => {
     switch (this.tipo) {
       case 'generada':
         this.ruedaService.getGenerada(this.idRueda).subscribe(
@@ -32,7 +45,7 @@ export class RuedaHorarioComponent implements OnInit {
         );
         break;
       default:
-        this.ruedaService.get().subscribe(
+        this.ruedaService.get(this.idRueda).subscribe(
           (response) => {
             this.ruedaService.setData(response);
             this.recargar();
@@ -43,6 +56,7 @@ export class RuedaHorarioComponent implements OnInit {
         );
         break;
     }
+
   }
   recargar = () => {
     this.loadTable(

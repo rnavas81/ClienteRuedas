@@ -1,6 +1,6 @@
 {
-  "name": "cliente",
-  "version": "1.0.0",
+  "name": "CarShare",
+  "version": "1.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --disableHostCheck --poll 500",
