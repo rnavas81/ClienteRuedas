@@ -77,8 +77,8 @@ body.rodrigo {
     tbody {
       tr {
         &:hover {
-          background-color: var(--primary) !important;
-          color: var(--white) !important;
+          background-color: unset !important;
+          color: unset !important;
         }
       }
       th,
