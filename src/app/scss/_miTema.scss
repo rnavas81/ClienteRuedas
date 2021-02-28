@@ -234,6 +234,9 @@ table {
   thead{
     tr{
       background-color: var(--primary) !important;
+      th{
+        color: var(--light) !important;
+      }
     }
   }
   tbody {
@@ -244,9 +247,12 @@ table {
       }
       td{
         color: var(--light) !important;
+        div.bg-light{
+          background-color: var(--info) !important;
+        }
       }
       td:hover{
-        color: var(--primary) !important;
+        color: var(--secondary) !important;
       }
     }
   }
