@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-light cabecera py-0 d-flex" aria-label="cabecera">
       <div class="p-0 d-flex">
         <a href="/login">
-          <img [src]="'assets/logo.png'" alt="Logo" class="vh-10 rounded-circle img-fluid bg-white border mb-4 mt-4">
+          <img [src]="'assets/logo.png'" href="/login" alt="Logo" class="vh-10 rounded-circle img-fluid bg-white border mb-4 mt-4">
         </a>
         <div class="align-self-center menu-icon ml-3 w-auto" id="menu-icon" (click)="toggleNav()">
           <span></span>
@@ -73,7 +73,7 @@
         <hr class="w-100 bg-white my-0">
       </div>
       <li class="nav-item text-center my-3">
-        <button class="btn bg-light text-white cerrarSesion" (click)="cerrarSesion()" name="cerrarSesion">Cerrar sesion</button>
+        <button class="btn bg-light text-white font-weight-bold cerrarSesion" (click)="cerrarSesion()" name="cerrarSesion">Cerrar sesion</button>
       </li>
 
     </ul>
