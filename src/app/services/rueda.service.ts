@@ -59,7 +59,7 @@ export class RuedaService {
    * @param id
    */
   getGenerada = (id = null) => {
-    const url = environment.url_api + 'rueda/generada' + (!!id ? `/${id}` : '');
+    const url = environment.url_api + 'rueda/generada/1';
     var data = {};
     return this.http.get(url, data);
   };
