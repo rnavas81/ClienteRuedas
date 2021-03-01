@@ -26,6 +26,13 @@ export class UnirseRuedaComponent implements OnInit {
       },
       error => console.error("error al recuperar")
     );
+    this.userService.testLogin().subscribe(
+      reponse => {
+
+      },error => {
+        this.userService.logout();
+      }
+    )
    }
 
   ngOnInit(): void {

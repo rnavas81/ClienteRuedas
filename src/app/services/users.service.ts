@@ -35,9 +35,43 @@ export class UsersService {
     console.log('Esto es en el constructor');
     console.log(this.access_token);
   }
-  isLogged = () => {
+
+  isLogged = async () => {
+    var is = false;
+    await this.testLogin().subscribe(
+      reponse => {
+        is=true;
+        console.log(reponse);
+
+      },error=>{is=false}
+    )
+    console.log('Esto es isLogin');
+    console.log(is);
+    return is;
     // return !!sessionStorage.getItem(UsersService.SESSION_STORAGE_USER) && !!sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN);
-    return false;
+  }
+  testLogin = () => {
+    const url = `${environment.url_api}usuario/test`;
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.access_token}),
+    };
+    console.log('Dentro del testlogin');
+    console.log(this.access_token);
+    return this.http.post(url,'',extra);
+  }
+
+  testRol = () => {
+    const url = `${environment.url_api}usuario/testRol`;
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.access_token}),
+    };
+    console.log('Dentro del testlogin');
+    console.log(this.access_token);
+    return this.http.post(url,'',extra);
   }
 
   login(user: any) {

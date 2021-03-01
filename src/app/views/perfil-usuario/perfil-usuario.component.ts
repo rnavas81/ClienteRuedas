@@ -31,6 +31,14 @@ export class PerfilUsuarioComponent implements OnInit {
     this.descripcion = this.rueda.descripcion;
     this.origen = this.rueda.origen;
     this.destino = this.rueda.destino;
+
+    this.userService.testLogin().subscribe(
+      reponse => {
+
+      },error => {
+        this.userService.logout();
+      }
+    )
   }
 
   ngOnInit(): void {
