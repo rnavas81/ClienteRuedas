@@ -46,13 +46,21 @@ export class RuedaService {
    */
   get = (id = null) => {
     const url = environment.url_api + 'rueda' + (id != null ? `/${id}` : '');
-    var data = {};
-    return this.http.get(url, data);
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.userService.access_token}),
+    };
+    return this.http.get(url,extra);
   };
   getAll = () => {
     const url = environment.url_api + 'rueda';
-    var data = {};
-    return this.http.get(url, data);
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.userService.access_token}),
+    };
+    return this.http.get(url,extra);
   };
   /**
    * Consulta la rueda según la ID que le pasemos --> rueda/generada/1
@@ -60,8 +68,12 @@ export class RuedaService {
    */
   getGenerada = (id = null) => {
     const url = environment.url_api + 'rueda/generada' + (!!id ? `/${id}` : '');
-    var data = {};
-    return this.http.get(url, data);
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.userService.access_token}),
+    };
+    return this.http.get(url,extra);
   };
   setData = (data) => {
     this.id = data['id'];
@@ -186,7 +198,12 @@ export class RuedaService {
    */
   crear = data => {
     const url = environment.url_api + 'rueda';
-    return this.http.post(url, data);
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.userService.access_token}),
+    };
+    return this.http.post(url, data, extra);
   }
   /**
    * Envia datos para modificar una rueda
@@ -194,7 +211,12 @@ export class RuedaService {
    */
   editar = data => {
     const url = environment.url_api + 'rueda';
-    return this.http.put(url, data);
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.userService.access_token}),
+    };
+    return this.http.put(url, data, extra);
   }
   /**
    * Envia datos para eliminar una rueda
@@ -202,6 +224,11 @@ export class RuedaService {
    */
   borrar = id => {
     const url = environment.url_api + `rueda/${id}`;
-    return this.http.delete(url);
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.userService.access_token}),
+    };
+    return this.http.delete(url, extra);
   }
 }

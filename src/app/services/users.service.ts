@@ -23,14 +23,7 @@ export class UsersService {
   constructor(private http: HttpClient, private router: Router) {
     if(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER)){
       var data =JSON.parse(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER));
-      this.id = data['id'];
-      this.name = data['name'];
-      this.surname = data['surname'];
-      this.email = data['email'];
-      this.rol = data['rol'];
-      this.avatar = data['avatar'];
-      this.rueda = data['rueda'];
-      this.access_token = sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN);
+      this.set(data);
     }
     console.log('Esto es en el constructor');
     console.log(this.access_token);
@@ -238,6 +231,7 @@ export class UsersService {
     return this.http.post(url, user, extra);
   };
 
+  // esto da problemas con passport
   modify(data:any){
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
