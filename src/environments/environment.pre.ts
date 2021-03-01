@@ -9,4 +9,5 @@ export const environment = {
 export const temas = [
   {label:'Rodrigo',value:'rodrigo'},
   {label:'Alejandro',value:'alejandro'},
+  {label:'Jorge',value:'jorge'}
 ];
