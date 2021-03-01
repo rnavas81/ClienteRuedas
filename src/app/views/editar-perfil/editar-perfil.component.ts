@@ -9,12 +9,14 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class EditarPerfilComponent implements OnInit {
 
-  constructor(private UsersService: UsersService, private router: Router) {
-    var paso = this.UsersService.isLogged;
-    console.log(paso);
-    if (!this.UsersService.isLogged) {
-      this.router.navigate(['/login']);
-    }
+  constructor(private userService: UsersService,) {
+    this.userService.testLogin().subscribe(
+      reponse => {
+
+      },error => {
+        this.userService.logout();
+      }
+    )
   }
 
   ngOnInit(): void {

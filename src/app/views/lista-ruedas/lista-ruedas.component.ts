@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { RuedaService } from 'src/app/services/rueda.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-lista-ruedas',
@@ -25,7 +26,8 @@ export class ListaRuedasComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private ruedasService: RuedaService
+    private ruedasService: RuedaService,
+    private userService: UsersService
   ) {
     this.modalTitulo = 'Rueda';
     this.formularioModal = this.formBuilder.group({
@@ -36,6 +38,14 @@ export class ListaRuedasComponent implements OnInit {
     });
     this.ruedas = [];
     this.seleccionado = 0;
+
+    this.userService.testLogin().subscribe(
+      reponse => {
+
+      },error => {
+        this.userService.logout();
+      }
+    )
   }
 
   ngOnInit(): void {
