@@ -48,7 +48,7 @@
 .login_btn {
   width: 100%;
   background: #57abed !important;
-  color: white !important;
+  color: white ;
 }
 .login_btn:focus {
   box-shadow: none !important;
@@ -59,7 +59,7 @@
 }
 .input-group-text {
   background: #57abed !important;
-  color: white !important;
+  color: white ;
   border: 0 !important;
   border-radius: 0.25rem 0 0 0.25rem !important;
 }
@@ -72,4 +72,16 @@
   background-color: #c0392b !important;
 }
 
+a{
+  font-size: 1.3rem;
+  text-decoration: underline;
+}
+
+.hide{
+  display: none;
+}
+
+btn:disabled{
+  color:  #212529;
+}
 
