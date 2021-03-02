@@ -41,12 +41,24 @@ export class UsersService {
   }
 
   set = (data:any) => {
+    if(data.hasOwnProperty('message'))delete(data.message);
+    if(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER)){
+      const user = JSON.parse(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER));
+      if(!data.hasOwnProperty('id')) data.id = user.id;
+      if(!data.hasOwnProperty('name')) data.name = user.name;
+      if(!data.hasOwnProperty('surname')) data.surname = user.surname;
+      if(!data.hasOwnProperty('email')) data.email = user.email;
+      if(!data.hasOwnProperty('rol')) data.rol = user.rol;
+      if(!data.hasOwnProperty('rueda')) data.rueda = user.rueda;
+      if(!data.hasOwnProperty('avatar')) data.avatar = user.avatar;
+    }
     this.id = data.id;
     this.name = data.name;
     this.surname = data.surname;
     this.email = data.email;
     this.rol = parseInt(data.rol);
     this.rueda = parseInt(data.rueda);
+    this.avatar = data.avatar;
     sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data.access_token);
     sessionStorage.setItem(UsersService.SESSION_STORAGE_USER,JSON.stringify(data));
   }

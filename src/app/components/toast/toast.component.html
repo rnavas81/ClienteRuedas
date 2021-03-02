@@ -1,0 +1,6 @@
+<div class="mytoast">
+  <div id="content-toasts" class="content-toasts"></div>
+  <div *ngFor='let item of this.toasts' [ngClass]=[item.class]>
+      {{item.text}}
+  </div>
+</div>

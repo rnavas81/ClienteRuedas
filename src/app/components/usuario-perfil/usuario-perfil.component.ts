@@ -27,18 +27,15 @@ export class UsuarioPerfilComponent implements OnInit {
 
   selectedImage: any;
   servicesForm: any;
-
+  toast:any;
   @Output() accionRealizada: EventEmitter<any> = new EventEmitter();
 
   constructor(
     public userService: UsersService,
     public dropzone: NgxDropzoneModule,
     private formBuilder: FormBuilder,
-    private http: HttpClient,
-    private router: Router,
     private uploadService: UploadService
   ) {
-    // console.log(this.userService.avatar);
     this.avatar = this.userService.avatar;
     this.edit = this.formBuilder.group({
       email: [userService.email, [Validators.required, Validators.email]],
@@ -62,19 +59,7 @@ export class UsuarioPerfilComponent implements OnInit {
     var myFormData = new FormData();
     myFormData.append('image', this.filedata);
     myFormData.append('id', String(this.userService.id));
-    console.log(myFormData);
 
-    this.uploadService.upImg(myFormData).subscribe(
-      (data) => {
-        console.log(data['url']);
-        let user = JSON.parse(sessionStorage.getItem('user'));
-        user['avatar'] = data['url'];
-        sessionStorage.setItem('user', JSON.stringify(user));
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
   }
 
   send() {
@@ -87,27 +72,20 @@ export class UsuarioPerfilComponent implements OnInit {
     myFormData.append('email', String(dat.email));
     myFormData.append('password', String(dat.password));
     myFormData.append('password2', String(dat.password2));
-    console.log(myFormData);
 
     this.userService.modify(myFormData).subscribe(
-      (data) => {
-        console.log(data);
-        this.mensaje = data['status'];
-        console.log(data['status']);
-        var user = JSON.parse(sessionStorage.getItem("user"));
-        user['email'] = dat.email;
-        user['name'] = dat.name;
-        user['surname'] = dat.surname;
-        user['avatar'] = data['url'];
-        this.userService.email = dat.email;
-        this.userService.name = dat.name;
-        this.userService.surname = dat.surname;
-        this.userService.avatar = data['url'];
-        sessionStorage.setItem('user',JSON.stringify(user));
+      (data:any) => {
+        this.toast = {text:"Datos actualizados",type:'success'};
+        const user = {
+          name:dat.name,
+          surname:dat.surname,
+          email:dat.email,
+          avatar:data.avatar,
+        }
+        this.userService.set(user);
       },
       (error) => {
-        this.mensaje = error.status;
-        console.log(error.status);
+        this.toast = {text:"Error al actualizar los datos",type:'error'}
       }
     );
 

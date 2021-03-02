@@ -22,11 +22,13 @@ export class ListaRuedasComponent implements OnInit {
   ruedas: any;
   seleccionado: number;
   idtemp: number;
+  toast:any;
 
   constructor(
     private formBuilder: FormBuilder,
-    private ruedasService: RuedaService
+    private ruedasService: RuedaService,
   ) {
+
     this.modalTitulo = 'Rueda';
     this.formularioModal = this.formBuilder.group({
       id: ['', [Validators.required]],
@@ -43,8 +45,6 @@ export class ListaRuedasComponent implements OnInit {
       (data) => {
         this.ruedas = data;
         this.idtemp = this.ruedas[this.ruedas.length-1].id;
-
-
       },
       (error) => {
         alert('Error al recuperar los datos de las ruedas');
@@ -113,16 +113,16 @@ export class ListaRuedasComponent implements OnInit {
     this.ruedasService.crear(data).subscribe(
       response => {
         this.ruedas.push(response);
-        this.addToast({
+        this.toast={
           text:'Rueda agregada',
           type:'success'
-        });
+        };
       },
       error => {
-        this.addToast({
+        this.toast={
           text:'Error al agregar la rueda',
-          type:'danger'
-        });
+          type:'error'
+        };
       }
     );
   };
@@ -131,16 +131,16 @@ export class ListaRuedasComponent implements OnInit {
       response => {
         const index = this.buscarRuedaById(this.seleccionado);
         this.ruedas[index]=data;
-        this.addToast({
+        this.toast={
           text:'Rueda modificada',
           type:'success'
-        });
+        };
       },
       error => {
-        this.addToast({
+        this.toast={
           text:'Error al modificar la rueda',
-          type:'danger'
-        });
+          type:'error'
+        };
       }
     );
   };
@@ -149,41 +149,16 @@ export class ListaRuedasComponent implements OnInit {
       response => {
         const index = this.buscarRuedaById(this.seleccionado);
         this.ruedas.splice(index,1);
-        this.addToast({
+        this.toast={
           text:'Rueda eliminada',
-          type:'success'
-        });
+          type:'warning'
+        };
       }, error => {
-        this.addToast({
+        this.toast={
           text:'Error al borrar la rueda',
-          type:'danger'
-        });
+          type:'error'
+        };
       }
     )
   };
-  addToast = (data:any) => {
-    if(!data.hasOwnProperty('text'))data.text="Text dummy";
-    var toast = document.createElement('div');
-    toast.classList.add('content','rounded','px-4', 'py-3', 'my-3');
-    switch (data.type) {
-      case 'success':
-        toast.classList.add('bg-success');
-        break;
-      case 'warning':
-        toast.classList.add('bg-warning');
-        break;
-      case 'danger':
-        toast.classList.add('bg-danger');
-        break;
-      default:
-        toast.classList.add('bg-primary','text-white');
-        break;
-    }
-    toast.textContent=data.text;
-    document.getElementById('content-toasts').appendChild(toast);
-    setTimeout(() => {
-      toast.remove();
-    }, 3000);
-
-  }
 }
