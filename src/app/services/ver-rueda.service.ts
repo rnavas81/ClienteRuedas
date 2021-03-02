@@ -27,8 +27,6 @@ export class VerRuedaService {
   }
 
   getRueda = (id) =>  {
-    console.log('---------------------------------------------------------------');
-    console.log(this.userService.access_token);
     const url = environment.url_api + '/rueda/generada/' + id;
     const extra = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
