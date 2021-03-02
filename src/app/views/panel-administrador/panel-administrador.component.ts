@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AdministradorService } from 'src/app/services/administrador.service';
 import { from, Observable } from 'rxjs';
 import * as $ from 'jquery';
+import { UsersService } from 'src/app/services/users.service';
 
 
 @Component({
@@ -54,7 +55,27 @@ export class PanelAdministradorComponent implements OnInit {
 
   rolAux: any;
   toast:any;
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, public administrador: AdministradorService) { }
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, public administrador: AdministradorService, private userService: UsersService) {
+    // Comprobacion de que el usuario tiene el login
+    this.userService.testLogin().subscribe(
+      reponse => {
+
+      },error => {
+        this.userService.logout();
+      }
+    )
+
+    // Comprobacion de que el usuario tiene el rol apropiado
+    this.userService.testRol().subscribe(
+      (reponse : any) => {
+        if (reponse.rol != '1') {
+          this.userService.logout();
+        }
+      },error => {
+        this.userService.logout();
+      }
+    )
+  }
 
   ngOnInit(): void {
     this.initForm();

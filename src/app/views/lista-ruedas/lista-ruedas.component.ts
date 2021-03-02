@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
 import { RuedaService } from 'src/app/services/rueda.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-lista-ruedas',
@@ -38,6 +39,26 @@ export class ListaRuedasComponent implements OnInit {
     });
     this.ruedas = [];
     this.seleccionado = 0;
+
+    // Comprobacion de que el usuario tiene el login
+    this.userService.testLogin().subscribe(
+      reponse => {
+
+      },error => {
+        this.userService.logout();
+      }
+    )
+
+    // Comprobacion de que el usuario tiene el rol apropiado
+    this.userService.testRol().subscribe(
+      (reponse : any) => {
+        if (reponse.rol != '1') {
+          this.userService.logout();
+        }
+      },error => {
+        this.userService.logout();
+      }
+    )
   }
 
   ngOnInit(): void {

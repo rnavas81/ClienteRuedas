@@ -14,7 +14,7 @@ export class UsersService {
   surname: string;
   email: string;
   avatar: string;
-  access_token: string;
+  access_token: any;
   error: string;
   msg: string;
   rol: number;
@@ -23,17 +23,48 @@ export class UsersService {
   constructor(private http: HttpClient, private router: Router) {
     if(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER)){
       var data =JSON.parse(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER));
-      this.id = data['id'];
-      this.name = data['name'];
-      this.surname = data['surname'];
-      this.email = data['email'];
-      this.rol = data['rol'];
-      this.avatar = data['avatar']
-      this.rueda = data['rueda'];
+      this.set(data);
     }
+    console.log('Esto es en el constructor');
+    console.log(this.access_token);
   }
-  isLogged = () => {
-    return !!sessionStorage.getItem(UsersService.SESSION_STORAGE_USER) && !!sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN);
+
+  isLogged = async () => {
+    var is = false;
+    await this.testLogin().subscribe(
+      reponse => {
+        is=true;
+        console.log(reponse);
+
+      },error=>{is=false}
+    )
+    console.log('Esto es isLogin');
+    console.log(is);
+    return is;
+    // return !!sessionStorage.getItem(UsersService.SESSION_STORAGE_USER) && !!sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN);
+  }
+  testLogin = () => {
+    const url = `${environment.url_api}usuario/test`;
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.access_token}),
+    };
+    console.log('Dentro del testlogin');
+    console.log(this.access_token);
+    return this.http.post(url,'',extra);
+  }
+
+  testRol = () => {
+    const url = `${environment.url_api}usuario/testRol`;
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.access_token}),
+    };
+    console.log('Dentro del testlogin');
+    console.log(this.access_token);
+    return this.http.post(url,'',extra);
   }
 
   login(user: any) {
@@ -67,6 +98,8 @@ export class UsersService {
     this.login(user).subscribe(
       (data) => {
         this.set(data);
+        console.log('Esto es login');
+        console.log(data);
         this.error = null;
         if (typeof callback === 'function') callback(data);
       },
@@ -121,8 +154,12 @@ export class UsersService {
   unirseRueda = (data) => {
     const url = `${environment.url_api}usuario/unirse`;
     const extra = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.access_token}),
     };
+    console.log('ESTO ES DE EXTRA');
+    console.log(extra);
     data.idUser = this.id;
     return this.http.post(url, data, extra);
   };
@@ -140,8 +177,12 @@ export class UsersService {
     const url = `${environment.url_api}usuario/estado`;
     const data = { idUser: this.id };
     const extra = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.access_token}),
     };
+    console.log('ESTO ES DE EXTRA');
+    console.log(extra);
     return this.http.post(url, data, extra);
   };
 
@@ -152,16 +193,24 @@ export class UsersService {
   edit = (user) => {
     const url = `${environment.url_api}usuario/edit`;
     const extra = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + this.access_token}),
     };
+    console.log('ESTO ES DE EXTRA');
+    console.log(extra);
 
     return this.http.post(url, user, extra);
   };
 
+  // esto da problemas con passport
   modify(data:any){
     const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'multipart/form-data');
+    headers.append('X-Requested-With' , 'XMLHttpRequest');
+    headers.append('Authorization','Bearer ' + this.access_token);
+    console.log(headers);
     const url = `${environment.url_api}usuario/modify`;
 
     return this.http.post(url,data,{headers: headers});

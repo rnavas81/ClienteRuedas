@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -7,7 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditarPerfilComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UsersService,) {
+    this.userService.testLogin().subscribe(
+      reponse => {
+
+      },error => {
+        this.userService.logout();
+      }
+    )
+  }
 
   ngOnInit(): void {
   }

@@ -20,9 +20,12 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
-    if (userService.isLogged()) {
-      this.avanzar();
-    }
+    this.userService.testLogin().subscribe(
+      reponse => {
+        this.avanzar();
+        console.log(reponse);
+      }
+    )
   }
 
   ngOnInit(): void {
