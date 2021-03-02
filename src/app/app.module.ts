@@ -24,6 +24,7 @@ import { VSignUpComponent } from './views/v-sign-up/v-sign-up.component';
 import { HomeComponent } from './views/home/home.component';
 import { AcercadeComponent } from './views/acercade/acercade.component';
 import { ListaRuedasComponent } from './views/lista-ruedas/lista-ruedas.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { ListaRuedasComponent } from './views/lista-ruedas/lista-ruedas.componen
     HomeComponent,
     AcercadeComponent,
     ListaRuedasComponent,
+    ToastComponent,
   ],
   imports: [
     BrowserModule,

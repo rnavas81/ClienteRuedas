@@ -53,6 +53,7 @@ export class PanelAdministradorComponent implements OnInit {
   usuarios: any[];
 
   rolAux: any;
+  toast:any;
   constructor(private http: HttpClient, private formBuilder: FormBuilder, public administrador: AdministradorService) { }
 
   ngOnInit(): void {
@@ -109,9 +110,15 @@ export class PanelAdministradorComponent implements OnInit {
         this.code = '200';
         this.cargarUsuariosBBDD();
         document.getElementById('btn-cerrar-create').click();
+        this.toast={
+          text:'Usuario creado',type:'success'
+        }
       },
       (error) => {
         console.error(error.status);
+        this.toast={
+          text:'Error al crear el usuario',type:'error'
+        }
       }
     );
 
@@ -140,7 +147,6 @@ export class PanelAdministradorComponent implements OnInit {
     this.user["surname"] = this.usuarios[i].surname;
     this.user["email"] = this.usuarios[i].email;
     this.user["rol"] = this.usuarios[i].rol;
-    console.log(this.user["rol"]);
 
     switch (this.user["rol"]) {
       case 1:
@@ -188,16 +194,22 @@ export class PanelAdministradorComponent implements OnInit {
     }
 
     console.log(usuarioEditar);
-    
+
 
     this.administrador.editUser(usuarioEditar).subscribe(
       (data) => {
         this.code = '200';
         this.cargarUsuariosBBDD();
         document.getElementById('btn-cerrar-edit').click();
+        this.toast={
+          text:'Usuario actualizado',type:'success'
+        }
       },
       (error) => {
         console.error(error.status);
+        this.toast={
+          text:'Error al actualizar el usuario',type:'error'
+        }
       }
     )
   }
@@ -217,9 +229,15 @@ export class PanelAdministradorComponent implements OnInit {
       (data) => {
         this.code = '200';
         this.cargarUsuariosBBDD();
+        this.toast={
+          text:'Usuario eliminado',type:'success'
+        }
       },
       (error) => {
         console.error(error.status);
+        this.toast={
+          text:'Error al eliminar el usuario',type:'error'
+        }
       }
     )
   }
