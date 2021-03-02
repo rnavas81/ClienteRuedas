@@ -28,6 +28,7 @@ export class ListaRuedasComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private ruedasService: RuedaService,
+    private userService:UsersService,
   ) {
 
     this.modalTitulo = 'Rueda';
