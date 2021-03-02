@@ -27,13 +27,11 @@ export class VerRuedaService {
   }
 
   getRueda = (id) =>  {
-    console.log('---------------------------------------------------------------');
-    console.log(this.userService.access_token);
     const url = environment.url_api + '/rueda/generada/' + id;
     const extra = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
        'X-Requested-With': 'XMLHttpRequest' ,
-       'Authorization' : 'Bearer ' + this.userService.access_token}),
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
     };
     return this.http.get(url,extra);
   };

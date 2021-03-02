@@ -25,8 +25,6 @@ export class UsersService {
       var data =JSON.parse(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER));
       this.set(data);
     }
-    console.log('Esto es en el constructor');
-    console.log(this.access_token);
   }
 
   isLogged = async () => {
@@ -34,12 +32,8 @@ export class UsersService {
     await this.testLogin().subscribe(
       reponse => {
         is=true;
-        console.log(reponse);
-
       },error=>{is=false}
     )
-    console.log('Esto es isLogin');
-    console.log(is);
     return is;
     // return !!sessionStorage.getItem(UsersService.SESSION_STORAGE_USER) && !!sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN);
   }
@@ -48,10 +42,8 @@ export class UsersService {
     const extra = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
        'X-Requested-With': 'XMLHttpRequest' ,
-       'Authorization' : 'Bearer ' + this.access_token}),
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
     };
-    console.log('Dentro del testlogin');
-    console.log(this.access_token);
     return this.http.post(url,'',extra);
   }
 
@@ -60,10 +52,8 @@ export class UsersService {
     const extra = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
        'X-Requested-With': 'XMLHttpRequest' ,
-       'Authorization' : 'Bearer ' + this.access_token}),
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
     };
-    console.log('Dentro del testlogin');
-    console.log(this.access_token);
     return this.http.post(url,'',extra);
   }
 
@@ -71,7 +61,7 @@ export class UsersService {
     return this.http.post(environment.url_api + 'login', user);
   }
 
-  set = (data:any) => {
+  set = async (data:any) => {
     if(data.hasOwnProperty('message'))delete(data.message);
     if(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER)){
       const user = JSON.parse(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER));
@@ -90,7 +80,12 @@ export class UsersService {
     this.rol = parseInt(data.rol);
     this.rueda = parseInt(data.rueda);
     this.avatar = data.avatar;
-    sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data.access_token);
+    console.log(data.hasOwnProperty('access_token'),data);
+
+    if(data.hasOwnProperty('access_token')){
+      this.access_token = data.acces_token;
+      sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data.access_token);
+    }
     sessionStorage.setItem(UsersService.SESSION_STORAGE_USER,JSON.stringify(data));
   }
 
@@ -98,8 +93,6 @@ export class UsersService {
     this.login(user).subscribe(
       (data) => {
         this.set(data);
-        console.log('Esto es login');
-        console.log(data);
         this.error = null;
         if (typeof callback === 'function') callback(data);
       },
@@ -125,7 +118,7 @@ export class UsersService {
         this.router.navigate(['/']);
       },
       (error) => {
-        console.error(error.status);
+
       }
     );
   };
@@ -156,10 +149,8 @@ export class UsersService {
     const extra = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
        'X-Requested-With': 'XMLHttpRequest' ,
-       'Authorization' : 'Bearer ' + this.access_token}),
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
     };
-    console.log('ESTO ES DE EXTRA');
-    console.log(extra);
     data.idUser = this.id;
     return this.http.post(url, data, extra);
   };
@@ -174,15 +165,15 @@ export class UsersService {
     );
   };
   isNew = () => {
+    console.log("isNew "+sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN));
+
     const url = `${environment.url_api}usuario/estado`;
     const data = { idUser: this.id };
     const extra = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
        'X-Requested-With': 'XMLHttpRequest' ,
-       'Authorization' : 'Bearer ' + this.access_token}),
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
     };
-    console.log('ESTO ES DE EXTRA');
-    console.log(extra);
     return this.http.post(url, data, extra);
   };
 
@@ -195,10 +186,8 @@ export class UsersService {
     const extra = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
        'X-Requested-With': 'XMLHttpRequest' ,
-       'Authorization' : 'Bearer ' + this.access_token}),
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
     };
-    console.log('ESTO ES DE EXTRA');
-    console.log(extra);
 
     return this.http.post(url, user, extra);
   };
@@ -209,21 +198,42 @@ export class UsersService {
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'multipart/form-data');
     headers.append('X-Requested-With' , 'XMLHttpRequest');
-    headers.append('Authorization','Bearer ' + this.access_token);
-    console.log(headers);
+    headers.append('Authorization','Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN));
     const url = `${environment.url_api}usuario/modify`;
 
     return this.http.post(url,data,{headers: headers});
   }
 
   logout = () => {
-    this.name = undefined;
-    this.surname = undefined;
-    this.email = undefined;
-    this.access_token = undefined;
-    sessionStorage.removeItem(UsersService.SESSION_STORAGE_TOKEN);
-    sessionStorage.removeItem(UsersService.SESSION_STORAGE_USER);
-    this.router.navigate(["/"]);
+    this.logoutApi().subscribe(
+      response => {
+        this.name = undefined;
+        this.surname = undefined;
+        this.email = undefined;
+        this.access_token = undefined;
+        sessionStorage.removeItem(UsersService.SESSION_STORAGE_TOKEN);
+        sessionStorage.removeItem(UsersService.SESSION_STORAGE_USER);
+        this.router.navigate(["/"]);
+      },
+      error => {
+        this.name = undefined;
+        this.surname = undefined;
+        this.email = undefined;
+        this.access_token = undefined;
+        sessionStorage.removeItem(UsersService.SESSION_STORAGE_TOKEN);
+        sessionStorage.removeItem(UsersService.SESSION_STORAGE_USER);
+        this.router.navigate(["/"]);
+      }
+    );
   }
 
+  logoutApi = () => {
+    const url = `${environment.url_api}logout`;
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
+    };
+    return this.http.post(url,'',extra);
+  }
 }

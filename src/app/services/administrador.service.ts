@@ -15,7 +15,7 @@ export class AdministradorService {
     const extra = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
        'X-Requested-With': 'XMLHttpRequest' ,
-       'Authorization' : 'Bearer ' + this.userService.access_token}),
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
     };
     return this.http.post(environment.url_api + 'administrador/createUser', nuevoUsuario, extra);
   }
@@ -25,7 +25,7 @@ export class AdministradorService {
     const extra = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
        'X-Requested-With': 'XMLHttpRequest' ,
-       'Authorization' : 'Bearer ' + this.userService.access_token}),
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
     };
     return this.http.get(environment.url_api + 'administrador/getUsers', extra);
   }
@@ -35,7 +35,7 @@ export class AdministradorService {
     const extra = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
        'X-Requested-With': 'XMLHttpRequest' ,
-       'Authorization' : 'Bearer ' + this.userService.access_token}),
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
     };
     return this.http.post(environment.url_api + 'administrador/editUser', usuario, extra);
   }
@@ -45,7 +45,7 @@ export class AdministradorService {
     const extra = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
        'X-Requested-With': 'XMLHttpRequest' ,
-       'Authorization' : 'Bearer ' + this.userService.access_token}),
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
     };
     return this.http.post(environment.url_api + 'administrador/deleteUser', usuario, extra);
   }
