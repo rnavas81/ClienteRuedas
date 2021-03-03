@@ -52,12 +52,8 @@ export class LoginComponent implements OnInit {
      */
     this.userService.loginSubscribe(user, (response) => {
       if (response) {
-        this.userService.set(response)
-          .then( response => {
-            console.log(this.userService.access_token);
-
-            this.avanzar();
-          });
+        this.userService.set(response);
+        this.avanzar();
       } else {
         // console.log(this.userService.error);
         this.mensaje = this.userService.error;

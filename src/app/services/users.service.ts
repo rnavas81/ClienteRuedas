@@ -61,7 +61,7 @@ export class UsersService {
     return this.http.post(environment.url_api + 'login', user);
   }
 
-  set = async (data:any) => {
+  set = (data:any) => {
     if(data.hasOwnProperty('message'))delete(data.message);
     if(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER)){
       const user = JSON.parse(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER));
@@ -80,8 +80,6 @@ export class UsersService {
     this.rol = parseInt(data.rol);
     this.rueda = parseInt(data.rueda);
     this.avatar = data.avatar;
-    console.log(data.hasOwnProperty('access_token'),data);
-
     if(data.hasOwnProperty('access_token')){
       this.access_token = data.acces_token;
       sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data.access_token);
