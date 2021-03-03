@@ -8,46 +8,98 @@ import { Router } from '@angular/router';
 })
 export class UsersService {
   public static readonly SESSION_STORAGE_USER: string = 'CAR_SHARE_USER';
-  public static readonly SESSION_STORAGE_KEY: string = 'CAR_SHARE_KEY';
+  public static readonly SESSION_STORAGE_TOKEN: string = 'CAR_SHARE_KEY';
   id: number;
-
   name: string;
   surname: string;
   email: string;
-  access_token: string;
+  avatar: string;
+  access_token: any;
   error: string;
   msg: string;
+  rol: number;
+  rueda:number;
 
   constructor(private http: HttpClient, private router: Router) {
-    if(sessionStorage.getItem("user")){
-      var data =JSON.parse(sessionStorage.getItem("user"));
-      this.id = data['id'];
-      this.name = data['name'];
-      this.surname = data['surname'];
-      this.email = data['email'];
+    if(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER)){
+      var data =JSON.parse(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER));
+      this.set(data);
     }
+  }
+
+  isLogged = async () => {
+    var is = false;
+    await this.testLogin().subscribe(
+      reponse => {
+        is=true;
+      },error=>{is=false}
+    )
+    return is;
+    // return !!sessionStorage.getItem(UsersService.SESSION_STORAGE_USER) && !!sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN);
+  }
+  testLogin = () => {
+    const url = `${environment.url_api}usuario/test`;
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
+    };
+    return this.http.post(url,'',extra);
+  }
+
+  testRol = () => {
+    const url = `${environment.url_api}usuario/testRol`;
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
+    };
+    return this.http.post(url,'',extra);
   }
 
   login(user: any) {
     return this.http.post(environment.url_api + 'login', user);
   }
 
+  set = (data:any) => {
+    if(data.hasOwnProperty('message'))delete(data.message);
+    if(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER)){
+      const user = JSON.parse(sessionStorage.getItem(UsersService.SESSION_STORAGE_USER));
+      if(!data.hasOwnProperty('id')) data.id = user.id;
+      if(!data.hasOwnProperty('name')) data.name = user.name;
+      if(!data.hasOwnProperty('surname')) data.surname = user.surname;
+      if(!data.hasOwnProperty('email')) data.email = user.email;
+      if(!data.hasOwnProperty('rol')) data.rol = user.rol;
+      if(!data.hasOwnProperty('rueda')) data.rueda = user.rueda;
+      if(!data.hasOwnProperty('avatar')) data.avatar = user.avatar;
+    }
+    this.id = data.id;
+    this.name = data.name;
+    this.surname = data.surname;
+    this.email = data.email;
+    this.rol = parseInt(data.rol);
+    this.rueda = parseInt(data.rueda);
+    this.avatar = data.avatar;
+    if(data.hasOwnProperty('access_token')){
+      this.access_token = data.acces_token;
+      sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data.access_token);
+    }
+    sessionStorage.setItem(UsersService.SESSION_STORAGE_USER,JSON.stringify(data));
+  }
+
   loginSubscribe = (user, callback) => {
     this.login(user).subscribe(
       (data) => {
-        if (data instanceof Object) {
-          this.id = data['id'];
-          this.name = data['name'];
-          this.surname = data['surname'];
-          this.email = data['email'];
-        }
-        sessionStorage.setItem('access_token', data['access_token']);
-        sessionStorage.setItem('user',JSON.stringify(data));
+        this.set(data);
         this.error = null;
-        if (typeof callback === 'function') callback(true);
+        if (typeof callback === 'function') callback(data);
       },
       (error) => {
-        this.error = error.status.toString();
+        if (error.error.message == null) {
+          this.error = "500";
+        }else{
+          this.error = error.error.message;
+        }
         if (typeof callback === 'function') callback(false);
       }
     );
@@ -61,10 +113,10 @@ export class UsersService {
     this.register(user).subscribe(
       (data) => {
         this.error = '500';
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       },
       (error) => {
-        console.error(error.status);
+
       }
     );
   };
@@ -93,11 +145,11 @@ export class UsersService {
   unirseRueda = (data) => {
     const url = `${environment.url_api}usuario/unirse`;
     const extra = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
     };
     data.idUser = this.id;
-    console.log(data);
-
     return this.http.post(url, data, extra);
   };
   unirseRuedaSubscribe = (data) => {
@@ -111,10 +163,14 @@ export class UsersService {
     );
   };
   isNew = () => {
+    console.log("isNew "+sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN));
+
     const url = `${environment.url_api}usuario/estado`;
     const data = { idUser: this.id };
     const extra = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
     };
     return this.http.post(url, data, extra);
   };
@@ -123,14 +179,59 @@ export class UsersService {
     return this.http.post(environment.url_api + 'logout');
   }*/
 
-  logout = () => {
-    this.name = undefined;
-    this.surname = undefined;
-    this.email = undefined;
-    this.access_token = undefined;
-    sessionStorage.removeItem('access_token');
-    sessionStorage.removeItem('user');
-    this.router.navigate(["/"]);
+  edit = (user) => {
+    const url = `${environment.url_api}usuario/edit`;
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
+    };
+
+    return this.http.post(url, user, extra);
+  };
+
+  // esto da problemas con passport
+  modify(data:any){
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'multipart/form-data');
+    headers.append('X-Requested-With' , 'XMLHttpRequest');
+    headers.append('Authorization','Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN));
+    const url = `${environment.url_api}usuario/modify`;
+
+    return this.http.post(url,data,{headers: headers});
   }
 
+  logout = () => {
+    this.logoutApi().subscribe(
+      response => {
+        this.name = undefined;
+        this.surname = undefined;
+        this.email = undefined;
+        this.access_token = undefined;
+        sessionStorage.removeItem(UsersService.SESSION_STORAGE_TOKEN);
+        sessionStorage.removeItem(UsersService.SESSION_STORAGE_USER);
+        this.router.navigate(["/"]);
+      },
+      error => {
+        this.name = undefined;
+        this.surname = undefined;
+        this.email = undefined;
+        this.access_token = undefined;
+        sessionStorage.removeItem(UsersService.SESSION_STORAGE_TOKEN);
+        sessionStorage.removeItem(UsersService.SESSION_STORAGE_USER);
+        this.router.navigate(["/"]);
+      }
+    );
+  }
+
+  logoutApi = () => {
+    const url = `${environment.url_api}logout`;
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
+    };
+    return this.http.post(url,'',extra);
+  }
 }

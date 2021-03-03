@@ -48,7 +48,7 @@
 .login_btn {
   width: 100%;
   background: #57abed !important;
-  color: white !important;
+  color: white ;
 }
 .login_btn:focus {
   box-shadow: none !important;
@@ -59,7 +59,7 @@
 }
 .input-group-text {
   background: #57abed !important;
-  color: white !important;
+  color: white ;
   border: 0 !important;
   border-radius: 0.25rem 0 0 0.25rem !important;
 }
@@ -72,15 +72,16 @@
   background-color: #c0392b !important;
 }
 
-.bg-theme{
-  background-color: #007cba;
+a{
+  font-size: 1.3rem;
+  text-decoration: underline;
 }
 
-.bg-theme-dark{
-  background-color: #006ba1;
+.hide{
+  display: none;
 }
 
-.bg-theme-darker{
-  background-color: #005a87;
+btn:disabled{
+  color:  #212529;
 }
 

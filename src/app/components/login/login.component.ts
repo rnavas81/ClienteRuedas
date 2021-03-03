@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,20 +15,26 @@ export class LoginComponent implements OnInit {
 
   loginF: FormGroup;
 
-  constructor(public userService: UsersService, private formBuilder: FormBuilder,private router: Router) {
+  constructor(public userService: UsersService, private formBuilder: FormBuilder, private router: Router) {
     this.loginF = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
+    this.userService.testLogin().subscribe(
+      reponse => {
+        this.avanzar();
+        console.log(reponse);
+      }
+    )
   }
 
   ngOnInit(): void {
     this.mensaje = this.userService.msg;
-    console.log(this.mensaje);
     this.userService.msg = null;
+    // document.getElementById('op_usuario').setAttribute("selected", "selected");
   }
 
-  login(){
+  login() {
     this.mensaje = "";
     if (this.loginF.invalid) {
       return;
@@ -44,27 +50,37 @@ export class LoginComponent implements OnInit {
      * Si está en la rueda accede a la página principal
      * Si no, accede al formulario para seleccionar su horario
      */
-    this.userService.loginSubscribe(user,(response) => {
+    this.userService.loginSubscribe(user, (response) => {
       if (response) {
-        this.userService.isNew().subscribe(
-          (data) => {
-            console.log(data);
-            if(data["registered"] === true){
-              this.router.navigate(['/main']);
-            } else {
-              this.router.navigate(['/unirse']);
-            }
-            return true;
-          },
-          (error) => {
-            return false;
-          }
-        );
-      }else{
-        console.log(this.userService.error);
+        this.userService.set(response)
+          .then( response => {
+            console.log(this.userService.access_token);
 
+            this.avanzar();
+          });
+      } else {
+        // console.log(this.userService.error);
         this.mensaje = this.userService.error;
       }
     });
+  }
+
+  avanzar = () => {
+    console.log(this.userService.access_token);
+
+    this.userService.isNew().subscribe(
+      (data) => {
+
+        if (data["registered"] === true) {
+          this.router.navigate(['/main']);
+        } else {
+          this.router.navigate(['/unirse']);
+        }
+        return true;
+      },
+      (error) => {
+        return false;
+      }
+    );
   }
 }

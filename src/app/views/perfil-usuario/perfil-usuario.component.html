@@ -1,12 +1,11 @@
 <app-cabecera></app-cabecera>
 <main class="container-fluid m-0 principal">
     <div class="row">
-        <app-nav-vertical class="col-md-3 col-sm-3"></app-nav-vertical>
-        <section class="col-md-9 col-sm-9 principal bg-white p-0 d-flex justify-content-center flex-column overflow-auto">
+        <section id="vistaPrincipal" class="col-12 principal bg-white p-0 d-flex justify-content-center flex-column overflow-auto">
             <h1 class="ml-5 my-3">Mi rueda</h1>
             <div class="row m-0 p-0">
                 <div class="col-md-6 col-sm-6">
-                    <h5 class="d-inline">Nombre:</h5> {{nombre}}
+                    <h5 class="d-inline texto">Nombre:</h5> {{nombre}}
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <h5 class="d-inline">Descripcion:</h5> {{descripcion}}
@@ -19,7 +18,7 @@
                     <h5 class="d-inline">Destino:</h5> {{destino}}
                 </div>
             </div>
-            <app-rueda-horario class="row horario m-0 p-0" tipo="generada" idRueda="1">
+            <app-rueda-horario class="row horario m-0 p-0" tipo="generada" idRueda={{idRueda}}>
             </app-rueda-horario>
         </section>
     </div>
