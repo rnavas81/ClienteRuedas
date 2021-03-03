@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { log } from 'console';
-import { type } from 'os';
 import { RuedaService } from 'src/app/services/rueda.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -19,6 +17,7 @@ export class UnirseRuedaComponent implements OnInit {
   mensaje:string;
   ruedas: any;
   selected:number;
+  seleccionado: any;
 
   constructor(private router: Router,private formBuilder:FormBuilder,private ruedaService: RuedaService,public userService: UsersService) {
     this.mensaje="";

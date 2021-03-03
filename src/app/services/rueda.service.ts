@@ -13,14 +13,7 @@ export class RuedaService {
   descripcion: string;
   origen: string;
   destino: string;
-  horario: any[];
-  hora: string;
-  viajes: string[];
-  coches: string[];
-  dia: string;
-  tipo: string;
-  conductor: string;
-  pasajeros: string[];
+  horario: any;
 
   constructor(private http: HttpClient,public userService: UsersService) {
     this.dias = [
@@ -38,7 +31,7 @@ export class RuedaService {
     this.descripcion = 'En la ida se saldrá 30 minutos antes de la hora ';
     this.origen = 'Ciudad Real';
     this.destino = 'IFP Virgen de gracia';
-    this.horario = [];
+    this.horario = this.formarTabla(null);
   }
   /**
    *
@@ -81,10 +74,22 @@ export class RuedaService {
     this.descripcion = data['descripcion'];
     this.origen = data['origen'];
     this.destino = data['destino'];
-    if (typeof data['viajes'] !== 'undefined') this.horario = data['viajes'];
-    if (typeof data['generada'] !== 'undefined')
-      this.horario = data['generada'];
+    if (typeof data['viajes'] !== 'undefined') this.horario = this.formarTabla('viajes');
+    else if (typeof data['generada'] !== 'undefined') this.horario = this.formarTabla('generada');
+    else this.horario = this.formarTabla(null);
   };
+  formarTabla = data => {
+    if(data == null){
+      return {dias:[],filas:[],}
+    }
+    var dias = [];
+    var filas = [];
+
+    return {
+      dias:dias,
+      filas:filas,
+    }
+  }
   /**
    * Genera la tabla html en función del horario
    */
