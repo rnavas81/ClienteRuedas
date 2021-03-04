@@ -113,7 +113,7 @@ export class UsersService {
     this.register(user).subscribe(
       (data) => {
         this.error = '500';
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
       },
       (error) => {
 
@@ -129,11 +129,11 @@ export class UsersService {
     this.recuperar(email).subscribe(
       (data) => {
         this.error = 'Compruebe su email';
-        this.router.navigate(['/home']);
+        this.router.navigate(['/login']);
       },
       (error) => {
         this.msg = 'Compruebe su email';
-        this.router.navigate(['/home']);
+        this.router.navigate(['/login']);
       }
     );
   };
@@ -211,7 +211,7 @@ export class UsersService {
         this.access_token = undefined;
         sessionStorage.removeItem(UsersService.SESSION_STORAGE_TOKEN);
         sessionStorage.removeItem(UsersService.SESSION_STORAGE_USER);
-        this.router.navigate(["/"]);
+        this.router.navigate(["/login"]);
       },
       error => {
         this.name = undefined;
@@ -220,7 +220,7 @@ export class UsersService {
         this.access_token = undefined;
         sessionStorage.removeItem(UsersService.SESSION_STORAGE_TOKEN);
         sessionStorage.removeItem(UsersService.SESSION_STORAGE_USER);
-        this.router.navigate(["/"]);
+        this.router.navigate(["/login"]);
       }
     );
   }

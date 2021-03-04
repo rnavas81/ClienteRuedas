@@ -34,7 +34,9 @@
                   </div> -->
                   <small>*Todos los campos son obligatorios</small>
                   <div class="d-flex justify-content-center mt-3 login_container">
-                    <button class="btn login_btn btn-responsive" [disabled]="registroF.invalid"> <span class="glyphicon glyphicon-search"></span> Registrar</button>
+                    <button class="btn login_btn btn-responsive" [disabled]="registroF.invalid || estado"> <span class="glyphicon glyphicon-search"></span>
+                      <fa-icon *ngIf="estado" [icon]="icons.faSpinner" [spin]="true"></fa-icon>
+                      Registrar</button>
                   </div>
               </form>
           </div>

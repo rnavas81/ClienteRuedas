@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RuedaService } from 'src/app/services/rueda.service';
 import { UsersService } from 'src/app/services/users.service';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -17,6 +18,9 @@ export class UnirseRuedaComponent implements OnInit {
   mensaje:string;
   ruedas: any;
   selected:number;
+
+  estado = false;
+  icons = iconos;
 
   constructor(private router: Router,private formBuilder:FormBuilder,private ruedaService: RuedaService,public userService: UsersService) {
     this.mensaje="";
@@ -84,6 +88,7 @@ export class UnirseRuedaComponent implements OnInit {
    * Función para el envío del formulario
    */
   onSubmit = () => {
+    this.estado = true;
     this.mensaje="";
     if(Object.entries(this.horarioSeleccionado).length==0 && this.formRueda.controls["nombre"].valid){
       this.mensaje = "Debe seleccionar alguna hora del calendario"
