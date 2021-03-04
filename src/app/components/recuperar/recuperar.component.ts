@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
 import { LoginComponent } from '../login/login.component';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-recuperar',
@@ -12,6 +13,8 @@ import { LoginComponent } from '../login/login.component';
 export class RecuperarComponent implements OnInit {
 
   estado = false;
+
+  icons = iconos;
 
   @Input() login: LoginComponent;
 

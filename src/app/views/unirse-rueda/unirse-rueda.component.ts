@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RuedaService } from 'src/app/services/rueda.service';
 import { UsersService } from 'src/app/services/users.service';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class UnirseRuedaComponent implements OnInit {
   selected:number;
 
   estado = false;
+  icons = iconos;
 
   constructor(private router: Router,private formBuilder:FormBuilder,private ruedaService: RuedaService,public userService: UsersService) {
     this.mensaje="";
