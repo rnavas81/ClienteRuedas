@@ -74,8 +74,8 @@ export class RuedaService {
     this.descripcion = data['descripcion'];
     this.origen = data['origen'];
     this.destino = data['destino'];
-    if (typeof data['viajes'] !== 'undefined') this.horario = this.formarTabla('viajes');
-    else if (typeof data['generada'] !== 'undefined') this.horario = this.formarTabla('generada');
+    if (typeof data['viajes'] !== 'undefined') this.horario = this.formarTabla(data['viajes']);
+    else if (typeof data['generada'] !== 'undefined') this.horario = this.formarTabla(data['generada']);
     else this.horario = this.formarTabla(null);
   };
   formarTabla = data => {
@@ -85,6 +85,48 @@ export class RuedaService {
     var dias = [];
     var filas = [];
 
+    data.forEach((item, index) => {
+      if (!dias.includes(this.dias[item.dia])) {
+        dias.push(this.dias[item.dia]);
+      }
+
+      var idRow = filas.findIndex((x) => x.hora == item.hora);
+
+      if (idRow === -1) {
+        let newElement = {
+          hora: item.hora,
+          tipo : item.tipo,
+          viajes: [],
+        };
+        filas.push(newElement);
+        idRow = filas.length-1;
+      }
+      let viaje:any = {
+        id : item.id,
+        dia : item.dia,
+      }
+      if (typeof item.coches != 'undefined') {
+        viaje.coches=[];
+        item.coches.forEach((coche) => {
+          coche.va=false;
+          if (
+            coche.conductor ==
+            this.userService.name + ' ' + this.userService.surname
+          ) {
+            coche.va = true;
+          }
+
+          coche.pasajeros.forEach((pasajero) => {
+            if (pasajero == this.userService.name + ' ' + this.userService.surname) {
+              coche.va = true;
+            }
+          });
+          coche.pasajeros = coche.pasajeros.join(',');
+          viaje.coches.push(coche);
+        });
+      }
+      filas[idRow].viajes.push(viaje);
+    });
     return {
       dias:dias,
       filas:filas,
@@ -156,7 +198,6 @@ export class RuedaService {
       }
       if (typeof item.coches != 'undefined') {
         item.coches.forEach((coche) => {
-          //console.log(coche);
           let va = false;
           let div = document.createElement('div');
           let conductor = document.createElement('h5');
