@@ -18,6 +18,8 @@ export class UnirseRuedaComponent implements OnInit {
   ruedas: any;
   selected:number;
 
+  estado = false;
+
   constructor(private router: Router,private formBuilder:FormBuilder,private ruedaService: RuedaService,public userService: UsersService) {
     this.mensaje="";
     ruedaService.getAll().subscribe(
@@ -84,6 +86,7 @@ export class UnirseRuedaComponent implements OnInit {
    * Función para el envío del formulario
    */
   onSubmit = () => {
+    this.estado = true;
     this.mensaje="";
     if(Object.entries(this.horarioSeleccionado).length==0 && this.formRueda.controls["nombre"].valid){
       this.mensaje = "Debe seleccionar alguna hora del calendario"

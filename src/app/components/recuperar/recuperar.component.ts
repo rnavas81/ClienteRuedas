@@ -11,6 +11,8 @@ import { LoginComponent } from '../login/login.component';
 })
 export class RecuperarComponent implements OnInit {
 
+  estado = false;
+
   @Input() login: LoginComponent;
 
   recuperar: FormGroup;
@@ -24,6 +26,7 @@ export class RecuperarComponent implements OnInit {
   }
 
   forget(){
+    this.estado = true;
     let datos = this.recuperar.value;
     let email = {email: datos.email};
 

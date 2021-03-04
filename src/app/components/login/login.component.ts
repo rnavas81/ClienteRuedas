@@ -13,6 +13,8 @@ export class LoginComponent implements OnInit {
   password: string;
   mensaje: string;
 
+  estado = false;
+
   loginF: FormGroup;
 
   constructor(public userService: UsersService, private formBuilder: FormBuilder, private router: Router) {
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.estado = true;
     this.mensaje = "";
     if (this.loginF.invalid) {
       return;
@@ -57,6 +60,7 @@ export class LoginComponent implements OnInit {
       } else {
         // console.log(this.userService.error);
         this.mensaje = this.userService.error;
+        this.estado = false;
       }
     });
   }

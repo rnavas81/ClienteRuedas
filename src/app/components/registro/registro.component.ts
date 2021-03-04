@@ -16,6 +16,8 @@ export class RegistroComponent implements OnInit {
 
   registroF: FormGroup;
 
+  estado = false;
+
   constructor(public userService: UsersService, private formBuilder: FormBuilder) {
   }
 
@@ -31,6 +33,7 @@ export class RegistroComponent implements OnInit {
   }
 
   signup(){
+    this.estado = true;
     let datos = this.registroF.value;
     const user = {
       name: datos.name,

@@ -25,6 +25,8 @@ export class UsuarioPerfilComponent implements OnInit {
 
   files: File[] = [];
 
+  estado = false;
+
   selectedImage: any;
   servicesForm: any;
   toast:any;
@@ -63,6 +65,7 @@ export class UsuarioPerfilComponent implements OnInit {
   }
 
   send() {
+    this.estado = true;
     let dat = this.edit.value;
     var myFormData = new FormData();
     myFormData.append('image', this.filedata);
@@ -83,9 +86,11 @@ export class UsuarioPerfilComponent implements OnInit {
           avatar:data.avatar,
         }
         this.userService.set(user);
+        this.estado = false;
       },
       (error) => {
         this.toast = {text:"Error al actualizar los datos",type:'error'}
+        this.estado = false;
       }
     );
 

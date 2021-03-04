@@ -30,7 +30,7 @@
           </div>
           <div class="row justify-content-center">
             <label for="carta_nominador" style="width: 142px; height: 52px;  border-radius: 100px;cursor: pointer;" >
-                 <span class="iborrainputfile btn btn-block btn-secondary disabled">Cambiar icono</span>
+                 <span class="iborrainputfile btn btn-block btn-secondary">Cambiar icono</span>
             </label>
           </div>
           <input type="file"
@@ -126,7 +126,7 @@
                 <button
                   class="btn btn-block btn-secondary"
                   type="submit"
-                  [disabled]="edit.invalid"
+                  [disabled]="edit.invalid || estado"
                 >
                   <i class="glyphicon glyphicon-ok-sign"></i> Guardar
                 </button>
