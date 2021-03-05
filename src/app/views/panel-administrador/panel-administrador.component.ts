@@ -22,6 +22,7 @@ export class PanelAdministradorComponent implements OnInit {
   faAddSquare = iconos.faPlusSquare;
 
   //Datos del nuevo usuario
+  idUserLogin: number;
   id: number;
   name: string;
   surname: string;
@@ -54,24 +55,24 @@ export class PanelAdministradorComponent implements OnInit {
   usuarios: any[];
 
   rolAux: any;
-  toast:any;
+  toast: any;
   constructor(private http: HttpClient, private formBuilder: FormBuilder, public administrador: AdministradorService, private userService: UsersService) {
     // Comprobacion de que el usuario tiene el login
     this.userService.testLogin().subscribe(
       reponse => {
 
-      },error => {
+      }, error => {
         this.userService.logout();
       }
     )
 
     // Comprobacion de que el usuario tiene el rol apropiado
     this.userService.testRol().subscribe(
-      (reponse : any) => {
+      (reponse: any) => {
         if (reponse.rol != '1') {
           this.userService.logout();
         }
-      },error => {
+      }, error => {
         this.userService.logout();
       }
     )
@@ -80,6 +81,7 @@ export class PanelAdministradorComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.cargarUsuariosBBDD();
+    this.idUserLogin = this.userService.id;
     this.user = new Array();
     this.user["id"] = "";
     this.user["name"] = "";
@@ -131,14 +133,14 @@ export class PanelAdministradorComponent implements OnInit {
         this.code = '200';
         this.cargarUsuariosBBDD();
         document.getElementById('btn-cerrar-create').click();
-        this.toast={
-          text:'Usuario creado',type:'success'
+        this.toast = {
+          text: 'Usuario creado', type: 'success'
         }
       },
       (error) => {
         console.error(error.status);
-        this.toast={
-          text:'Error al crear el usuario',type:'error'
+        this.toast = {
+          text: 'Error al crear el usuario', type: 'error'
         }
       }
     );
@@ -222,14 +224,14 @@ export class PanelAdministradorComponent implements OnInit {
         this.code = '200';
         this.cargarUsuariosBBDD();
         document.getElementById('btn-cerrar-edit').click();
-        this.toast={
-          text:'Usuario actualizado',type:'success'
+        this.toast = {
+          text: 'Usuario actualizado', type: 'success'
         }
       },
       (error) => {
         console.error(error.status);
-        this.toast={
-          text:'Error al actualizar el usuario',type:'error'
+        this.toast = {
+          text: 'Error al actualizar el usuario', type: 'error'
         }
       }
     )
@@ -250,14 +252,14 @@ export class PanelAdministradorComponent implements OnInit {
       (data) => {
         this.code = '200';
         this.cargarUsuariosBBDD();
-        this.toast={
-          text:'Usuario eliminado',type:'success'
+        this.toast = {
+          text: 'Usuario eliminado', type: 'success'
         }
       },
       (error) => {
         console.error(error.status);
-        this.toast={
-          text:'Error al eliminar el usuario',type:'error'
+        this.toast = {
+          text: 'Error al eliminar el usuario', type: 'error'
         }
       }
     )
