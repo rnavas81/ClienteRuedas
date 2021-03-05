@@ -191,7 +191,7 @@
                                     data-toggle="modal" data-target="#editUser" (click)="editUser(i)">
                                     <fa-icon [icon]="faPencil" class="text-white"></fa-icon>
                                 </button>
-                                <button class="btn btn-danger" type="submit" name="borrarUsuario" title="Borrar usuario"
+                                <button *ngIf="usuario.id != idUserLogin" class="btn btn-danger" type="submit" name="borrarUsuario" title="Borrar usuario"
                                     data-toggle="modal" data-target="#deleteUser" (click)="borrar(i)">
                                     <fa-icon [icon]="faTrash"></fa-icon>
                                 </button>
