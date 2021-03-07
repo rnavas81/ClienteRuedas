@@ -12,13 +12,6 @@
         </div>
       </div>
       <div class="flex-grow-1"></div>
-      <div class="p-0 d-flex">
-        <label class="h5 p-2 text-white" for="tema">Tema</label>
-        <select class="form-control" name="tema" id="tema" #tema (change)="cambiarTema(tema.value)" [(ngModel)]='seleccionado'>
-          <option value="default"></option>
-          <option *ngFor="let tema of temas;" value={{tema.value}}>{{tema.label}}</option>
-        </select>
-      </div>
     </nav>
   </div>
 
