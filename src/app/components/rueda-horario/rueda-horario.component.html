@@ -1,40 +1,39 @@
-
-  <div class="col-12">
-    <div class="d-flex justify-content-center" id="horario">
-      <table class="table table-bordered">
-        <thead class="text-center">
-          <tr>
-            <th style="width: 80px;">###</th>
-            <th *ngFor="let dia of ruedaService.horario.dias" style="width: 20%;">
-              {{dia}}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let fila of ruedaService.horario.filas">
-            <th [ngStyle]="{'color':(fila.tipo==1)?'darkred':'darkgreen'}" >
-              {{fila.hora}}
-            </th>
-            <td *ngFor="let viaje of fila.viajes" class="celda-horario" onclick=""
-              [attr.data-id]=[viaje.id]
-              [attr.data-hora]=[fila.hora]
-              [attr.data-tipo]=[fila.tipo]
-              [attr.data-dia]=[viaje.dia]
-              (click)="!tipo && clickCell($event)"
-              >
-              <div *ngFor="let coche of viaje.coches" class="col p-1" [class.bg-light]="coche.va === true" [class.text-white]="coche.va === true">
-                <h5>
-                  <fa-icon class="icon-car" [icon]="faCar"></fa-icon>
-                  {{coche.conductor}}
-                </h5>
-                <!-- <fa-icon class="icon-car" [icon]="faUsers"></fa-icon> -->
-                <p class="d-block">
-                  {{coche.pasajeros}}
-                </p>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<div class="col-12">
+  <div class="d-flex justify-content-center" id="horario">
+    <table class="table table-bordered">
+      <thead class="text-center">
+        <tr>
+          <th style="width: 80px;">###</th>
+          <th *ngFor="let dia of ruedaService.horario.dias" style="width: 20%;">
+            {{dia}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fila of ruedaService.horario.filas">
+          <th [ngStyle]="{'color':(fila.tipo==1)?'darkred':'darkgreen'}">
+            {{fila.hora}}
+          </th>
+          <td *ngFor="let viaje of fila.viajes" class="celda-horario" onclick="" [attr.data-id]=[viaje.id]
+            [attr.data-hora]=[fila.hora] [attr.data-tipo]=[fila.tipo] [attr.data-dia]=[viaje.dia]
+            (click)="!tipo && clickCell($event)">
+            <div *ngFor="let coche of viaje.coches" class="col p-1" [class.bg-light]="coche.va === true"
+              [class.text-white]="coche.va === true" title={{coche.pasajeros}}>
+              <h5>
+                <fa-icon class="icon-car" [icon]="faCar"></fa-icon>
+                <b>&nbsp;{{coche.conductor}}</b>
+              </h5>
+              <small>
+                {{coche.salida}}
+              </small>
+              <!-- <fa-icon class="icon-car" [icon]="faUsers"></fa-icon> -->
+              <p class="pasajeros">
+                {{coche.pasajeros}}
+              </p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+</div>

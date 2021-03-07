@@ -1,4 +1,4 @@
-<div class="container-sm">
+<div class="container-xl">
   <div class="abs-center py-5">
     <form class="bg-white px-5 py-3 rounded" [formGroup]="formRueda" (ngSubmit)="onSubmit()">
       <div class="container h-100">
@@ -8,12 +8,6 @@
             <div class="row">
               <div class="col-12">
                 <label for="nombre">Nombre</label>
-                <!-- <input
-                  type="text"
-                  class="form-control"
-                  formControlName="nombre"
-                  />
-                -->
                 <select class="form-control" formControlName="nombre" #t (change)="cambiarDatos(t.value);">
                   <option *ngFor="let item of ruedas;" value={{item.id}}>{{item.nombre}}</option>
                 </select>
@@ -66,6 +60,12 @@
         </button>
       </div>
       <div class="modal-body">
+        <div class="form-group">
+          <label for="salida">{{titulomodal}}</label>
+          <select class="form-control" name="salida" id="salida">
+            <option *ngFor="let salida of salidas" value={{salida.id}}>{{salida.nombre}}</option>
+          </select>
+        </div>
         <div class="form-group">
           <label for="irsolo">Ir solo</label>
           <select class="form-control" name="irsolo" id="irSolo" (change)="cambiaIrSolo()">

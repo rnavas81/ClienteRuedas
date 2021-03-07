@@ -32,16 +32,16 @@ export class ToastComponent implements OnInit {
       data.class = 'content rounded px-4 py-3 my-3';
       switch (data.type) {
         case 'info':
-          data.class+=' bg-info';
+          data.class+=' bg-info text-white';
           break;
         case 'success':
-          data.class+=' bg-success';
+          data.class+=' bg-success text-white';
           break;
         case 'warning':
           data.class+=' bg-warning';
           break;
         case 'error':
-          data.class+=' bg-danger';
+          data.class+=' bg-danger text-white';
           break;
         default:
           data.class+=' bg-primary text-white';

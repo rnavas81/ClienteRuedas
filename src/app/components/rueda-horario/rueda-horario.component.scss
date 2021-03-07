@@ -5,3 +5,19 @@
   font-size: 0.7rem;
   text-align: center;
 }
+
+@media (max-width: 400px) {
+  h5,.h5 {
+    font-size: .8rem;
+  }
+}
+
+@media (max-width: 700px) {
+  h5,.h5 {
+    font-size: 1rem;
+  }
+  .pasajeros {
+    display: none;
+  }
+}
+

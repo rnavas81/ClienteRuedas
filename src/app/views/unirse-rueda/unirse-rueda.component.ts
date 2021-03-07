@@ -18,17 +18,24 @@ export class UnirseRuedaComponent implements OnInit {
   ruedas: any;
   selected:number;
   seleccionado: any;
+  salidas: any;
+  titulomodal:string;
 
   constructor(private router: Router,private formBuilder:FormBuilder,private ruedaService: RuedaService,public userService: UsersService) {
     this.mensaje="";
-    ruedaService.getAll().subscribe(
-      response => {
-        this.ruedas=response;
-      },
-      error => console.error("error al recuperar")
-    );
     this.userService.testLogin().subscribe(
       reponse => {
+        ruedaService.getAll().subscribe(
+          response => {
+            this.ruedas=response;
+            if(this.userService.rueda>0){
+              this.formRueda.controls['nombre'].setValue(this.userService.rueda);
+              this.cambiarDatos(this.userService.rueda);
+              this.seleccionado = this.userService.rueda;
+            }
+          },
+          error => console.error("error al recuperar")
+        );
 
       },error => {
         this.userService.logout();
@@ -40,7 +47,7 @@ export class UnirseRuedaComponent implements OnInit {
 
     this.horarioSeleccionado = {}
     this.formRueda = this.formBuilder.group({
-      nombre: [{value:''},[Validators.required]],
+      nombre: [{value:this.seleccionado},[Validators.required]],
       descripcion: [{value:'',disabled:true}],
       origen: [{value:'',disabled:true}],
       destino: [{value:'',disabled:true}],
@@ -66,6 +73,7 @@ export class UnirseRuedaComponent implements OnInit {
     this.formRueda.controls["origen"].setValue(data.origen);
     this.formRueda.controls["destino"].setValue(data.destino);
     document.getElementById('btn-enviar').removeAttribute('disabled');
+    this.salidas = data.salidas;
     this.selected=id;
 
   }
@@ -82,11 +90,17 @@ export class UnirseRuedaComponent implements OnInit {
     }
     this.cambiaIrSolo();
     this.seleccionado = item;
+    if(item.dataset.tipo==1)this.titulomodal="Salida";
+    else if(item.dataset.tipo==2)this.titulomodal="Vuelta";
+    else this.titulomodal = "";
     document.getElementById('AbrirModal').click();
   }
   agregarOpciones = () => {
     document.getElementById("cerrar-modal").click();
     let opcionesText = "";
+    const idsalida =parseInt((<HTMLInputElement>document.getElementById('salida')).value);
+    const salida = this.salidas.find(i => i.id == idsalida);
+    opcionesText += `Salida: ${salida.nombre}\n`;
     const irSolo =parseInt((<HTMLInputElement>document.getElementById('irSolo')).value);
     const plazas=parseInt((<HTMLInputElement>document.getElementById('plazas')).value);
     if(irSolo==1){
@@ -104,7 +118,8 @@ export class UnirseRuedaComponent implements OnInit {
       dia:this.seleccionado,
       opciones:{
         irSolo:irSolo,
-        plazas:plazas
+        plazas:plazas,
+        salida:salida.id,
       }
     }
     this.seleccionado.textContent=opcionesText;
