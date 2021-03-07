@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { UploadService } from 'src/app/services/upload.service';
 import * as $ from 'jquery';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { AdministradorService } from 'src/app/services/administrador.service';
 
 @Component({
   selector: 'app-usuario-perfil',
@@ -40,7 +41,7 @@ export class UsuarioPerfilComponent implements OnInit {
     public userService: UsersService,
     public dropzone: NgxDropzoneModule,
     private formBuilder: FormBuilder,
-    private uploadService: UploadService
+    private adminService: AdministradorService
   ) {
     this.myFormData = new FormData();
     this.avatar = this.userService.avatar;
@@ -53,13 +54,14 @@ export class UsuarioPerfilComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   filedata: any;
   /* File onchange event */
   fileEvent(e) {
     this.filedata = e.target.files[0];
-
+    document.getElementById("fichero_seleccionado").textContent = this.filedata.name;
   }
   /* Upload button functioanlity */
   onSubmitform(f: NgForm) {
@@ -97,12 +99,17 @@ export class UsuarioPerfilComponent implements OnInit {
         this.estado = false;
       }
     );
-
-    $("#carta_nominador").change(function(){
-      this.myFormData.append('image', this.filedata);
-      var fichero_seleccionado = $(this).val();
-      var nombre_fichero_seleccionado = fichero_seleccionado.replace(/.*[\/\\]/, ''); //Eliminamos el path hasta el fichero seleccionado
-      $("#fichero_seleccionado").text(nombre_fichero_seleccionado);
-    });
   }
+
+  baja(){
+    console.log(sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN));
+    this.userService.delete().subscribe(
+      data => {
+        this.userService.logout();
+      },
+      error => {
+        this.userService.logout();
+      });
+  }
+
 }
