@@ -1,4 +1,4 @@
-<div class="container-sm">
+<div class="container-xl">
   <div class="abs-center py-5">
     <form class="bg-white px-5 py-3 rounded" [formGroup]="formRueda" (ngSubmit)="onSubmit()">
       <div class="container h-100">
@@ -8,12 +8,6 @@
             <div class="row">
               <div class="col-12">
                 <label for="nombre">Nombre</label>
-                <!-- <input
-                  type="text"
-                  class="form-control"
-                  formControlName="nombre"
-                  />
-                -->
                 <select class="form-control" formControlName="nombre" #t (change)="cambiarDatos(t.value);">
                   <option *ngFor="let item of ruedas;" value={{item.id}}>{{item.nombre}}</option>
                 </select>
@@ -53,5 +47,44 @@
         </div>
       </div>
     </form>
+  </div>
+</div>
+<!-- Ventana modal -->
+<button type="button" hidden id="AbrirModal" data-toggle="modal" data-target="#opcionesHoraModal">
+  Opciones para modal
+</button>
+<div class="modal fade" id="opcionesHoraModal" tabindex="-1" role="dialog" aria-labelledby="opcionesHoraModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Opciones</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="salida">{{titulomodal}}</label>
+          <select class="form-control" name="salida" id="salida">
+            <option *ngFor="let salida of salidas" value={{salida.id}}>{{salida.nombre}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="irsolo">Ir solo</label>
+          <select class="form-control" name="irsolo" id="irSolo" (change)="cambiaIrSolo()">
+            <option value="0">No</option>
+            <option value="1">Si</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="plazas">Plazas en el coche</label>
+          <input class="form-control" type="number" name="plazas" id="plazas" value="4">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="cerrar-modal" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="agregarOpciones()">Aceptar</button>
+      </div>
+    </div>
   </div>
 </div>

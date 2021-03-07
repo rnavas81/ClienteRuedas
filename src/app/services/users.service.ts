@@ -86,6 +86,7 @@ export class UsersService {
       sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data.access_token);
     }
     sessionStorage.setItem(UsersService.SESSION_STORAGE_USER,JSON.stringify(data));
+    return 1;
   }
 
   loginSubscribe = (user, callback) => {

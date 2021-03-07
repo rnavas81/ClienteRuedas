@@ -69,11 +69,8 @@ export class LoginComponent implements OnInit {
   }
 
   avanzar = () => {
-    console.log(this.userService.access_token);
-
     this.userService.isNew().subscribe(
       (data) => {
-
         if (data["registered"] === true) {
           this.router.navigate(['/main']);
         } else {

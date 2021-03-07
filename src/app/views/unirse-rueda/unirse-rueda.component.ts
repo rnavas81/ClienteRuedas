@@ -18,20 +18,28 @@ export class UnirseRuedaComponent implements OnInit {
   mensaje:string;
   ruedas: any;
   selected:number;
+  seleccionado: any;
+  salidas: any;
+  titulomodal:string;
 
   estado = false;
   icons = iconos;
 
   constructor(private router: Router,private formBuilder:FormBuilder,private ruedaService: RuedaService,public userService: UsersService) {
     this.mensaje="";
-    ruedaService.getAll().subscribe(
-      response => {
-        this.ruedas=response;
-      },
-      error => console.error("error al recuperar")
-    );
     this.userService.testLogin().subscribe(
       reponse => {
+        ruedaService.getAll().subscribe(
+          response => {
+            this.ruedas=response;
+            if(this.userService.rueda>0){
+              this.formRueda.controls['nombre'].setValue(this.userService.rueda);
+              this.cambiarDatos(this.userService.rueda);
+              this.seleccionado = this.userService.rueda;
+            }
+          },
+          error => console.error("error al recuperar")
+        );
 
       },error => {
         this.userService.logout();
@@ -43,7 +51,7 @@ export class UnirseRuedaComponent implements OnInit {
 
     this.horarioSeleccionado = {}
     this.formRueda = this.formBuilder.group({
-      nombre: [{value:''},[Validators.required]],
+      nombre: [{value:this.seleccionado},[Validators.required]],
       descripcion: [{value:'',disabled:true}],
       origen: [{value:'',disabled:true}],
       destino: [{value:'',disabled:true}],
@@ -69,6 +77,7 @@ export class UnirseRuedaComponent implements OnInit {
     this.formRueda.controls["origen"].setValue(data.origen);
     this.formRueda.controls["destino"].setValue(data.destino);
     document.getElementById('btn-enviar').removeAttribute('disabled');
+    this.salidas = data.salidas;
     this.selected=id;
 
   }
@@ -77,11 +86,73 @@ export class UnirseRuedaComponent implements OnInit {
    * Selecciona la celda
    */
   seleccionarHora = item => {
+    if( typeof this.horarioSeleccionado[item.dataset.dia] !== 'undefined'){
+      if(typeof this.horarioSeleccionado[item.dataset.dia][item.dataset.tipo] !== 'undefined'){
+        (<HTMLInputElement>document.getElementById('irSolo')).value=this.horarioSeleccionado[item.dataset.dia][item.dataset.tipo].opciones.irSolo;
+        (<HTMLInputElement>document.getElementById('plazas')).value=this.horarioSeleccionado[item.dataset.dia][item.dataset.tipo].opciones.plazas;
+      }
+    }
+    this.cambiaIrSolo();
+    this.seleccionado = item;
+    if(item.dataset.tipo==1)this.titulomodal="Salida";
+    else if(item.dataset.tipo==2)this.titulomodal="Vuelta";
+    else this.titulomodal = "";
+    document.getElementById('AbrirModal').click();
+  }
+  agregarOpciones = () => {
+    document.getElementById("cerrar-modal").click();
+    let opcionesText = "";
+    const idsalida =parseInt((<HTMLInputElement>document.getElementById('salida')).value);
+    const salida = this.salidas.find(i => i.id == idsalida);
+    opcionesText += `Salida: ${salida.nombre}\n`;
+    const irSolo =parseInt((<HTMLInputElement>document.getElementById('irSolo')).value);
+    const plazas=parseInt((<HTMLInputElement>document.getElementById('plazas')).value);
+    if(irSolo==1){
+      opcionesText+="Voy solo";
+    } else {
+      opcionesText+=`Plazas libres ${plazas}`;
+    }
+    if(this.horarioSeleccionado[this.seleccionado.dataset.dia]==null){
+      this.horarioSeleccionado[this.seleccionado.dataset.dia]={};
+    }
+    if(!!this.horarioSeleccionado[this.seleccionado.dataset.dia][this.seleccionado.dataset.tipo]) {
+      this.horarioSeleccionado[this.seleccionado.dataset.dia][this.seleccionado.dataset.tipo].dia.textContent="";
+    }
+    this.horarioSeleccionado[this.seleccionado.dataset.dia][this.seleccionado.dataset.tipo]={
+      dia:this.seleccionado,
+      opciones:{
+        irSolo:irSolo,
+        plazas:plazas,
+        salida:salida.id,
+      }
+    }
+    this.seleccionado.textContent=opcionesText;
+    this.selectCell(this.seleccionado);
+  }
+  cambiaIrSolo = () => {
+    const irSolo =parseInt((<HTMLInputElement>document.getElementById('irSolo')).value);
+    if(irSolo==0){
+      document.getElementById('plazas').removeAttribute("disabled");
+    } else if(irSolo==1){
+      document.getElementById('plazas').setAttribute("disabled","true");
+    }
+  }
+  selectCell = item => {
+    var horario = document.getElementById('horario');
     const hora = item.dataset.hora;
     const dia = item.dataset.dia;
     const tipo = item.dataset.tipo;
-    if(this.horarioSeleccionado[dia]==null)this.horarioSeleccionado[dia]={};
-    this.horarioSeleccionado[dia][tipo]=item.dataset.id;
+    var items = horario.querySelectorAll(`[data-dia='${dia}'][data-tipo='${tipo}']`);
+    items.forEach(e => {
+      if (e instanceof HTMLElement) {
+        if (e.dataset.hora === hora) {
+          e.classList.add('bg-info');
+        } else {
+          e.classList.remove('bg-info');
+        }
+      }
+    });
+
   }
 
   /**
@@ -98,6 +169,18 @@ export class UnirseRuedaComponent implements OnInit {
         idRueda:this.formRueda.controls["nombre"].value,
         horario:this.horarioSeleccionado
       }
+      for(var dia in this.horarioSeleccionado){
+        var diaData = this.horarioSeleccionado[dia];
+        data.horario[dia]={};
+        for(var i in diaData){
+          var seleccionado = diaData[i];
+          data.horario[dia][seleccionado.dia.dataset.tipo]={
+            id:seleccionado.dia.dataset.id,
+            reglas:seleccionado.opciones
+          }
+        }
+      }
+
       // Envia los datos para solicitar que el usuario sea agregado a la rueda
       this.userService.unirseRueda(data).subscribe(
         (response:any) => {
