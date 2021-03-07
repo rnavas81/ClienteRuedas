@@ -81,6 +81,7 @@ export class UsersService {
     this.rueda = parseInt(data.rueda);
     this.avatar = data.avatar;
     if(data.hasOwnProperty('access_token')){
+      console.log(this.access_token);
       this.access_token = data.acces_token;
       sessionStorage.setItem(UsersService.SESSION_STORAGE_TOKEN, data.access_token);
     }
@@ -227,6 +228,16 @@ export class UsersService {
 
   logoutApi = () => {
     const url = `${environment.url_api}logout`;
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
+    };
+    return this.http.post(url,'',extra);
+  }
+
+  delete = () => {
+    const url = `${environment.url_api}usuario/deleteAccount`;
     const extra = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
        'X-Requested-With': 'XMLHttpRequest' ,
