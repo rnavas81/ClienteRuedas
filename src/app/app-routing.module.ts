@@ -18,7 +18,7 @@ import { LoginGuardService } from './services/login-guard.service';
 const routes: Routes = [
   { path: '', component: HomeComponent }, // ESTO DEBERIA SER EL HOME
   { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent},
+  { path: 'login', component: LoginComponent, canActivate: [LoginGuardService] },
   { path: 'signup', component: VSignUpComponent, canActivate: [LoginGuardService]   },
   { path: 'unirse', component: UnirseRuedaComponent, canActivate: [AuthGuardService]  },
   { path:'recuperar', component: RecuperarPassComponent, canActivate: [LoginGuardService]   },

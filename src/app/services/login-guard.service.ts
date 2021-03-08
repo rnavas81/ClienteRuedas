@@ -15,14 +15,13 @@ export class LoginGuardService {
     return this.userService.testLogin().pipe(map((response: {
       authenticated: boolean}) => {
         console.log(response);
-        if (!response) {
-          return true;
+        if (response) {
+          this.router.navigate(['/main']);
+          return false;
         }
-        this.router.navigate(['/main']);
-        return false;
+        return true;
       }), catchError((error) => {
-        this.router.navigate(['/login']);
-        return of(false);
+        return of(true);
       })
     )
   }
