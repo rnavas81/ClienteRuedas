@@ -13,13 +13,14 @@ import { AcercadeComponent } from './views/acercade/acercade.component';
 import { ListaRuedasComponent } from './views/lista-ruedas/lista-ruedas.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { RolGuardService } from './services/rol-guard.service';
+import { LoginGuardService } from './services/login-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, // ESTO DEBERIA SER EL HOME
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: VSignUpComponent },
+  { path: 'login', component: LoginComponent, canActivate: [LoginGuardService]   },
+  { path: 'signup', component: VSignUpComponent, canActivate: [LoginGuardService]   },
   { path: 'unirse', component: UnirseRuedaComponent, canActivate: [AuthGuardService]  },
-  { path:'recuperar', component: RecuperarPassComponent },
+  { path:'recuperar', component: RecuperarPassComponent, canActivate: [LoginGuardService]   },
   { path:'main', component: PerfilUsuarioComponent, canActivate: [AuthGuardService] },
   { path: 'adminUsuarios', component: PanelAdministradorComponent, canActivate: [AuthGuardService,RolGuardService] },
   { path: 'seleccionarRol', component: SeleccionarRolComponent },
