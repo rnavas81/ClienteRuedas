@@ -26,12 +26,14 @@
             class="rounded-circle img-fluid bg-white border mt-2" style="margin: auto;" />
           <img *ngIf="!avatar || avatar.trim().length==0" [src]="'assets/perfil.png'" alt="Imagen por defecto"
             class="rounded-circle img-fluid bg-white border mt-2" />
-          <p class="h3 text-white pt-2">{{nombreUsuario + " " + apellidoUsuario}}</p>
+          <p class="h5 text-white pt-2">{{nombreUsuario + " " + apellidoUsuario}}</p>
         </div>
       </li>
 
       <li class="nav-item w-100">
-        <a class="btn btn-secondary w-100 p-0" href="/editProfile" name="editProfile">Editar perfil</a>
+        <div class="btnNavegacion mx-3">
+          <a class="btn btn-secondary w-100 p-0" href="/editProfile" name="editProfile">Editar perfil</a>
+        </div>
       </li>
 
       <hr class="w-100 bg-white mt-3 mb-0">
@@ -42,13 +44,9 @@
           <a class="btn btn-secondary w-100 p-0" href="/main" name="main">
             Mi rueda</a>
         </li>
-
-        <li class="nav-item w-100 mb-3">
-          <a class="btn btn-secondary w-100 p-0" href="/acercade" name="acercaDe">Acerca de</a>
-        </li>
       </div>
 
-      <hr class="w-100 bg-white my-0">
+      <hr class="w-100 bg-white my-0 mt-3">
 
       <div *ngIf="esAdmin == 1">
         <div class="btnNavegacion px-3">
@@ -65,6 +63,9 @@
 
         <hr class="w-100 bg-white my-0">
       </div>
+      <li class="nav-item w-100 my-0 mt-2">
+        <a class="btn btn-secondary w-100 p-0" href="/acercade" name="acercaDe">Acerca de</a>
+      </li>
       <li class="nav-item text-center my-3">
         <button class="btn bg-light text-white font-weight-bold cerrarSesion" (click)="cerrarSesion()" name="cerrarSesion">Cerrar sesion</button>
       </li>
