@@ -135,7 +135,7 @@
               </div>
               <div class="col-12 col-md pb-2">
                 <button class="btn btn-block btn-secondary" type="button" data-toggle="modal"
-                data-target="#modalborrar" disabled>
+                data-target="#modalPerderDatos">
                   Cambiar horario
                 </button>
               </div>
@@ -178,6 +178,26 @@
           <button type="submit" class="btn btn-secondary" name="modalAceptar" id="modalAceptar" title="borrar" (click)="baja()">
             Borrar
           </button>
+          <button id="btn-cerrar-modal" type="button" class="btn btn-danger" data-dismiss="modal" title="Cerrar">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Perder datos -->
+<div class="modal fade" id="modalPerderDatos" tabindex="-1" role="dialog" aria-labelledby="Modal Borrar" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="formularioModal">
+        <div class="modal-content text-center">
+          <p class="pt-4">Si continua perderá los datos no guardados</p>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-primary" title="Continuar" href="/unirse">
+            Continuar
+          </a>
           <button id="btn-cerrar-modal" type="button" class="btn btn-danger" data-dismiss="modal" title="Cerrar">
             Cancelar
           </button>

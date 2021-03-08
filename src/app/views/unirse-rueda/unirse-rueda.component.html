@@ -1,3 +1,4 @@
+<app-cabecera *ngIf="userService.rueda>0"></app-cabecera>
 <div class="container-xl">
   <div class="abs-center py-5">
     <form class="bg-white px-5 py-3 rounded" [formGroup]="formRueda" (ngSubmit)="onSubmit()">
@@ -38,9 +39,12 @@
             </app-rueda-horario>
             <!-- Botones para el formulario -->
             <div class="form-group pt-2 text-center">
-              <button id="btn-enviar" disabled type="submit" class="btn btn-primary w-50" [disabled]="estado">
+              <button id="btn-enviar" disabled type="submit" class="btn btn-primary mx-3" [disabled]="estado">
                 <fa-icon *ngIf="estado" [icon]="icons.faSpinner" [spin]="true"></fa-icon>
                 Enviar
+              </button>
+              <button *ngIf="userService.rueda>0" type="button" class="btn btn-danger mx-3" (click)="volver()">
+                Cancelar
               </button>
             </div>
           </div>

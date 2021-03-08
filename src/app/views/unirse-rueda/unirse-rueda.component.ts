@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { RuedaService } from 'src/app/services/rueda.service';
 import { UsersService } from 'src/app/services/users.service';
 import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class UnirseRuedaComponent implements OnInit {
   estado = false;
   icons = iconos;
 
-  constructor(private router: Router,private formBuilder:FormBuilder,private ruedaService: RuedaService,public userService: UsersService) {
+  constructor(private router: Router,private formBuilder:FormBuilder,private ruedaService: RuedaService,public userService: UsersService,private _location: Location) {
     this.mensaje="";
     this.userService.testLogin().subscribe(
       reponse => {
@@ -71,7 +72,6 @@ export class UnirseRuedaComponent implements OnInit {
   }
 
   cambiarDatos = (id) => {
-    // const id = this.formRueda.controls["nombre"].value;
     const data = this.ruedas.find(item=> item.id==id);
     this.formRueda.controls["descripcion"].setValue(data.descripcion);
     this.formRueda.controls["origen"].setValue(data.origen);
@@ -195,6 +195,13 @@ export class UnirseRuedaComponent implements OnInit {
         }
       )
     }
+  }
+  /**
+   * Función para volver a la página anterior
+   */
+  volver = () => {
+    this._location.back();
+
   }
 
 }
