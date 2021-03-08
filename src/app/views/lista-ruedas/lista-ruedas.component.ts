@@ -43,14 +43,6 @@ export class ListaRuedasComponent implements OnInit {
     this.seleccionado = 0;
     this.salidas = [];
 
-    // Comprobacion de que el usuario tiene el login
-    this.userService.testLogin().subscribe(
-      (reponse) => {},
-      (error) => {
-        this.userService.logout();
-      }
-    );
-
     // Comprobacion de que el usuario tiene el rol apropiado
     this.userService.testRol().subscribe(
       (reponse: any) => {

@@ -27,14 +27,19 @@ export class UsersService {
     }
   }
 
-  isLogged = async () => {
-    var is = false;
-    await this.testLogin().subscribe(
-      reponse => {
-        is=true;
-      },error=>{is=false}
-    )
-    return is;
+  isLogged = () => {
+    // var is = false;
+    // this.testLogin().subscribe(
+    //   reponse => {
+    //     is=true;
+    //   },error=>{is=false}
+    // )
+    // return is;
+    if (!!this.name) {
+      return true;
+    }else{
+      return false;
+    }
     // return !!sessionStorage.getItem(UsersService.SESSION_STORAGE_USER) && !!sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN);
   }
   testLogin = () => {

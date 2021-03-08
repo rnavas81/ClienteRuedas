@@ -11,19 +11,21 @@ import { VSignUpComponent } from './views/v-sign-up/v-sign-up.component';
 import { HomeComponent } from './views/home/home.component';
 import { AcercadeComponent } from './views/acercade/acercade.component';
 import { ListaRuedasComponent } from './views/lista-ruedas/lista-ruedas.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { RolGuardService } from './services/rol-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, // ESTO DEBERIA SER EL HOME
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: VSignUpComponent },
-  { path: 'unirse', component: UnirseRuedaComponent },
+  { path: 'unirse', component: UnirseRuedaComponent, canActivate: [AuthGuardService]  },
   { path:'recuperar', component: RecuperarPassComponent },
-  { path:'main', component: PerfilUsuarioComponent },
-  { path: 'adminUsuarios', component: PanelAdministradorComponent },
+  { path:'main', component: PerfilUsuarioComponent, canActivate: [AuthGuardService] },
+  { path: 'adminUsuarios', component: PanelAdministradorComponent, canActivate: [AuthGuardService,RolGuardService] },
   { path: 'seleccionarRol', component: SeleccionarRolComponent },
-  { path:'editProfile', component: EditarPerfilComponent },
+  { path:'editProfile', component: EditarPerfilComponent, canActivate: [AuthGuardService] },
   { path:'acercade', component:AcercadeComponent},
-  { path:'lista-ruedas', component:ListaRuedasComponent},
+  { path:'lista-ruedas', component:ListaRuedasComponent, canActivate: [AuthGuardService,RolGuardService] },
 ];
 
 @NgModule({

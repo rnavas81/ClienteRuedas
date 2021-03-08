@@ -25,6 +25,8 @@ import { HomeComponent } from './views/home/home.component';
 import { AcercadeComponent } from './views/acercade/acercade.component';
 import { ListaRuedasComponent } from './views/lista-ruedas/lista-ruedas.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { RolGuardService } from './services/rol-guard.service';
 
 
 @NgModule({
@@ -58,7 +60,7 @@ import { ToastComponent } from './components/toast/toast.component';
     HttpClientModule,
     FontAwesomeModule,
   ],
-  providers: [],
+  providers: [AuthGuardService, RolGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
