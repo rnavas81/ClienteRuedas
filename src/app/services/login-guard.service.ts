@@ -21,7 +21,7 @@ export class LoginGuardService {
         this.router.navigate(['/main']);
         return false;
       }), catchError((error) => {
-        this.router.navigate(['/main']);
+        this.router.navigate(['/login']);
         return of(false);
       })
     )
