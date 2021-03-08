@@ -4,12 +4,12 @@
         <section id="vistaPrincipal" class="col-12 principal bg-white p-0 d-flex justify-content-center justify-items-center flex-column overflow-auto">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-sm-6">
                   <h1 class="ml-5 my-3">Editar perfil</h1>
                 </div>
-                <div class="col-12 col-lg-3 offset-lg-3">
-                  <div class="ml-5">
-                    <label class="h5 p-2 text-white" for="tema">Tema</label>
+                <div class="col-12 col-sm-6 d-flex justify-content-end">
+                  <div class="align-self-center form-inline">
+                    <label class="h5 mr-2" for="tema">Tema</label>
                     <select class="form-control" name="tema" id="tema" #tema (change)="cambiarTema(tema.value)" [(ngModel)]='seleccionado'>
                       <option value="default"></option>
                       <option *ngFor="let tema of temas;" value={{tema.value}}>{{tema.label}}</option>
