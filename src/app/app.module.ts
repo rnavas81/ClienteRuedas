@@ -27,6 +27,7 @@ import { ListaRuedasComponent } from './views/lista-ruedas/lista-ruedas.componen
 import { ToastComponent } from './components/toast/toast.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { RolGuardService } from './services/rol-guard.service';
+import { LoginGuardService } from './services/login-guard.service';
 
 
 @NgModule({
@@ -60,7 +61,7 @@ import { RolGuardService } from './services/rol-guard.service';
     HttpClientModule,
     FontAwesomeModule,
   ],
-  providers: [AuthGuardService, RolGuardService],
+  providers: [AuthGuardService, RolGuardService, LoginGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
