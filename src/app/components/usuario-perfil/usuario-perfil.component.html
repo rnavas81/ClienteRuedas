@@ -3,24 +3,14 @@
     <div class="col-sm-3">
       <!--left col-->
       <!-- Avatar -->
-      <br />
       <hr />
 
       <div class="row justify-content-center">
         <div class="col-4 col-sm-12 col-md-12 col-lg-12">
-          <img
-          *ngIf="!!avatar && avatar.trim().length>0"
-          src="{{ avatar }}"
-          alt="Imagen de {{ userService.name }}"
-          class="rounded-circle img-fluid bg-white border mb-4 mt-4"
-          style="margin: auto;"
-        />
-        <img
-          *ngIf="!avatar || avatar.trim().length==0"
-          [src]="'assets/perfil.png'"
-          alt="Imagen por defecto"
-          class="rounded-circle img-fluid bg-white border mb-4 mt-4"
-        />
+          <img *ngIf="!!avatar && avatar.trim().length>0" src="{{ avatar }}" alt="Imagen de {{ userService.name }}"
+            class="rounded-circle img-fluid bg-white border mb-4 mt-4" style="margin: auto;" />
+          <img *ngIf="!avatar || avatar.trim().length==0" [src]="'assets/perfil.png'" alt="Imagen por defecto"
+            class="rounded-circle img-fluid bg-white border mb-4 mt-4" />
         </div>
       </div>
       <div class="row justify-content-center pl-4">
@@ -29,105 +19,66 @@
             <span id="fichero_seleccionado" class="texto">Ninguna imagen seleccionada</span>
           </div>
           <div class="col justify-content-center text-center">
-            <label for="carta_nominador" style="width: 142px; height: 52px;  border-radius: 100px;cursor: pointer;" >
-                 <span class="iborrainputfile btn btn-block btn-secondary">Cambiar icono</span>
+            <label for="carta_nominador" style="width: 142px; height: 52px;  border-radius: 100px;cursor: pointer;">
+              <span class="iborrainputfile btn btn-block btn-secondary">Cambiar icono</span>
             </label>
           </div>
-          <input type="file"
-          name="myFile"
-          (change)="fileEvent($event)"
-          accept="image/*" id="carta_nominador" class="inputfile inputfile-1">
+          <input type="file" name="myFile" (change)="fileEvent($event)" accept="image/*" id="carta_nominador"
+            class="inputfile inputfile-1">
         </div>
       </div>
       <hr />
-      <br />
 
     </div>
     <!--/col-3-->
     <div class="col-sm-9">
-      <br />
       <div class="tab-content">
         <div class="tab-pane active" id="home">
           <hr />
           <div class="row p-4">
             <form [formGroup]="edit" (ngSubmit)="send()" class="row">
               <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
-                <label for="first_name"><h4 class="texto">Nombre</h4></label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="first_name"
-                  id="first_name"
-                  placeholder="Nombre"
-                  title="Modifica tu nombre."
-                  required
-                  formControlName="name"
-                />
+                <label for="first_name">
+                  <h4 class="texto">Nombre</h4>
+                </label>
+                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Nombre"
+                  title="Modifica tu nombre." required formControlName="name" />
               </div>
 
               <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
-                <label for="last_name"><h4 class="texto">Apellidos</h4></label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="last_name"
-                  id="last_name"
-                  placeholder="apellido"
-                  title="Modifica tu apellido."
-                  required
-                  formControlName="surname"
-                />
+                <label for="last_name">
+                  <h4 class="texto">Apellidos</h4>
+                </label>
+                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="apellido"
+                  title="Modifica tu apellido." required formControlName="surname" />
               </div>
 
               <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
-                <label for="email"><h4 class="texto">Email</h4></label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="email"
-                  id="email"
-                  placeholder="Modifica tu email"
-                  title="Modifica tu email."
-                  required
-                  formControlName="email"
-                  autocomplete="username"
-                />
+                <label for="email">
+                  <h4 class="texto">Email</h4>
+                </label>
+                <input type="text" class="form-control" name="email" id="email" placeholder="Modifica tu email"
+                  title="Modifica tu email." required formControlName="email" autocomplete="username" />
               </div>
 
               <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
-                <label for="password"><h4 class="texto">Contraseña</h4></label>
-                <input
-                  type="password"
-                  class="form-control"
-                  name="password"
-                  id="password"
-                  placeholder="Contraseña"
-                  title="Modifica tu contraseña"
-                  formControlName="password"
-                  autocomplete="new-password"
-                />
+                <label for="password">
+                  <h4 class="texto">Contraseña</h4>
+                </label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña"
+                  title="Modifica tu contraseña" formControlName="password" autocomplete="new-password" />
               </div>
 
               <div class="col-sm-12 col-md-6 col-lg-6 mb-4">
-                <label for="password2"><h4 class="texto">Verificar contraseña</h4></label>
-                <input
-                  type="password"
-                  class="form-control"
-                  name="password2"
-                  id="password2"
-                  placeholder="Contraseña"
-                  title="verifica tu contaseña"
-                  formControlName="password2"
-                  autocomplete="new-password"
-                />
+                <label for="password2">
+                  <h4 class="texto">Verificar contraseña</h4>
+                </label>
+                <input type="password" class="form-control" name="password2" id="password2" placeholder="Contraseña"
+                  title="verifica tu contaseña" formControlName="password2" autocomplete="new-password" />
               </div>
               <div></div>
               <div class="col-12 col-md pb-2">
-                <button
-                  class="btn btn-block btn-secondary"
-                  type="submit"
-                  [disabled]="edit.invalid || estado"
-                >
+                <button class="btn btn-block btn-secondary" type="submit" [disabled]="edit.invalid || estado">
                   <i class="glyphicon glyphicon-ok-sign"></i>
                   <fa-icon *ngIf="estado" [icon]="icons.faSpinner" [spin]="true"></fa-icon>
                   Guardar
@@ -135,13 +86,12 @@
               </div>
               <div class="col-12 col-md pb-2">
                 <button class="btn btn-block btn-secondary" type="button" data-toggle="modal"
-                data-target="#modalPerderDatos">
+                  data-target="#modalPerderDatos">
                   Cambiar horario
                 </button>
               </div>
               <div class="col-12 col-md pb-2">
-                <button class="btn btn-block btn-danger" type="button" data-toggle="modal"
-                data-target="#modalborrar">
+                <button class="btn btn-block btn-danger" type="button" data-toggle="modal" data-target="#modalborrar">
                   Darse de baja
                 </button>
               </div>
@@ -175,7 +125,8 @@
           <p class="pt-4">Esta seguro de que desea eliminar su cuenta?</p>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-secondary" name="modalAceptar" id="modalAceptar" title="borrar" (click)="baja()">
+          <button id="modalAceptar" type="submit" class="btn btn-secondary" data-dismiss="modal" title="borrar"
+            name="modalAceptar" (click)="baja()">
             Borrar
           </button>
           <button id="btn-cerrar-modal" type="button" class="btn btn-danger" data-dismiss="modal" title="Cerrar">
@@ -187,7 +138,8 @@
   </div>
 </div>
 <!-- Perder datos -->
-<div class="modal fade" id="modalPerderDatos" tabindex="-1" role="dialog" aria-labelledby="Modal Borrar" aria-hidden="true">
+<div class="modal fade" id="modalPerderDatos" tabindex="-1" role="dialog" aria-labelledby="Modal Borrar"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <form id="formularioModal">
@@ -195,7 +147,7 @@
           <p class="pt-4">Si continua perderá los datos no guardados</p>
         </div>
         <div class="modal-footer">
-          <a class="btn btn-primary" title="Continuar" href="/unirse">
+          <a class="btn btn-primary" title="Continuar" href="/unirse" data-dismiss="modal">
             Continuar
           </a>
           <button id="btn-cerrar-modal" type="button" class="btn btn-danger" data-dismiss="modal" title="Cerrar">
