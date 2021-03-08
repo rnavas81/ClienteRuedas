@@ -84,11 +84,6 @@ export class CabeceraComponent implements OnInit {
     var updateElement2 = document.getElementById("menu-list");
     updateElement2.classList.toggle("open");
 
-    // if (updateElement.classList.contains('open')) {
-    //   updateElement2.classList.remove("oculto");
-    // } else {
-    //   updateElement2.classList.add("oculto");
-    // }
   }
 
 }

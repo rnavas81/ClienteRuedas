@@ -88,8 +88,6 @@ div.btnNavegacion {
 
 
 .menu-list {
-  // height: calc(100vh - 111px);
-  // width: 0px;
   width: 0% !important;
   max-width: 0px !important;
   min-width: 0px !important;
@@ -99,13 +97,6 @@ div.btnNavegacion {
   z-index: 1000;
   overflow-x: hidden;
   transition: 1s ease-in;
-  &.oculto {
-    width: 0% !important;
-    max-width: 0px !important;
-    min-width: 0px !important;
-    padding: unset !important;
-    overflow: hidden;
-  }
 
   &.open {
     width: 100% !important;
@@ -119,9 +110,12 @@ div.btnNavegacion {
     position: -o-sticky !important;
     position: -ms-sticky !important;
     position: sticky !important;
-  }  
+  }
   .active {
     text-decoration: underline;
   }
+  .navbar-brand, .navbar-toggler {
+    font-size: 1rem;
+}
 }
 
