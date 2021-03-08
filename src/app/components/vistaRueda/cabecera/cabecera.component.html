@@ -1,7 +1,7 @@
 <header class="m-0 sticky-top bg-theme-darker">
   <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light cabecera py-0 d-flex" aria-label="cabecera">
-      <div class="p-0 d-flex">
+    <nav class="cabecera p-0 row" aria-label="cabecera">
+      <div class="col-6 d-flex">
         <a href="/login">
           <img [src]="'assets/logo.png'" alt="Logo" class="vh-10 rounded-circle img-fluid bg-white border mb-4 mt-4">
         </a>
@@ -11,66 +11,33 @@
           <span></span>
         </div>
       </div>
-      <div class="flex-grow-1"></div>
+      <div class="col-6 d-flex justify-content-end">
+        <a href="/editProfile">
+          <img [src]="!!avatar && avatar.trim().length>0? avatar : defaultAvatar " alt="Imagen de {{ nombreUsuario }}"
+          class="vh-10 rounded-circle img-fluid bg-white border mb-4 mt-4" [title]='nombreUsuario + " " + apellidoUsuario' />
+        </a>
+      </div>
     </nav>
   </div>
 
-  <div class="bg-theme-darker menu menu-list open position-absolute px-3 py-1 oculto" id="menu-list"
-    (click)="toggleNav()">
-    <ul class="flex-column text-center p-0">
-      <li class="nav-item">
-        <div class="userProfile text-center">
-          <!-- <img [src]="'assets/perfil.png'" alt="Imagen de perfil" class="rounded-circle img-fluid bg-white"> -->
-
-          <img *ngIf="!!avatar && avatar.trim().length>0" src="{{ avatar }}" alt="Imagen de {{ nombreUsuario }}"
-            class="rounded-circle img-fluid bg-white border mt-2" style="margin: auto;" />
-          <img *ngIf="!avatar || avatar.trim().length==0" [src]="'assets/perfil.png'" alt="Imagen por defecto"
-            class="rounded-circle img-fluid bg-white border mt-2" />
-          <p class="h5 text-white pt-2">{{nombreUsuario + " " + apellidoUsuario}}</p>
-        </div>
-      </li>
-
-      <li class="nav-item w-100">
-        <div class="btnNavegacion mx-3">
-          <a class="btn btn-secondary w-100 p-0" href="/editProfile" name="editProfile">Editar perfil</a>
-        </div>
-      </li>
-
-      <hr class="w-100 bg-white mt-3 mb-0">
-
-      <div class="btnNavegacion px-3">
-
-        <li class="nav-item w-100">
-          <a class="btn btn-secondary w-100 p-0" href="/main" name="main">
-            Mi rueda</a>
-        </li>
+  <div class="bg-theme-darker menu menu-list border-top border-bottom" id="menu-list">
+    <div class="navbar m-0 p-2 navbar-expand-lg ">
+      <a class="navbar-brand text-white" href="/main" name="main">
+        Mi rueda
+      </a>
+      <a class="navbar-brand text-white" href="/acercade" name="acercaDe">
+        Acerca de
+      </a>
+      <a *ngIf="esAdmin == 1" class="navbar-brand text-white" href="/lista-ruedas" name="adminRuedas">
+        Administrar Ruedas
+      </a>
+      <a *ngIf="esAdmin == 1" class="navbar-brand text-white" href="/adminUsuarios" name="adminUsuarios">
+        Administrar Usuarios
+      </a>
+      <button class="navbar-toggler text-white" (click)="cerrarSesion()" name="cerrarSesion">
+        Cerrar sesion
+      </button>
       </div>
-
-      <hr class="w-100 bg-white my-0 mt-3">
-
-      <div *ngIf="esAdmin == 1">
-        <div class="btnNavegacion px-3">
-          <li class="nav-item w-100">
-            <a class="btn btn-secondary  w-100 p-0" href="/lista-ruedas" name="adminRuedas">
-              Admin. Ruedas</a>
-          </li>
-
-          <li class="nav-item w-100 mb-3">
-            <a class="btn btn-secondary w-100 p-0" href="/adminUsuarios" name="adminUsuarios">
-              Admin. Usuarios</a>
-          </li>
-        </div>
-
-        <hr class="w-100 bg-white my-0">
-      </div>
-      <li class="nav-item w-100 my-0 mt-2">
-        <a class="btn btn-secondary w-100 p-0" href="/acercade" name="acercaDe">Acerca de</a>
-      </li>
-      <li class="nav-item text-center my-3">
-        <button class="btn bg-light text-white font-weight-bold cerrarSesion" (click)="cerrarSesion()" name="cerrarSesion">Cerrar sesion</button>
-      </li>
-
-    </ul>
   </div>
 
 </header>

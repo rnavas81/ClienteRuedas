@@ -15,13 +15,14 @@ export class CabeceraComponent implements OnInit {
   apellidoUsuario: string;
   avatar: string;
   esAdmin: number;
+  defaultAvatar: string;
 
   constructor(public userService: UsersService, private router: Router) {
     this.nombreUsuario = userService.name;
     this.apellidoUsuario = userService.surname;
     this.avatar = userService.avatar;
     this.esAdmin = userService.rol;
-
+    this.defaultAvatar = 'assets/perfil.png';
   }
 
   ngOnInit(): void {
@@ -41,9 +42,6 @@ export class CabeceraComponent implements OnInit {
     let item;
 
     switch (this.router.url) {
-      case "/editProfile":
-        item = document.getElementsByName('editProfile')[0];
-        break;
 
       case "/main":
         item = document.getElementsByName('main')[0];
@@ -60,31 +58,22 @@ export class CabeceraComponent implements OnInit {
       case "/adminUsuarios":
         item = document.getElementsByName('adminUsuarios')[0];
         break;
+      default:
+        item = null;
     }
 
     this.limpiarClases();
-    item.classList.remove("btn-secondary");
-    item.classList.add("active", "font-weight-bold", "btn-outline-secondary", "py-2");
+    if(item!==null)item.classList.add("active", "font-weight-bold");
 
   }
 
   limpiarClases = () => {
 
-    document.getElementsByName('editProfile')[0].classList.remove("active", "font-weight-bold", "btn-outline-secondary");
-    document.getElementsByName('editProfile')[0].classList.add("btn-secondary");
-
-    document.getElementsByName('main')[0].classList.remove("active", "font-weight-bold", "btn-outline-secondary");
-    document.getElementsByName('main')[0].classList.add("btn-secondary");
-
-    document.getElementsByName('acercaDe')[0].classList.remove("active", "font-weight-bold", "btn-outline-secondary");
-    document.getElementsByName('acercaDe')[0].classList.add("btn-secondary");
-
+    document.getElementsByName('main')[0].classList.remove("active", "font-weight-bold");
+    document.getElementsByName('acercaDe')[0].classList.remove("active", "font-weight-bold");
     if (this.esAdmin == 1) {
-      document.getElementsByName('adminRuedas')[0].classList.remove("active", "font-weight-bold", "btn-outline-secondary");
-      document.getElementsByName('adminRuedas')[0].classList.add("btn-secondary");
-
-      document.getElementsByName('adminUsuarios')[0].classList.remove("active", "font-weight-bold", "btn-outline-secondary");
-      document.getElementsByName('adminUsuarios')[0].classList.add("btn-secondary");
+      document.getElementsByName('adminRuedas')[0].classList.remove("active", "font-weight-bold");
+      document.getElementsByName('adminUsuarios')[0].classList.remove("active", "font-weight-bold");
     }
   }
 
@@ -95,11 +84,11 @@ export class CabeceraComponent implements OnInit {
     var updateElement2 = document.getElementById("menu-list");
     updateElement2.classList.toggle("open");
 
-    if (updateElement.classList.contains('open')) {
-      updateElement2.classList.remove("oculto");
-    } else {
-      updateElement2.classList.add("oculto");
-    }
+    // if (updateElement.classList.contains('open')) {
+    //   updateElement2.classList.remove("oculto");
+    // } else {
+    //   updateElement2.classList.add("oculto");
+    // }
   }
 
 }

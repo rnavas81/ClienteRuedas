@@ -3,7 +3,6 @@
     <div class="col-sm-3">
       <!--left col-->
       <!-- Avatar -->
-      <br />
       <hr />
 
       <div class="row justify-content-center">
@@ -40,12 +39,10 @@
         </div>
       </div>
       <hr />
-      <br />
 
     </div>
     <!--/col-3-->
     <div class="col-sm-9">
-      <br />
       <div class="tab-content">
         <div class="tab-pane active" id="home">
           <hr />
@@ -175,7 +172,7 @@
           <p class="pt-4">Esta seguro de que desea eliminar su cuenta?</p>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-secondary" name="modalAceptar" id="modalAceptar" title="borrar" (click)="baja()">
+          <button id="modalAceptar" type="submit" class="btn btn-secondary" data-dismiss="modal" title="borrar" name="modalAceptar" (click)="baja()">
             Borrar
           </button>
           <button id="btn-cerrar-modal" type="button" class="btn btn-danger" data-dismiss="modal" title="Cerrar">
