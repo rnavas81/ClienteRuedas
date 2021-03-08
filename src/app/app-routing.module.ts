@@ -17,7 +17,8 @@ import { LoginGuardService } from './services/login-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, // ESTO DEBERIA SER EL HOME
-  { path: 'login', component: LoginComponent, canActivate: [LoginGuardService]   },
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent},
   { path: 'signup', component: VSignUpComponent, canActivate: [LoginGuardService]   },
   { path: 'unirse', component: UnirseRuedaComponent, canActivate: [AuthGuardService]  },
   { path:'recuperar', component: RecuperarPassComponent, canActivate: [LoginGuardService]   },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path:'editProfile', component: EditarPerfilComponent, canActivate: [AuthGuardService] },
   { path:'acercade', component:AcercadeComponent},
   { path:'lista-ruedas', component:ListaRuedasComponent, canActivate: [AuthGuardService,RolGuardService] },
+  { path:'**', redirectTo: 'home'},
 ];
 
 @NgModule({
