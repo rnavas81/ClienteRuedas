@@ -14,13 +14,6 @@ export class EditarPerfilComponent implements OnInit {
   seleccionado:string;
 
   constructor(private userService: UsersService,) {
-    this.userService.testLogin().subscribe(
-      reponse => {
-
-      },error => {
-        this.userService.logout();
-      }
-    )
     this.temas = temas;
     this.seleccionado='default';
   }

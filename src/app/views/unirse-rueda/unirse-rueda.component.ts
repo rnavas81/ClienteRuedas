@@ -28,24 +28,17 @@ export class UnirseRuedaComponent implements OnInit {
 
   constructor(private router: Router,private formBuilder:FormBuilder,private ruedaService: RuedaService,public userService: UsersService,private _location: Location) {
     this.mensaje="";
-    this.userService.testLogin().subscribe(
-      reponse => {
-        ruedaService.getAll().subscribe(
-          response => {
-            this.ruedas=response;
-            if(this.userService.rueda>0){
-              this.formRueda.controls['nombre'].setValue(this.userService.rueda);
-              this.cambiarDatos(this.userService.rueda);
-              this.seleccionado = this.userService.rueda;
-            }
-          },
-          error => console.error("error al recuperar")
-        );
-
-      },error => {
-        this.userService.logout();
-      }
-    )
+    ruedaService.getAll().subscribe(
+      response => {
+        this.ruedas=response;
+        if(this.userService.rueda>0){
+          this.formRueda.controls['nombre'].setValue(this.userService.rueda);
+          this.cambiarDatos(this.userService.rueda);
+          this.seleccionado = this.userService.rueda;
+        }
+      },
+      error => console.error("error al recuperar")
+    );
    }
 
   ngOnInit(): void {
