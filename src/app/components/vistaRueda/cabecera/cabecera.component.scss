@@ -117,3 +117,11 @@ div.btnNavegacion{
     height: 100%;
     width:100%;
   }
+
+  .sticky-top {
+    position: -webkit-sticky !important;
+    position: -moz-sticky !important;
+    position: -o-sticky !important;
+    position: -ms-sticky !important;
+    position: sticky !important;
+  }  
