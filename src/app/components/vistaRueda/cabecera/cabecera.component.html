@@ -5,7 +5,7 @@
         <a href="/login">
           <img [src]="'assets/logo.png'" alt="Logo" class="vh-10 rounded-circle img-fluid bg-white border mb-4 mt-4">
         </a>
-        <div class="align-self-center menu-icon ml-3 w-auto" id="menu-icon" (click)="toggleNav()" cy-id='nav'>
+        <div class="align-self-center menu-icon ml-3 w-auto" id="menu-icon" (click)="toggleNav()" cy-id="nav">
           <span></span>
           <span></span>
           <span></span>
@@ -21,7 +21,7 @@
   </div>
 
   <div class="bg-theme-darker menu menu-list border-top border-bottom" id="menu-list">
-    <div class="navbar m-0 p-2 navbar-expand-lg ">
+    <div class="navbar m-0 p-2 navbar-brand ">
       <a class="navbar-brand text-white" href="/main" name="main">
         Mi rueda
       </a>
@@ -34,7 +34,7 @@
       <a *ngIf="esAdmin == 1" class="navbar-brand text-white" href="/adminUsuarios" name="adminUsuarios" cy-id='adminUsers'>
         Administrar Usuarios
       </a>
-      <button class="navbar-toggler text-white" (click)="cerrarSesion()" name="cerrarSesion">
+      <button class="navbar-toggler text-white" (click)="cerrarSesion()" name="cerrarSesion" cy-id='cerrar-sesion'>
         Cerrar sesion
       </button>
       </div>
