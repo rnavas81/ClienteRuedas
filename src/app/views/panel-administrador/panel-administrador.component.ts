@@ -57,11 +57,10 @@ export class PanelAdministradorComponent implements OnInit {
   rolAux: any;
   toast: any;
   constructor(private http: HttpClient, private formBuilder: FormBuilder, public administrador: AdministradorService, private userService: UsersService) {
-
+    this.initForm();
   }
 
   ngOnInit(): void {
-    this.initForm();
     this.cargarUsuariosBBDD();
     this.idUserLogin = this.userService.id;
     this.user = new Array();
@@ -103,12 +102,8 @@ export class PanelAdministradorComponent implements OnInit {
     let usuario = this.registroForm.value;
 
     //Suscripción a la función de consulta a la API
-    switch (usuario.rol) {
-      case 'Administrador':
-        usuario.rol = 1; break;
-      case 'Usuario':
-        usuario.rol = 2; break;
-    }
+
+    usuario.rol = this.comprobarRol(usuario.rol);
 
     this.administrador.registrar(usuario).subscribe(
       (data) => {
@@ -129,6 +124,16 @@ export class PanelAdministradorComponent implements OnInit {
 
   }
 
+  public comprobarRol = (usuarioRol) => {
+    switch (usuarioRol) {
+      case 'Administrador':
+        usuarioRol = 1; break;
+      case 'Usuario':
+        usuarioRol = 2; break;
+    }
+    return usuarioRol;
+  }
+
   //Carga de usuarios de la BBDD
   public cargarUsuariosBBDD = () => {
     this.administrador.getUsers().subscribe(
@@ -146,12 +151,11 @@ export class PanelAdministradorComponent implements OnInit {
   //Recogemos el usuario que queremos modificar de la tabla
   editUser = (i) => {
     this.indiceEditar = i;
-    this.user = new Array();
-    this.user["id"] = this.usuarios[i].id;
-    this.user["name"] = this.usuarios[i].name;
-    this.user["surname"] = this.usuarios[i].surname;
-    this.user["email"] = this.usuarios[i].email;
-    this.user["rol"] = this.usuarios[i].rol;
+    this.editForm.controls["idUsuario"].setValue(this.usuarios[i].id);
+    this.editForm.controls["editName"].setValue(this.usuarios[i].name);
+    this.editForm.controls["editSurname"].setValue(this.usuarios[i].surname);
+    this.editForm.controls["editEmail"].setValue(this.usuarios[i].email);
+    this.editForm.controls["editRol"].setValue(this.usuarios[i].rol);
 
     switch (this.user["rol"]) {
       case 1:
@@ -189,17 +193,7 @@ export class PanelAdministradorComponent implements OnInit {
     }
 
     //Ponemos el rol correspondiente en el atributo del usuario
-    switch (usuarioEditar.editRol) {
-      case 'Administrador':
-        usuarioEditar.editRol = 1;
-        break;
-      case 'Usuario':
-        usuarioEditar.editRol = 2;
-        break;
-    }
-
-    console.log(usuarioEditar);
-
+    usuarioEditar.editRol = this.comprobarRol(usuarioEditar.editRol); 
 
     this.administrador.editUser(usuarioEditar).subscribe(
       (data) => {

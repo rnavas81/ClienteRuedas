@@ -61,7 +61,8 @@ describe('Test de Rodrigo para el componente lista de ruedas', () => {
       },
     ];
 
-  })
+  });
+  
   describe('Comprueba la posición de una rueda', () => {
     it('Si busco la rueda con id 2 me devuelve la posición 1. Si busco la rueda con id 3 me devuelve la posición -1', () => {
       let id = 2, result= 1;
