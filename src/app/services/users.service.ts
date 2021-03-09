@@ -111,7 +111,7 @@ export class UsersService {
   registerSubscribe = (user) => {
     this.register(user).subscribe(
       (data) => {
-        this.error = '500';
+        this.msg = 'Compruebe su email';
         this.router.navigate(['/login']);
       },
       (error) => {
@@ -127,7 +127,7 @@ export class UsersService {
   recuperarSubscribe = (email) => {
     this.recuperar(email).subscribe(
       (data) => {
-        this.error = 'Compruebe su email';
+        this.msg = 'Compruebe su email';
         this.router.navigate(['/login']);
       },
       (error) => {
