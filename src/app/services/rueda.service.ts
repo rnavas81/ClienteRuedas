@@ -13,14 +13,7 @@ export class RuedaService {
   descripcion: string;
   origen: string;
   destino: string;
-  horario: any[];
-  hora: string;
-  viajes: string[];
-  coches: string[];
-  dia: string;
-  tipo: string;
-  conductor: string;
-  pasajeros: string[];
+  horario: any;
 
   constructor(private http: HttpClient,public userService: UsersService) {
     this.dias = [
@@ -38,7 +31,7 @@ export class RuedaService {
     this.descripcion = 'En la ida se saldrá 30 minutos antes de la hora ';
     this.origen = 'Ciudad Real';
     this.destino = 'IFP Virgen de gracia';
-    this.horario = [];
+    this.horario = this.formarTabla(null);
   }
   /**
    *
@@ -46,8 +39,21 @@ export class RuedaService {
    */
   get = (id = null) => {
     const url = environment.url_api + 'rueda' + (id != null ? `/${id}` : '');
-    var data = {};
-    return this.http.get(url, data);
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
+    };
+    return this.http.get(url,extra);
+  };
+  getAll = () => {
+    const url = environment.url_api + 'rueda';
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
+    };
+    return this.http.get(url,extra);
   };
   /**
    * Consulta la rueda según la ID que le pasemos --> rueda/generada/1
@@ -55,8 +61,12 @@ export class RuedaService {
    */
   getGenerada = (id = null) => {
     const url = environment.url_api + 'rueda/generada' + (!!id ? `/${id}` : '');
-    var data = {};
-    return this.http.get(url, data);
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
+    };
+    return this.http.get(url,extra);
   };
   setData = (data) => {
     this.id = data['id'];
@@ -64,10 +74,64 @@ export class RuedaService {
     this.descripcion = data['descripcion'];
     this.origen = data['origen'];
     this.destino = data['destino'];
-    if (typeof data['viajes'] !== 'undefined') this.horario = data['viajes'];
-    if (typeof data['generada'] !== 'undefined')
-      this.horario = data['generada'];
+    if (typeof data['viajes'] !== 'undefined') this.horario = this.formarTabla(data['viajes']);
+    else if (typeof data['generada'] !== 'undefined') this.horario = this.formarTabla(data['generada']);
+    else this.horario = this.formarTabla(null);
   };
+  formarTabla = data => {
+    if(data == null){
+      return {dias:[],filas:[],}
+    }
+    var dias = [];
+    var filas = [];
+
+    data.forEach((item, index) => {
+      if (!dias.includes(this.dias[item.dia])) {
+        dias.push(this.dias[item.dia]);
+      }
+
+      var idRow = filas.findIndex((x) => x.hora == item.hora);
+
+      if (idRow === -1) {
+        let newElement = {
+          hora: item.hora,
+          tipo : item.tipo,
+          viajes: [],
+        };
+        filas.push(newElement);
+        idRow = filas.length-1;
+      }
+      let viaje:any = {
+        id : item.id,
+        dia : item.dia,
+      }
+      if (typeof item.coches != 'undefined') {
+        viaje.coches=[];
+        item.coches.forEach((coche) => {
+          coche.va=false;
+          if (
+            coche.conductor ==
+            this.userService.name + ' ' + this.userService.surname
+          ) {
+            coche.va = true;
+          }
+
+          coche.pasajeros.forEach((pasajero) => {
+            if (pasajero == this.userService.name + ' ' + this.userService.surname) {
+              coche.va = true;
+            }
+          });
+          coche.pasajeros = coche.pasajeros.join(',');
+          viaje.coches.push(coche);
+        });
+      }
+      filas[idRow].viajes.push(viaje);
+    });
+    return {
+      dias:dias,
+      filas:filas,
+    }
+  }
   /**
    * Genera la tabla html en función del horario
    */
@@ -134,7 +198,6 @@ export class RuedaService {
       }
       if (typeof item.coches != 'undefined') {
         item.coches.forEach((coche) => {
-          //console.log(coche);
           let va = false;
           let div = document.createElement('div');
           let conductor = document.createElement('h5');
@@ -175,4 +238,43 @@ export class RuedaService {
     });
     return table;
   };
+  /**
+   * Envía datos para una nueva rueda
+   * @param data Datos de la nueva rueda
+   */
+  crear = data => {
+    const url = environment.url_api + 'rueda';
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
+    };
+    return this.http.post(url, data, extra);
+  }
+  /**
+   * Envia datos para modificar una rueda
+   * @param data Datos para modificar la rueda
+   */
+  editar = data => {
+    const url = environment.url_api + 'rueda';
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
+    };
+    return this.http.put(url, data, extra);
+  }
+  /**
+   * Envia datos para eliminar una rueda
+   * @param id
+   */
+  borrar = id => {
+    const url = environment.url_api + `rueda/${id}`;
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
+    };
+    return this.http.delete(url, extra);
+  }
 }

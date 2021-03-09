@@ -1,6 +1,6 @@
 {
-  "name": "cliente",
-  "version": "1.0.0",
+  "name": "CarShare",
+  "version": "1.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --disableHostCheck --poll 500",
@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~11.2.0",
     "@angular/router": "~11.2.0",
     "@fortawesome/angular-fontawesome": "^0.8.2",
+    "@fortawesome/fontawesome-free": "^5.15.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",

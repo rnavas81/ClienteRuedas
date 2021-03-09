@@ -1,0 +1,17 @@
+.tabla {
+  height: calc(100vh - 111px);
+  table {
+    .col-nombre {
+      width: 45%;
+    }
+    .col-origen {
+      width: 45%;
+    }
+    .col-botones{
+      text-align: right;
+      min-width: 110px;
+    }
+
+  }
+}
+

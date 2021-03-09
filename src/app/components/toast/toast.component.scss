@@ -1,0 +1,15 @@
+.mytoast {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: fit-content;
+  .content-toasts {
+    display: block;
+    margin: 20vh auto 0;
+  }
+  z-index: 2000;
+}

@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AdministradorService } from 'src/app/services/administrador.service';
 import { from, Observable } from 'rxjs';
 import * as $ from 'jquery';
+import { UsersService } from 'src/app/services/users.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class PanelAdministradorComponent implements OnInit {
   faAddSquare = iconos.faPlusSquare;
 
   //Datos del nuevo usuario
+  idUserLogin: number;
   id: number;
   name: string;
   surname: string;
@@ -53,11 +55,14 @@ export class PanelAdministradorComponent implements OnInit {
   usuarios: any[];
 
   rolAux: any;
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, public administrador: AdministradorService) { }
+  toast: any;
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, public administrador: AdministradorService, private userService: UsersService) {
+    this.initForm();
+  }
 
   ngOnInit(): void {
-    this.initForm();
     this.cargarUsuariosBBDD();
+    this.idUserLogin = this.userService.id;
     this.user = new Array();
     this.user["id"] = "";
     this.user["name"] = "";
@@ -97,24 +102,36 @@ export class PanelAdministradorComponent implements OnInit {
     let usuario = this.registroForm.value;
 
     //Suscripción a la función de consulta a la API
-    switch (usuario.rol) {
-      case 'Administrador':
-        usuario.rol = 1; break;
-      case 'Usuario':
-        usuario.rol = 2; break;
-    }
+
+    usuario.rol = this.comprobarRol(usuario.rol);
 
     this.administrador.registrar(usuario).subscribe(
       (data) => {
         this.code = '200';
         this.cargarUsuariosBBDD();
         document.getElementById('btn-cerrar-create').click();
+        this.toast = {
+          text: 'Usuario creado', type: 'success'
+        }
       },
       (error) => {
         console.error(error.status);
+        this.toast = {
+          text: 'Error al crear el usuario', type: 'error'
+        }
       }
     );
 
+  }
+
+  public comprobarRol = (usuarioRol) => {
+    switch (usuarioRol) {
+      case 'Administrador':
+        usuarioRol = 1; break;
+      case 'Usuario':
+        usuarioRol = 2; break;
+    }
+    return usuarioRol;
   }
 
   //Carga de usuarios de la BBDD
@@ -134,13 +151,11 @@ export class PanelAdministradorComponent implements OnInit {
   //Recogemos el usuario que queremos modificar de la tabla
   editUser = (i) => {
     this.indiceEditar = i;
-    this.user = new Array();
-    this.user["id"] = this.usuarios[i].id;
-    this.user["name"] = this.usuarios[i].name;
-    this.user["surname"] = this.usuarios[i].surname;
-    this.user["email"] = this.usuarios[i].email;
-    this.user["rol"] = this.usuarios[i].rol;
-    console.log(this.user["rol"]);
+    this.editForm.controls["idUsuario"].setValue(this.usuarios[i].id);
+    this.editForm.controls["editName"].setValue(this.usuarios[i].name);
+    this.editForm.controls["editSurname"].setValue(this.usuarios[i].surname);
+    this.editForm.controls["editEmail"].setValue(this.usuarios[i].email);
+    this.editForm.controls["editRol"].setValue(this.usuarios[i].rol);
 
     switch (this.user["rol"]) {
       case 1:
@@ -157,8 +172,6 @@ export class PanelAdministradorComponent implements OnInit {
 
     //Recogemos los valores del formulario
     let usuarioEditar = this.editForm.value;
-
-    usuarioEditar.idUsuario = this.user['id'];
 
     //Comprobamos si ha habido cambios o no, Si no hay cambios, recogemos el nombre original
     if (usuarioEditar.editName == "") {
@@ -178,26 +191,22 @@ export class PanelAdministradorComponent implements OnInit {
     }
 
     //Ponemos el rol correspondiente en el atributo del usuario
-    switch (usuarioEditar.editRol) {
-      case 'Administrador':
-        usuarioEditar.editRol = 1;
-        break;
-      case 'Usuario':
-        usuarioEditar.editRol = 2;
-        break;
-    }
-
-    console.log(usuarioEditar);
-    
+    usuarioEditar.editRol = this.comprobarRol(usuarioEditar.editRol); 
 
     this.administrador.editUser(usuarioEditar).subscribe(
       (data) => {
         this.code = '200';
         this.cargarUsuariosBBDD();
         document.getElementById('btn-cerrar-edit').click();
+        this.toast = {
+          text: 'Usuario actualizado', type: 'success'
+        }
       },
       (error) => {
         console.error(error.status);
+        this.toast = {
+          text: 'Error al actualizar el usuario', type: 'error'
+        }
       }
     )
   }
@@ -217,9 +226,15 @@ export class PanelAdministradorComponent implements OnInit {
       (data) => {
         this.code = '200';
         this.cargarUsuariosBBDD();
+        this.toast = {
+          text: 'Usuario eliminado', type: 'success'
+        }
       },
       (error) => {
         console.error(error.status);
+        this.toast = {
+          text: 'Error al eliminar el usuario', type: 'error'
+        }
       }
     )
   }

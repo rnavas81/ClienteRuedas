@@ -10,22 +10,23 @@
               </div>
             </div>
             <div class="container" id="advanced-search-form">
+              <h1 class="hide">Registro</h1>
               <form [formGroup]="registroF" (ngSubmit)="signup()">
                   <div class="form-group">
                       <label for="name">Nombre</label>
-                      <input type="text" class="form-control" placeholder="Nombre" formControlName="name"  >
+                      <input type="text" class="form-control" placeholder="Nombre" formControlName="name" id="name" title="introduce el nombre">
                   </div>
                   <div class="form-group">
                       <label for="surname">Apellido</label>
-                      <input type="text" class="form-control" placeholder="Apellido" formControlName="surname" >
+                      <input type="text" class="form-control" placeholder="Apellido" formControlName="surname" id="surname" title="introduce el apellido">
                   </div>
                   <div class="form-group">
                       <label for="email">Email</label>
-                      <input type="email" class="form-control" placeholder="Email" formControlName="email"  >
+                      <input type="email" class="form-control" placeholder="Email" formControlName="email"  id="email" title="introduce el email">
                   </div>
                   <div class="form-group">
-                      <label for="number">Contraseña</label>
-                      <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" autocomplete="new-password" >
+                      <label for="password">Contraseña</label>
+                      <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" autocomplete="new-password" id="password" title="introduce la contraseña">
                   </div>
                   <!-- <div class="form-group">
                       <label for="avatar">Avatar</label>
@@ -33,7 +34,9 @@
                   </div> -->
                   <small>*Todos los campos son obligatorios</small>
                   <div class="d-flex justify-content-center mt-3 login_container">
-                    <button class="btn login_btn btn-responsive" [disabled]="registroF.invalid"> <span class="glyphicon glyphicon-search"></span> Registrar</button>
+                    <button class="btn login_btn btn-responsive" [disabled]="registroF.invalid || estado"> <span class="glyphicon glyphicon-search"></span>
+                      <fa-icon *ngIf="estado" [icon]="icons.faSpinner" [spin]="true"></fa-icon>
+                      Registrar</button>
                   </div>
               </form>
           </div>

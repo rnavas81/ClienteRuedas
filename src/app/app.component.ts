@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormsModule }  from '@angular/forms';
 import { environment } from 'src/environments/environment';
 
 
@@ -12,7 +11,7 @@ export class AppComponent {
   title = 'Carshare';
 
   constructor(){
-    this.cargarTema()
+    this.cargarTema();
   }
 
   cargarTema = () => {

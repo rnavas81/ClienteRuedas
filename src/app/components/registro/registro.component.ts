@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-registro',
@@ -15,6 +16,10 @@ export class RegistroComponent implements OnInit {
   avatar: string;
 
   registroF: FormGroup;
+
+  icons = iconos;
+
+  estado = false;
 
   constructor(public userService: UsersService, private formBuilder: FormBuilder) {
   }
@@ -31,6 +36,7 @@ export class RegistroComponent implements OnInit {
   }
 
   signup(){
+    this.estado = true;
     let datos = this.registroF.value;
     const user = {
       name: datos.name,

@@ -1,18 +1,43 @@
-<header class="m-0">
-  <div class="col-md-12 col-sm-12 p-0">
-      <nav class="navbar navbar-expand-lg navbar-light sticky-top cabecera py-0" aria-label="cabecera">
-          <div class="container-fluid">
-
-              <div class="d-flex float-left">
-                  <a href="/login">
-                      <img [src]="'assets/logo.png'" alt="Logo" class="vh-10 rounded-circle img-fluid bg-white border mb-4 mt-4">
-                  </a>
-              </div>
-              <!--<div class="d-flex float-right">
-                  <i class="fas fa-envelope"></i>
-              </div>-->
-
-          </div>
-      </nav>
+<header class="m-0 sticky-top bg-theme-darker">
+  <div class="container-fluid">
+    <nav class="cabecera p-0 row" aria-label="cabecera">
+      <div class="col-6 d-flex">
+        <a href="/login">
+          <img [src]="'assets/logo.png'" alt="Logo" class="vh-10 rounded-circle img-fluid bg-white border mb-4 mt-4">
+        </a>
+        <div class="align-self-center menu-icon ml-3 w-auto" id="menu-icon" (click)="toggleNav()" cy-id="nav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="col-6 d-flex justify-content-end">
+        <a href="/editProfile" cy-id='editProfile'>
+          <img [src]="!!avatar && avatar.trim().length>0? avatar : defaultAvatar " alt="Imagen de {{ nombreUsuario }}"
+          class="vh-10 rounded-circle img-fluid bg-white border mb-4 mt-4" [title]='nombreUsuario + " " + apellidoUsuario' />
+        </a>
+      </div>
+    </nav>
   </div>
+
+  <div class="bg-theme-darker menu menu-list border-top border-bottom" id="menu-list">
+    <div class="navbar m-0 p-2 navbar-brand ">
+      <a class="navbar-brand text-white" href="/main" name="main">
+        Mi rueda
+      </a>
+      <a class="navbar-brand text-white" href="/acercade" name="acercaDe">
+        Acerca de
+      </a>
+      <a *ngIf="esAdmin == 1" class="navbar-brand text-white" href="/lista-ruedas" name="adminRuedas">
+        Administrar Ruedas
+      </a>
+      <a *ngIf="esAdmin == 1" class="navbar-brand text-white" href="/adminUsuarios" name="adminUsuarios" cy-id='adminUsers'>
+        Administrar Usuarios
+      </a>
+      <button class="navbar-toggler text-white" (click)="cerrarSesion()" name="cerrarSesion" cy-id='cerrar-sesion'>
+        Cerrar sesion
+      </button>
+      </div>
+  </div>
+
 </header>
