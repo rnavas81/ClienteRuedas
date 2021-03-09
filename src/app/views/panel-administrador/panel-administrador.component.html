@@ -144,7 +144,7 @@
                 <!-- ------------------------------------------------------------------------------------ -->
                 <!-- Modal Borrar usuario -->
                 <!-- ------------------------------------------------------------------------------------ -->
-                <div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-hidden="true" cy-id=''>
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -157,7 +157,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                 <button type="button" class="btn btn-danger" (click)="deleteUser()"
-                                    data-dismiss="modal">Borrar</button>
+                                    data-dismiss="modal" cy-id='deleteUserBtn'>Borrar</button>
                             </div>
                         </div>
                     </div>
@@ -199,7 +199,7 @@
                                             </button>
                                             <button *ngIf="usuario.id != idUserLogin" class="btn btn-sm btn-danger"
                                                 type="submit" name="borrarUsuario" title="Borrar usuario"
-                                                data-toggle="modal" data-target="#deleteUser" (click)="borrar(i)">
+                                                data-toggle="modal" data-target="#deleteUser" (click)="borrar(i)" cy-id='deleteUser'>
                                                 <fa-icon [icon]="faTrash"></fa-icon>
                                             </button>
                                         </td>
