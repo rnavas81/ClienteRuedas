@@ -50,7 +50,7 @@
                   <h4 class="texto">Apellidos</h4>
                 </label>
                 <input type="text" class="form-control" name="last_name" id="last_name" placeholder="apellido"
-                  title="Modifica tu apellido." required formControlName="surname" />
+                  title="Modifica tu apellido." required formControlName="surname" cy-id="apellido"/>
               </div>
 
               <div class="col-sm-12 col-md-12 col-lg-12 mb-4">
@@ -78,7 +78,7 @@
               </div>
               <div></div>
               <div class="col-12 col-md pb-2">
-                <button class="btn btn-block btn-secondary" type="submit" [disabled]="edit.invalid || estado">
+                <button class="btn btn-block btn-secondary" type="submit" [disabled]="edit.invalid || estado" cy-id="guardar">
                   <i class="glyphicon glyphicon-ok-sign"></i>
                   <fa-icon *ngIf="estado" [icon]="icons.faSpinner" [spin]="true"></fa-icon>
                   Guardar

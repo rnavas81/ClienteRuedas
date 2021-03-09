@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="col-6 d-flex justify-content-end">
-        <a href="/editProfile">
+        <a href="/editProfile" cy-id='editProfile'>
           <img [src]="!!avatar && avatar.trim().length>0? avatar : defaultAvatar " alt="Imagen de {{ nombreUsuario }}"
           class="vh-10 rounded-circle img-fluid bg-white border mb-4 mt-4" [title]='nombreUsuario + " " + apellidoUsuario' />
         </a>

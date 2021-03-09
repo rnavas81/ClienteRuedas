@@ -173,8 +173,6 @@ export class PanelAdministradorComponent implements OnInit {
     //Recogemos los valores del formulario
     let usuarioEditar = this.editForm.value;
 
-    usuarioEditar.idUsuario = this.user['id'];
-
     //Comprobamos si ha habido cambios o no, Si no hay cambios, recogemos el nombre original
     if (usuarioEditar.editName == "") {
       usuarioEditar.editName = this.usuarios[this.indiceEditar].name;

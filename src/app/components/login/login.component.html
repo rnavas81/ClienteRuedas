@@ -44,7 +44,7 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-center mt-3 login_container">
-                  <button class="btn login_btn" [disabled]="loginF.invalid || estado">
+                  <button class="btn login_btn" [disabled]="loginF.invalid || estado" cy-id='login'>
                     <fa-icon *ngIf="estado" [icon]="icons.faSpinner" [spin]="true"></fa-icon>
                     Login
                   </button>
