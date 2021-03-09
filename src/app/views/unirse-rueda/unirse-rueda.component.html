@@ -39,7 +39,7 @@
             </app-rueda-horario>
             <!-- Botones para el formulario -->
             <div class="form-group pt-2 text-center">
-              <button id="btn-enviar" disabled type="submit" class="btn btn-primary mx-3" [disabled]="estado">
+              <button id="btn-enviar" disabled type="submit" class="btn btn-primary mx-3" [disabled]="estado" cy-id="enviar-horario">
                 <fa-icon *ngIf="estado" [icon]="icons.faSpinner" [spin]="true"></fa-icon>
                 Enviar
               </button>
@@ -86,8 +86,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button id="cerrar-modal" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" (click)="agregarOpciones()">Aceptar</button>
+        <button type="button" class="btn btn-primary" (click)="agregarOpciones()" cy-id="agregar-opcion">Aceptar</button>
+        <button id="cerrar-modal" type="button" class="btn btn-danger" data-dismiss="modal" cy-id="cerrar-modal">Cancelar</button>
       </div>
     </div>
   </div>
