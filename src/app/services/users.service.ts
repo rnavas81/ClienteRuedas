@@ -28,19 +28,11 @@ export class UsersService {
   }
 
   isLogged = () => {
-    // var is = false;
-    // this.testLogin().subscribe(
-    //   reponse => {
-    //     is=true;
-    //   },error=>{is=false}
-    // )
-    // return is;
     if (!!this.name) {
       return true;
     }else{
       return false;
     }
-    // return !!sessionStorage.getItem(UsersService.SESSION_STORAGE_USER) && !!sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN);
   }
   testLogin = () => {
     const url = `${environment.url_api}usuario/test`;

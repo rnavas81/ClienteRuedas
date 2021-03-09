@@ -23,7 +23,6 @@ export class ListaRuedasComponent implements OnInit {
   formularioModal: FormGroup;
   ruedas: any;
   seleccionado: number;
-  idtemp: number;
   toast: any;
   salidas: any;
 
@@ -59,13 +58,15 @@ export class ListaRuedasComponent implements OnInit {
   ngOnInit(): void {
     this.ruedasService.getAll().subscribe(
       (data) => {
-        this.ruedas = data;
-        this.idtemp = this.ruedas[this.ruedas.length - 1].id;
+        this.cargarRuedas(data);
       },
       (error) => {
         alert('Error al recuperar los datos de las ruedas');
       }
     );
+  }
+  cargarRuedas(data) {
+    this.ruedas = data;
   }
   /**
    * Busca una rueda en la lista por medio de su id
@@ -103,7 +104,9 @@ export class ListaRuedasComponent implements OnInit {
     this.modalAccion = 'editar';
     this.formularioModal.controls['id'].setValue(this.ruedas[index].id);
     this.formularioModal.controls['nombre'].setValue(this.ruedas[index].nombre);
-    this.formularioModal.controls['descripcion'].setValue(this.ruedas[index].descripcion);
+    this.formularioModal.controls['descripcion'].setValue(
+      this.ruedas[index].descripcion
+    );
     this.formularioModal.controls['origen'].setValue(this.ruedas[index].origen);
     this.salidas = [...this.ruedas[index].salidas];
   };
@@ -112,21 +115,9 @@ export class ListaRuedasComponent implements OnInit {
   };
 
   onSubmit = () => {
-    var salidas = document.getElementsByName('salidas');
     const data = this.formularioModal.value;
-    data.salidas = [];
-    salidas.forEach((item: HTMLInputElement) => {
-      let salida = this.salidas.find((e) => e.id == item.dataset.punto);
-      salida.nombre = item.value;
-      data.salidas.push(salida);
-    });
-    let valido = false;
-    if (data.salidas.length > 0) {
-      data.salidas.forEach((element) => {
-        if (element.nombre.trim().length > 0) valido = true;
-      });
-    }
-    if (this.formularioModal.valid && valido) {
+    data.salidas = this.getSalidas();
+    if (this.formularioModal.valid && !!data.salidas) {
       // Envia al servicio de ruedas
       switch (this.modalAccion) {
         case 'crear':
@@ -139,7 +130,6 @@ export class ListaRuedasComponent implements OnInit {
           break;
       }
       document.getElementById('btn-cerrar-modal').click();
-
     } else {
       if (!this.formularioModal.valid) {
         this.toast = {
@@ -147,13 +137,31 @@ export class ListaRuedasComponent implements OnInit {
           type: 'error',
         };
       }
-      if (!valido) {
+      if (!data.salidas) {
         this.toast = {
           text: 'Debe haber un punto de salida como mínimo',
           type: 'error',
         };
       }
     }
+  };
+  /**
+   * Recupera los datos de las salidas y comprueba que es valido
+   * Para que sea valido debe haber por lo menos una salida
+   * @returns {Array} con los datos de las salidas
+   */
+  getSalidas = () => {
+    let data = [];
+    var salidas = document.getElementsByName('salidas');
+    if (salidas.length == 0) return false;
+    let valido = false;
+    salidas.forEach((item: HTMLInputElement) => {
+      let salida = this.salidas.find((e) => e.id == item.dataset.punto);
+      salida.nombre = item.value.trim();
+      data.push(salida);
+      if (salida.nombre.trim().length > 0) valido = true;
+    });
+    return valido ? data : false;
   };
   onCancel = () => {
     this.modalTitulo = '';
@@ -187,7 +195,7 @@ export class ListaRuedasComponent implements OnInit {
       (response) => {
         const index = this.buscarRuedaById(this.seleccionado);
         // Sustituye el elemento del array por el nuevo.
-        this.ruedas.splice(index,1,response);
+        this.ruedas.splice(index, 1, response);
         this.toast = {
           text: 'Rueda modificada',
           type: 'success',
