@@ -102,7 +102,6 @@ export class UsuarioPerfilComponent implements OnInit {
   }
 
   baja(){
-    console.log(sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN));
     this.userService.delete().subscribe(
       data => {
         this.userService.logout();

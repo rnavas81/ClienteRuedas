@@ -116,6 +116,10 @@ div.btnNavegacion {
   }
   .navbar-brand, .navbar-toggler {
     font-size: 1rem;
+  }
 }
+@media (min-width: 992px){
+  .navbar-expand-lg .navbar-toggler {
+      display: content !important;
+  }
 }
-
