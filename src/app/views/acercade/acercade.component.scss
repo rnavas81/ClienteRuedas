@@ -1,0 +1,38 @@
+li.list-group-item {
+  border: none;
+  padding: 5px 0;
+}
+img.logo {
+  max-width: 150px !important;
+}
+@media  (max-width: 900px){
+  img.logo {
+    max-width: 75px;
+  }
+  .titulo {
+    font-size: 1.5em;
+  }
+  .subtitulo {
+    font-size: 1.3em;
+  }
+  .boton {
+    text-align: center;
+  }
+}
+@media  (max-width: 450px){
+  img.logo {
+    max-width: 50px !important;
+  }
+  .titulo {
+    font-size: 1.3em;
+  }
+  .subtitulo {
+    font-size: 1em;
+  }
+  img.icono {
+    width: 50px;
+  }
+  li {
+    font-size: 0.8rem;
+  }
+}

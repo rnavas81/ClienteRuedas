@@ -1,0 +1,67 @@
+<main class="container-sm cursor-default">
+  <div class="abs-center py-5">
+    <section class="bg-white px-5 py-3 rounded">
+      <div class="row">
+        <div class="col-12 h1 text-center text-uppercase text-primary titulo">
+          <img [src]="'assets/icono.png'" class="logo" alt="Logo">
+          {{ this.name }}
+        </div>
+      </div>
+      <div class="row">
+        <!-- Contenedor de información de la aplicación -->
+        <div class="col-md-6">
+          <div class="h2 font-weight-bold subtitulo">
+            Información de la aplicación
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item">
+              Esta aplicación está pensada para que los usuarios compartan los gastos y compañia en sus viajes
+            </li>
+            <li class="list-group-item">
+              Versión de la aplicación: {{this.version}}
+            </li>
+            <li class="list-group-item">
+              Version de angular: {{ this.angular }}
+            </li>
+            <li class="list-group-item">
+              Repositorios:
+              Esta aplicación consta de un cliente y una api que gestiona la persistencia de datos.
+            </li>
+            <li class="list-group-item">
+              <a href="https://github.com/rnavas81/ClienteRuedas" target="_blank">Cliente</a>
+            </li>
+            <li class="list-group-item">
+              <a href="https://github.com/rnavas81/ServidorRuedas" target="_blank">Api de consulta</a>
+            </li>
+          </ul>
+        </div>
+        <!-- Contenedor de información de los desarrolladores -->
+        <div class="col-md-6">
+          <div class="h2 font-weight-bold subtitulo">
+              Nosotros
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item">
+              Somos 3 alumnos del IFP Virgen de Gracia de Puertollano. Estamos cursando 2º de Desarrollo de Aplicaciones Web.
+
+            </li>
+            <li class="list-group-item px-md-1 px-lg-3 py-2" *ngFor="let item of this.data;let i = index">
+              <img *ngIf="i%2==0" class="rounded rounded-circle float-left py-1 mr-md-3 icono" src="{{item.imagen}}" alt="Foto de {{item.nombre}}" srcset="">
+              <img *ngIf="i%2!=0" class="rounded rounded-circle float-right py-1 ml-md-3 icono" src="{{item.imagen}}" alt="Foto de {{item.nombre}}" srcset="">
+              <div class="">
+                <div class="cursor-default pl-3 d-block">{{ item.nombre }}</div>
+                <span class="cursor-default pl-3 d-block">{{item.email}}</span>
+                <a class="pl-3 d-block" href="{{ item.linkedin }}" target="_blank">LinkedIn</a>
+                <a class="pl-3 d-block" href="{{ item.github }}" target="_blank">Enlace a GitHub</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-12 boton">
+        <button class="btn btn-primary" (click)="volver()">Volver</button>
+      </div>
+    </section>
+  </div>
+</main>
+

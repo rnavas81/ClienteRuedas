@@ -6,6 +6,13 @@ body {
   min-height: 100vh;
 }
 
+.cursor-default {
+  cursor: default;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .abs-center {
   display: flex;
   align-items: center;
@@ -14,15 +21,15 @@ body {
 }
 
 .bg-theme{
-  background-color: #007cba;
+  background-color: var(--primary);
 }
 
 .bg-theme-dark{
-  background-color: #006ba1;
+  background-color: var(--primary);
 }
 
 .bg-theme-darker{
-  background-color: #005a87;
+  background-color: var(--primary);
 }
 
 @media(max-width: 450px){

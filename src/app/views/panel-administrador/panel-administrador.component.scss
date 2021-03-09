@@ -5,11 +5,19 @@ div.addUser{
     }
 }
 
-table{
-    tbody{
-        tr:hover{
-            background-color: #005a87;
-            color: white;
-        }
+.tabla {
+    height: calc(100vh - 111px);
+    table {
+      .col-nombre {
+        width: 45%;
+      }
+      .col-apellidos {
+        width: 45%;
+      }
+      .col-botones{
+        text-align: right;
+        min-width: 110px;
+      }
+  
     }
-}
+  }

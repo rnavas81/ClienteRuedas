@@ -9,17 +9,26 @@ import { EditarPerfilComponent } from './views/editar-perfil/editar-perfil.compo
 import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.component';
 import { VSignUpComponent } from './views/v-sign-up/v-sign-up.component';
 import { HomeComponent } from './views/home/home.component';
+import { AcercadeComponent } from './views/acercade/acercade.component';
+import { ListaRuedasComponent } from './views/lista-ruedas/lista-ruedas.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { RolGuardService } from './services/rol-guard.service';
+import { LoginGuardService } from './services/login-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, // ESTO DEBERIA SER EL HOME
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: VSignUpComponent },
-  { path: 'unirse', component: UnirseRuedaComponent },
-  { path:'recuperar', component: RecuperarPassComponent },
-  { path:'main', component: PerfilUsuarioComponent },
-  { path: 'administrador', component: PanelAdministradorComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent, canActivate: [LoginGuardService] },
+  { path: 'signup', component: VSignUpComponent, canActivate: [LoginGuardService]   },
+  { path: 'unirse', component: UnirseRuedaComponent, canActivate: [AuthGuardService]  },
+  { path:'recuperar', component: RecuperarPassComponent, canActivate: [LoginGuardService]   },
+  { path:'main', component: PerfilUsuarioComponent, canActivate: [AuthGuardService] },
+  { path: 'adminUsuarios', component: PanelAdministradorComponent, canActivate: [AuthGuardService,RolGuardService] },
   { path: 'seleccionarRol', component: SeleccionarRolComponent },
-  { path:'profile', component: EditarPerfilComponent },
+  { path:'editProfile', component: EditarPerfilComponent, canActivate: [AuthGuardService] },
+  { path:'acercade', component:AcercadeComponent},
+  { path:'lista-ruedas', component:ListaRuedasComponent, canActivate: [AuthGuardService,RolGuardService] },
+  { path:'**', redirectTo: 'home'},
 ];
 
 @NgModule({

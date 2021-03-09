@@ -4,13 +4,11 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { UnirseRuedaComponent } from './views/unirse-rueda/unirse-rueda.component';
 import { RuedaHorarioComponent } from './components/rueda-horario/rueda-horario.component';
-import { MainComponent } from './views/main/main.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule }  from '@angular/forms';
 import { RegistroComponent } from './components/registro/registro.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CabeceraComponent } from './components/vistaRueda/cabecera/cabecera.component';
-import { NavVerticalComponent } from './components/vistaRueda/nav-vertical/nav-vertical.component';
 import { PerfilUsuarioComponent } from './views/perfil-usuario/perfil-usuario.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RecuperarPassComponent } from './views/recuperar-pass/recuperar-pass.component';
@@ -24,19 +22,23 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { VLoginComponent } from './views/v-login/v-login.component';
 import { VSignUpComponent } from './views/v-sign-up/v-sign-up.component';
 import { HomeComponent } from './views/home/home.component';
+import { AcercadeComponent } from './views/acercade/acercade.component';
+import { ListaRuedasComponent } from './views/lista-ruedas/lista-ruedas.component';
+import { ToastComponent } from './components/toast/toast.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { RolGuardService } from './services/rol-guard.service';
+import { LoginGuardService } from './services/login-guard.service';
 
 
 @NgModule({
   declarations: [
     CabeceraComponent,
     AppComponent,
-    NavVerticalComponent,
     PerfilUsuarioComponent,
     UnirseRuedaComponent,
     RuedaHorarioComponent,
     LoginComponent,
     RegistroComponent,
-    MainComponent,
     RecuperarPassComponent,
     RecuperarComponent,
     PanelAdministradorComponent,
@@ -45,7 +47,10 @@ import { HomeComponent } from './views/home/home.component';
     UsuarioPerfilComponent,
     VLoginComponent,
     VSignUpComponent,
-    HomeComponent
+    HomeComponent,
+    AcercadeComponent,
+    ListaRuedasComponent,
+    ToastComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,7 @@ import { HomeComponent } from './views/home/home.component';
     HttpClientModule,
     FontAwesomeModule,
   ],
-  providers: [],
+  providers: [AuthGuardService, RolGuardService, LoginGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

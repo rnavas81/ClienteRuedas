@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class VerRuedaService {
   origen: string;
   destino: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UsersService) {
     this.dias = [
       'Lunes',
       'Martes',
@@ -27,7 +28,11 @@ export class VerRuedaService {
 
   getRueda = (id) =>  {
     const url = environment.url_api + '/rueda/generada/' + id;
-    var data = {};
-    return this.http.get(url,data);
+    const extra = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
+       'X-Requested-With': 'XMLHttpRequest' ,
+       'Authorization' : 'Bearer ' + sessionStorage.getItem(UsersService.SESSION_STORAGE_TOKEN)}),
+    };
+    return this.http.get(url,extra);
   };
 }

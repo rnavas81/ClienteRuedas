@@ -10,9 +10,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NavVerticalComponent } from '../vistaRueda/nav-vertical/nav-vertical.component';
 import { UploadService } from 'src/app/services/upload.service';
 import * as $ from 'jquery';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
+import { AdministradorService } from 'src/app/services/administrador.service';
 
 @Component({
   selector: 'app-usuario-perfil',
@@ -26,20 +27,23 @@ export class UsuarioPerfilComponent implements OnInit {
 
   files: File[] = [];
 
+  estado = false;
+
+  icons = iconos;
+  myFormData:any;
+
   selectedImage: any;
   servicesForm: any;
-
+  toast:any;
   @Output() accionRealizada: EventEmitter<any> = new EventEmitter();
 
   constructor(
     public userService: UsersService,
     public dropzone: NgxDropzoneModule,
     private formBuilder: FormBuilder,
-    private http: HttpClient,
-    private router: Router,
-    private uploadService: UploadService
+    private adminService: AdministradorService
   ) {
-    // console.log(this.userService.avatar);
+    this.myFormData = new FormData();
     this.avatar = this.userService.avatar;
     this.edit = this.formBuilder.group({
       email: [userService.email, [Validators.required, Validators.email]],
@@ -50,72 +54,61 @@ export class UsuarioPerfilComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   filedata: any;
   /* File onchange event */
   fileEvent(e) {
     this.filedata = e.target.files[0];
-
+    document.getElementById("fichero_seleccionado").textContent = this.filedata.name;
   }
   /* Upload button functioanlity */
   onSubmitform(f: NgForm) {
     var myFormData = new FormData();
     myFormData.append('image', this.filedata);
     myFormData.append('id', String(this.userService.id));
-    console.log(myFormData);
 
-    this.uploadService.upImg(myFormData).subscribe(
-      (data) => {
-        console.log(data['url']);
-        let user = JSON.parse(sessionStorage.getItem('user'));
-        user['avatar'] = data['url'];
-        sessionStorage.setItem('user', JSON.stringify(user));
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
   }
 
   send() {
+    this.estado = true;
     let dat = this.edit.value;
-    var myFormData = new FormData();
-    myFormData.append('image', this.filedata);
-    myFormData.append('id', String(this.userService.id));
-    myFormData.append('name', String(dat.name));
-    myFormData.append('surname', String(dat.surname));
-    myFormData.append('email', String(dat.email));
-    myFormData.append('password', String(dat.password));
-    myFormData.append('password2', String(dat.password2));
-    console.log(myFormData);
+    this.myFormData.append('image', this.filedata);
+    this.myFormData.append('id', String(this.userService.id));
+    this.myFormData.append('name', String(dat.name));
+    this.myFormData.append('surname', String(dat.surname));
+    this.myFormData.append('email', String(dat.email));
+    this.myFormData.append('password', String(dat.password));
+    this.myFormData.append('password2', String(dat.password2));
 
-    this.userService.modify(myFormData).subscribe(
-      (data) => {
-        console.log(data);
-        this.mensaje = data['status'];
-        console.log(data['status']);
-        var user = JSON.parse(sessionStorage.getItem("user"));
-        user['email'] = dat.email;
-        user['name'] = dat.name;
-        user['surname'] = dat.surname;
-        user['avatar'] = data['url'];
-        this.userService.email = dat.email;
-        this.userService.name = dat.name;
-        this.userService.surname = dat.surname;
-        this.userService.avatar = data['url'];
-        sessionStorage.setItem('user',JSON.stringify(user));
+    this.userService.modify(this.myFormData).subscribe(
+      (data:any) => {
+        this.toast = {text:"Datos actualizados",type:'success'};
+        const user = {
+          name:dat.name,
+          surname:dat.surname,
+          email:dat.email,
+          avatar:data.avatar,
+        }
+        this.userService.set(user);
+        this.estado = false;
       },
       (error) => {
-        this.mensaje = error.status;
-        console.log(error.status);
+        this.toast = {text:"Error al actualizar los datos",type:'error'}
+        this.estado = false;
       }
     );
-
-    $("#carta_nominador").change(function(){
-      var fichero_seleccionado = $(this).val();
-      var nombre_fichero_seleccionado = fichero_seleccionado.replace(/.*[\/\\]/, ''); //Eliminamos el path hasta el fichero seleccionado
-      $("#fichero_seleccionado").text(nombre_fichero_seleccionado);
-    });
   }
+
+  baja(){
+    this.userService.delete().subscribe(
+      data => {
+        this.userService.logout();
+      },
+      error => {
+        this.userService.logout();
+      });
+  }
+
 }

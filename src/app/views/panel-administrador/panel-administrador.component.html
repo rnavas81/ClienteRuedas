@@ -1,8 +1,7 @@
 <app-cabecera></app-cabecera>
 <main class="container-fluid m-0 principal">
     <div class="row">
-        <app-nav-vertical class="col-md-3 col-sm-3"></app-nav-vertical>
-        <section class="col-md-9 col-sm-9 bg-white p-0">
+        <section id="vistaPrincipal" class="col-12 bg-white p-0">
             <div class="row d-flex justify-content-center m-0 table">
 
                 <!-- ------------------------------------------------------------------------------------ -->
@@ -22,27 +21,31 @@
                                         <div class="form-group">
                                             <label for="name">Nombre *</label>
                                             <input id="name" type="text" name="newName" class="w-100"
-                                                placeholder="Introduce el nombre" formControlName="name">
+                                                placeholder="Introduce el nombre" formControlName="name"
+                                                title="Introduce el nombre" cy-id="cy-name">
                                         </div>
                                         <div class="form-group">
                                             <label for="surname">Apellidos *</label>
                                             <input id="surname" type="text" name="newApellido" class="w-100"
-                                                placeholder="Introduce los apellidos" formControlName="surname">
+                                                placeholder="Introduce los apellidos" formControlName="surname"
+                                                title="Introduce el apellido" cy-id="cy-surname">
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email *</label>
                                             <input id="email" type="email" name="newEmail" class="w-100"
-                                                placeholder="Introduce el email" formControlName="email">
+                                                placeholder="Introduce el email" formControlName="email"
+                                                title="Introduce el email" cy-id="cy-email">
                                         </div>
                                         <div class="form-group">
                                             <label for="password">Contraseña *</label>
                                             <input id="password" type="password" name="newPassword" class="w-100"
-                                                placeholder="Introduce la contraseña" formControlName="password">
+                                                placeholder="Introduce la contraseña" formControlName="password"
+                                                title="Introduce la contraseña" cy-id="cy-password">
                                         </div>
                                         <div class="form-group">
                                             <label for="rol">Rol *</label>
                                             <select id="rol" class="w-100 form-control" name="newRol"
-                                                formControlName="rol">
+                                                formControlName="rol" cy-id="cy-select">
                                                 <option name="Usuario">Usuario</option>
                                                 <option name="Administrador">Administrador</option>
                                             </select>
@@ -54,7 +57,7 @@
                                     <button id="btn-cerrar-create" type="button" class="btn btn-danger"
                                         data-dismiss="modal" title="Cerrar">Cerrar</button>
                                     <button type="submit" class="btn btn-success" name="crearUsuario"
-                                        title="Crear usuario">Crear
+                                        title="Crear usuario" cy-id="cy-crearUsuario">Crear
                                         usuario</button>
                                 </div>
                             </form>
@@ -84,30 +87,32 @@
                                             <label for="name">Nombre *</label>
                                             <input id="editName" type="text" name="newName" class="w-100"
                                                 placeholder="Introduce el nombre" formControlName="editName"
-                                                value="{{user['name']}}">
+                                                title="Introduce el nombre a editar">
                                         </div>
                                         <div class="form-group">
                                             <label for="surname">Apellidos *</label>
                                             <input id="editSurname" type="text" name="newApellido" class="w-100"
                                                 placeholder="Introduce los apellidos" formControlName="editSurname"
-                                                value="{{user['surname']}}">
+                                                title="Introduce los apellidos a editar">
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email *</label>
                                             <input id="editEmail" type="email" name="newEmail" class="w-100"
                                                 placeholder="Introduce el email" formControlName="editEmail"
-                                                value="{{user['email']}}">
+                                                title="Introduce el email a editar">
                                         </div>
                                         <div class="form-group">
                                             <label for="password1">Contraseña *</label>
                                             <input id="password1" type="password" name="editPassword1" class="w-100"
-                                                placeholder="Introduce la contraseña" formControlName="editPassword1">
+                                                placeholder="Introduce la contraseña" formControlName="editPassword1"
+                                                title="Introduce la nueva contraseña">
                                         </div>
                                         <div class="form-group">
                                             <label for="password2">Repita la contraseña *</label>
                                             <input id="password2" type="password" name="editPassword2" class="w-100"
                                                 placeholder="Vuelva a introducir la contraseña"
-                                                formControlName="editPassword2">
+                                                formControlName="editPassword2"
+                                                title="Introduce de nuevo la contraseña">
                                         </div>
                                         <div class="form-group">
                                             <label for="rol">Rol *</label>
@@ -139,19 +144,20 @@
                 <!-- ------------------------------------------------------------------------------------ -->
                 <!-- Modal Borrar usuario -->
                 <!-- ------------------------------------------------------------------------------------ -->
-                <div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-hidden="true" cy-id=''>
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">Eliminar usuario</h5>
                             </div>
                             <div class="modal-body">
-                                <p>¿Estas seguro de querer borrar el usuario <b>{{user['name'] + ' ' + user['surname']}}</b>?</p>
+                                <p>¿Estas seguro de querer borrar el usuario <b>{{user['name'] + ' ' +
+                                        user['surname']}}</b>?</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                 <button type="button" class="btn btn-danger" (click)="deleteUser()"
-                                    data-dismiss="modal">Borrar</button>
+                                    data-dismiss="modal" cy-id='deleteUserBtn'>Borrar</button>
                             </div>
                         </div>
                     </div>
@@ -161,47 +167,52 @@
                 <!-- ------------------------------------------------------------------------------------ -->
                 <!-- ------------------------------------------------------------------------------------ -->
 
-                <table class="sticky-top table-responsive d-flex justify-content-center mx-2">
-                    <thead class="w-auto text-center">
-                        <tr class="bg-white">
-                            <td colspan="2">
-                                <h1 class="m-0 p-0">Administración de usuarios</h1>
-                            </td>
-                            <td class="text-right">
-                                <button class="btn btn-success" name="addUser" title="Agregar usuario"
-                                    data-toggle="modal" data-target="#createUser">
-                                    <fa-icon [icon]="faAddSquare"></fa-icon>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="bg-primary text-white">
-                            <th class="h5 px-1">Nombre</th>
-                            <th class="h5 px-1">Apellidos</th>
-                            <th class="h5 px-1"></th>
-                        </tr>
-                    </thead>
-                </table>
-
-                <table class="table-responsive d-flex justify-content-center mx-2">
-                    <tbody class="w-100">
-                        <tr *ngFor="let usuario of usuarios; index as i;" class="d-flex justify-content-center">
-                            <td class="w-25 text-center">{{usuario.name}}</td>
-                            <td class="w-25 text-center">{{usuario.surname}}</td>
-                            <td class="text-right">
-                                <button class="btn btn-warning" name="editUser" title="Editar usuario"
-                                    data-toggle="modal" data-target="#editUser" (click)="editUser(i)">
-                                    <fa-icon [icon]="faPencil" class="text-white"></fa-icon>
-                                </button>
-                                <button class="btn btn-danger" type="submit" name="borrarUsuario" title="Borrar usuario"
-                                    data-toggle="modal" data-target="#deleteUser" (click)="borrar(i)">
-                                    <fa-icon [icon]="faTrash"></fa-icon>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 overflow-auto tabla">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">
+                                            <h2 class="d-inline-block">Usuarios</h2>
+                                            <button class="btn btn-primary float-right" name="addUser"
+                                                title="Agregar usuario" data-toggle="modal" data-target="#createUser" cy-id="addUser">
+                                                <fa-icon [icon]="faAddSquare"></fa-icon>
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Apellidos</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let usuario of usuarios; index as i;" scope="row">
+                                        <td class="col-nombre">{{usuario.name}}</td>
+                                        <td class="col-origen">{{usuario.surname}}</td>
+                                        <td class="col-botones">
+                                            <button class="btn btn-sm btn-primary" name="editUser"
+                                                title="Editar usuario" data-toggle="modal" data-target="#editUser"
+                                                (click)="editUser(i)">
+                                                <fa-icon [icon]="faPencil" class="text-white"></fa-icon>
+                                            </button>
+                                            <button *ngIf="usuario.id != idUserLogin" class="btn btn-sm btn-danger"
+                                                type="submit" name="borrarUsuario" title="Borrar usuario"
+                                                data-toggle="modal" data-target="#deleteUser" (click)="borrar(i)" cy-id='deleteUser'>
+                                                <fa-icon [icon]="faTrash"></fa-icon>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </section>
     </div>
 </main>
+<!-- Componente toast -->
+<app-toast [toast]=this.toast></app-toast>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as iconos from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,10 @@ export class LoginComponent implements OnInit {
   password: string;
   mensaje: string;
 
+  estado = false;
+
+  icons = iconos;
+
   loginF: FormGroup;
 
   constructor(public userService: UsersService, private formBuilder: FormBuilder, private router: Router) {
@@ -20,9 +25,6 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
-    if (userService.isLogged()) {
-      this.avanzar();
-    }
   }
 
   ngOnInit(): void {
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.estado = true;
     this.mensaje = "";
     if (this.loginF.invalid) {
       return;
@@ -54,6 +57,7 @@ export class LoginComponent implements OnInit {
       } else {
         // console.log(this.userService.error);
         this.mensaje = this.userService.error;
+        this.estado = false;
       }
     });
   }
@@ -61,17 +65,8 @@ export class LoginComponent implements OnInit {
   avanzar = () => {
     this.userService.isNew().subscribe(
       (data) => {
-
         if (data["registered"] === true) {
-          console.log(this.userService.rol);
-          switch (this.userService.rol) {
-            case 1:
-              this.router.navigate(['/seleccionarRol']);
-              break;
-              case 2:
-              this.router.navigate(['/main']);
-              break;
-          }
+          this.router.navigate(['/main']);
         } else {
           this.router.navigate(['/unirse']);
         }
