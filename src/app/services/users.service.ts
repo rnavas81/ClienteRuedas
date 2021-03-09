@@ -34,6 +34,14 @@ export class UsersService {
       return false;
     }
   }
+
+  isAdmin = () => {
+    if (!!this.rol && this.rol == 1) {
+      return true
+    }else{
+      return false;
+    }
+  }
   testLogin = () => {
     const url = `${environment.url_api}usuario/test`;
     const extra = {
@@ -204,24 +212,23 @@ export class UsersService {
   logout = () => {
     this.logoutApi().subscribe(
       response => {
-        this.name = undefined;
-        this.surname = undefined;
-        this.email = undefined;
-        this.access_token = undefined;
-        sessionStorage.removeItem(UsersService.SESSION_STORAGE_TOKEN);
-        sessionStorage.removeItem(UsersService.SESSION_STORAGE_USER);
+        this.resetVal();
         this.router.navigate(["/login"]);
       },
       error => {
-        this.name = undefined;
-        this.surname = undefined;
-        this.email = undefined;
-        this.access_token = undefined;
-        sessionStorage.removeItem(UsersService.SESSION_STORAGE_TOKEN);
-        sessionStorage.removeItem(UsersService.SESSION_STORAGE_USER);
+        this.resetVal();
         this.router.navigate(["/login"]);
       }
     );
+  }
+
+  resetVal = () => {
+    this.name = undefined;
+    this.surname = undefined;
+    this.email = undefined;
+    this.access_token = undefined;
+    sessionStorage.removeItem(UsersService.SESSION_STORAGE_TOKEN);
+    sessionStorage.removeItem(UsersService.SESSION_STORAGE_USER);
   }
 
   logoutApi = () => {
